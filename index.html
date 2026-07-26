@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adossi Fred William | Software Engineer &amp; Machine Learning Engineer</title>
+<meta name="description" content="Adossi Fred William is a Software Engineer and Machine Learning Engineer who designs, builds, and deploys intelligent software systems that bring together software engineering, machine learning, and modern cloud technology.">
+<meta name="author" content="Adossi Fred William">
+<meta property="og:title" content="Adossi Fred William | Software Engineer &amp; Machine Learning Engineer">
+<meta property="og:description" content="I take an idea and carry it all the way through to a working system that people can rely on, across web, mobile, backend, and machine learning.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adossi-design.github.io">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%A7%A9</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* fixed tokens for the dark hero and nav (kept dark on purpose) */
+    --ink:#f2f6fb;
+    --ink-soft:#c3ccd9;
+    --ink-mute:#8b97a8;
+    --line:rgba(255,255,255,.09);
+    --g1:#4f7cff;   /* blue   */
+    --g2:#8b5cf6;   /* purple */
+    --g3:#22d3ee;   /* teal   */
+    --live:#10b981;
+
+    --display:"Outfit",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:ui-monospace,"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+
+    --nav-h:76px;
+    --shell:1240px;
+
+    /* themeable tokens for the rest of the site */
+    --bg:#070a10;
+    --bg-soft:#0b1018;
+    --text:#f2f6fb;
+    --muted:#8b97a8;
+    --card:#0e1521;
+    --card-2:#131c2a;
+    --border:rgba(255,255,255,.09);
+    --brand:#4f7cff;
+    --brand-2:#8b5cf6;
+    --accent:#22d3ee;
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+    --radius:16px;
+
+    /* nav (themeable) */
+    --nav-bg:rgba(7,10,16,.72);
+    --nav-line:var(--line);
+    --nav-text:var(--ink-soft);
+    --nav-strong:var(--ink);
+    --nav-hover:rgba(255,255,255,.06);
+    --card-shadow:none;
+  }
+  :root[data-theme="light"]{
+    --bg:#eef2f9;
+    --bg-soft:#e6ecf6;
+    --text:#132234;
+    --muted:#516274;
+    --card:#ffffff;
+    --card-2:#f3f6fb;
+    --border:#d9e1ee;
+    --shadow:0 12px 34px rgba(23,43,84,.12);
+    --brand:#2f6bff;
+    --accent:#0ea5b7;
+
+    /* blue-sky tint kept to the header only */
+    --nav-bg:rgba(224,240,255,.85);
+    --nav-line:#cfe0f5;
+    --nav-text:#46566c;
+    --nav-strong:#0f2133;
+    --nav-hover:rgba(24,90,190,.09);
+    --card-shadow:0 1px 2px rgba(23,43,84,.04), 0 8px 24px rgba(23,43,84,.06);
+  }
+  :root[data-theme="light"] body{
+    background:
+      radial-gradient(100% 60% at 50% -8%, #ffffff 0%, rgba(255,255,255,0) 55%),
+      linear-gradient(180deg, #e7edf8 0%, #eef2f9 42%);
+    background-attachment:fixed;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 14px)}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--g3); outline-offset:3px; border-radius:6px}
+
+  .shell{width:100%; max-width:var(--shell); margin-inline:auto; padding-inline:clamp(20px,4vw,48px)}
+  .wrap{width:100%; max-width:1120px; margin-inline:auto; padding-inline:clamp(20px,4vw,48px)}
+
+  /* ---------------- NAV ---------------- */
+  .nav{
+    position:fixed; inset:0 0 auto 0; z-index:50;
+    height:var(--nav-h);
+    display:flex; align-items:center;
+    background:var(--nav-bg);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--nav-line);
+  }
+  .nav .shell{display:flex; align-items:center; gap:24px}
+  .brand{font-family:var(--display); font-weight:800; font-size:1.28rem; letter-spacing:-.02em; color:var(--nav-strong)}
+  .brand i{font-style:normal; background:linear-gradient(90deg,var(--g1),var(--g3)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .links{margin-inline:auto; display:flex; gap:6px}
+  .links a{font-family:var(--display); font-weight:500; font-size:.97rem; color:var(--nav-text); padding:9px 14px; border-radius:9px; transition:color .18s ease, background .18s ease}
+  .links a:hover{color:var(--nav-strong); background:var(--nav-hover)}
+  .links a.active{color:#fff; background:linear-gradient(96deg,var(--g1),var(--g2)); box-shadow:0 6px 18px -8px rgba(79,124,255,.7)}
+  .theme{
+    width:44px; height:44px; flex:0 0 auto;
+    display:grid; place-items:center;
+    background:var(--nav-hover);
+    border:1px solid var(--nav-line);
+    border-radius:12px;
+    color:#fbbf24; font-size:1.1rem;
+    cursor:pointer;
+    transition:background .18s ease, transform .18s ease;
+  }
+  .theme:hover{background:var(--nav-hover); transform:translateY(-1px)}
+
+  /* ---------------- HERO (always dark, by design) ---------------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    min-height:100svh;
+    padding-top:calc(var(--nav-h) + clamp(28px,5vh,64px));
+    padding-bottom:clamp(32px,5vh,64px);
+    display:flex; flex-direction:column; justify-content:center;
+    overflow:hidden;
+    isolation:isolate;
+    background:var(--bg);
+  }
+  .hero__photo{
+    position:absolute; inset:0 0 0 auto; z-index:0;
+    width:min(56%,900px);
+    background-image:url("assets/profile.jpg");
+    background-size:cover;
+    background-position:58% 14%;
+    image-rendering:-webkit-optimize-contrast;
+    filter:saturate(1.06) contrast(1.06) brightness(1.06);
+    -webkit-mask-image:linear-gradient(100deg,transparent 0%,rgba(0,0,0,.22) 8%,#000 28%);
+            mask-image:linear-gradient(100deg,transparent 0%,rgba(0,0,0,.22) 8%,#000 28%);
+  }
+  .hero__scrim{
+    position:absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 94%,transparent) 34%,color-mix(in srgb,var(--bg) 34%,transparent) 56%,color-mix(in srgb,var(--bg) 8%,transparent) 78%,color-mix(in srgb,var(--bg) 16%,transparent) 100%),
+      linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent) 0%,transparent 34%,color-mix(in srgb,var(--bg) 58%,transparent) 100%);
+  }
+  .hero__grid{
+    position:absolute; inset:0; z-index:2;
+    background-image:
+      linear-gradient(color-mix(in srgb,var(--text) 5%,transparent) 1px,transparent 1px),
+      linear-gradient(90deg,color-mix(in srgb,var(--text) 5%,transparent) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(120% 80% at 12% 42%,#000 0%,transparent 72%);
+            mask-image:radial-gradient(120% 80% at 12% 42%,#000 0%,transparent 72%);
+    pointer-events:none;
+  }
+  .hero > .shell{position:relative; z-index:3}
+  .hero__inner{max-width:760px}
+
+  .pill{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:9px 18px 9px 14px;
+    border:1px solid var(--border);
+    background:color-mix(in srgb,var(--text) 5%,transparent);
+    backdrop-filter:blur(8px);
+    border-radius:999px;
+    font-size:.9rem; color:var(--muted);
+    margin-bottom:clamp(22px,3.4vh,34px);
+  }
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--live); box-shadow:0 0 0 0 rgba(16,185,129,.6); animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}70%{box-shadow:0 0 0 11px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+
+  .hero h1{
+    font-family:var(--display); font-weight:800;
+    font-size:clamp(2.5rem,5.6vw,4.6rem);
+    line-height:1.02; letter-spacing:-.03em;
+    margin:0 0 clamp(20px,2.6vh,28px);
+    text-wrap:balance; color:var(--text);
+  }
+  .hero h1 .grad{background:linear-gradient(96deg,var(--g1) 0%,var(--g2) 44%,var(--g3) 100%); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .hero h1 .break{display:block}
+
+  .lede{font-family:var(--display); font-weight:500; font-size:clamp(1.06rem,1.5vw,1.32rem); line-height:1.5; color:var(--text); margin:0 0 18px; max-width:60ch}
+  .hero .body{font-size:clamp(.97rem,1.06vw,1.05rem); line-height:1.72; color:var(--muted); margin:0 0 clamp(28px,3.6vh,38px); max-width:62ch}
+
+  .actions{display:flex; flex-wrap:wrap; gap:12px}
+  .btn{font-family:var(--display); font-weight:600; font-size:1rem; padding:15px 30px; border-radius:13px; border:1px solid transparent; cursor:pointer; transition:transform .18s ease, box-shadow .22s ease, background .18s ease}
+  .btn--primary{color:#fff; background:linear-gradient(96deg,var(--g1),var(--g2)); box-shadow:0 10px 30px -10px rgba(79,124,255,.6)}
+  .btn--primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(79,124,255,.72)}
+  .btn--ghost{color:var(--text); background:color-mix(in srgb, var(--text) 6%, transparent); border-color:var(--border); backdrop-filter:blur(8px)}
+  .btn--ghost:hover{background:color-mix(in srgb, var(--text) 12%, transparent); transform:translateY(-2px)}
+
+  .stats{margin-top:clamp(38px,6vh,66px); padding-top:26px; border-top:1px solid var(--line); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(16px,3vw,40px); max-width:760px}
+  .stat b{display:block; font-family:var(--display); font-weight:700; font-size:clamp(1.7rem,2.7vw,2.4rem); line-height:1; letter-spacing:-.02em; background:linear-gradient(150deg,var(--text) 40%,var(--g3)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .stat span{display:block; margin-top:8px; font-size:.8rem; color:var(--muted); letter-spacing:.02em}
+
+  @keyframes rise{from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion:no-preference){
+    .rise{animation:rise .82s cubic-bezier(.16,.84,.32,1) both}
+    .d1{animation-delay:.05s} .d2{animation-delay:.14s} .d3{animation-delay:.23s}
+    .d4{animation-delay:.32s} .d5{animation-delay:.41s} .d6{animation-delay:.5s}
+  }
+  @media (prefers-reduced-motion:reduce){.dot{animation:none} html{scroll-behavior:auto} .btn:hover{transform:none}}
+
+  /* ---------------- SITE SECTIONS ---------------- */
+  section{padding:88px 0 20px}
+  h2.section-title{font-family:var(--display); font-size:clamp(1.6rem,3vw,2.25rem); margin:0 0 6px; letter-spacing:-.02em; font-weight:800}
+  .section-sub{color:var(--muted); margin:0 0 34px; font-size:1rem; max-width:820px}
+  .eyebrow{font-family:var(--display); text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; color:var(--accent); font-weight:700; margin-bottom:10px}
+  p.copy{color:var(--muted); font-size:1rem; max-width:880px; line-height:1.72}
+  p.copy b{color:var(--text)}
+
+  .grid{display:grid; gap:18px}
+  .cols-2{grid-template-columns:repeat(2,1fr)}
+  .cols-3{grid-template-columns:repeat(3,1fr)}
+  .cols-4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; box-shadow:var(--card-shadow); transition:transform .2s ease, border-color .2s, box-shadow .2s}
+  .card:hover{transform:translateY(-3px); border-color:color-mix(in oklab, var(--brand) 45%, var(--border))}
+  .skill-head{font-family:var(--display); display:flex; align-items:center; gap:10px; margin-bottom:12px; font-weight:700}
+  .skill-ico{width:34px; height:34px; border-radius:9px; display:grid; place-items:center; background:color-mix(in oklab, var(--brand) 16%, transparent); font-size:1.1rem}
+  .tags{display:flex; flex-wrap:wrap; gap:7px}
+  .tag{font-size:.77rem; padding:5px 10px; border-radius:8px; background:var(--card-2); border:1px solid var(--border); color:var(--text); transition:background .18s ease, border-color .18s ease, transform .18s ease}
+  .tag:hover{background:color-mix(in oklab, var(--brand) 18%, var(--card-2)); border-color:color-mix(in oklab, var(--brand) 55%, var(--border)); transform:translateY(-1px)}
+
+  .do-card h4{margin:0 0 6px; font-size:1.04rem}
+  .do-card p{margin:0; color:var(--muted); font-size:.9rem; line-height:1.6}
+  .focus-card{text-align:left}
+  .focus-ico{font-size:1.6rem; margin-bottom:10px; display:block}
+  .focus-card h4{margin:0 0 6px; font-size:1.02rem}
+  .focus-card p{margin:0; color:var(--muted); font-size:.87rem; line-height:1.55}
+
+  .exp-chips{display:flex; flex-wrap:wrap; gap:10px}
+  .exp-chip{font-size:.88rem; padding:9px 16px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text); font-weight:500}
+
+  /* three-tier skills */
+  .tier{margin-bottom:40px}
+  .tier:last-child{margin-bottom:0}
+  .tier-head{display:flex; align-items:baseline; flex-wrap:wrap; gap:12px; margin-bottom:14px}
+  .tier-head h3{font-family:var(--display); font-size:1.16rem; font-weight:700; margin:0; letter-spacing:-.01em}
+  .tier-head span{font-family:var(--mono); font-size:.8rem; color:var(--muted); letter-spacing:.01em}
+  .tier-bar{display:flex; gap:6px; margin-bottom:18px}
+  .tier-bar i{height:5px; flex:1; border-radius:3px; background:var(--border)}
+  .tier-bar i.on{background:linear-gradient(90deg,var(--g1),var(--g3))}
+  .tier-chips{display:flex; flex-wrap:wrap; gap:10px}
+  .tier-chip{font-family:var(--mono); font-size:.82rem; padding:9px 14px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text); transition:background .18s ease, border-color .18s ease, transform .18s ease}
+  .tier-chip:hover{background:color-mix(in oklab, var(--brand) 18%, var(--card)); border-color:color-mix(in oklab, var(--brand) 60%, var(--border)); transform:translateY(-1px)}
+
+  .timeline{position:relative}
+  .tl-item{position:relative; padding:0 0 26px 30px; border-left:2px solid var(--border)}
+  .tl-item:last-child{border-left-color:transparent; padding-bottom:0}
+  .tl-item::before{content:""; position:absolute; left:-8px; top:4px; width:14px; height:14px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px color-mix(in oklab, var(--brand) 22%, transparent)}
+  .tl-top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; align-items:baseline}
+  .tl-role{font-weight:700; font-size:1.04rem}
+  .tl-org{color:var(--brand); font-weight:600}
+  .tl-date{color:var(--muted); font-size:.84rem; white-space:nowrap}
+  .tl-item ul{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+  .tl-item li{margin-bottom:7px; line-height:1.6}
+
+  .quote{background:linear-gradient(140deg, color-mix(in oklab, var(--accent) 12%, var(--card)), var(--card)); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:14px; padding:26px 28px}
+  .quote p{margin:0 0 12px; font-size:1.04rem; color:var(--text); line-height:1.7}
+  .quote p:last-child{margin-bottom:0}
+
+  .filters{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:26px}
+  .filter-btn{font-family:var(--display); background:var(--card); border:1px solid var(--border); color:var(--muted); padding:8px 16px; border-radius:999px; cursor:pointer; font-size:.86rem; font-weight:600; transition:all .18s ease}
+  .filter-btn:hover{color:var(--text); background:color-mix(in oklab, var(--brand) 14%, var(--card)); border-color:color-mix(in oklab, var(--brand) 45%, var(--border))}
+  .filter-btn.active{background:linear-gradient(96deg,var(--g1),var(--g2)); color:#fff; border-color:transparent}
+  .filter-btn .n{opacity:.7; font-weight:500}
+
+  .proj{display:flex; flex-direction:column; height:100%}
+  .proj-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px}
+  .proj-ico{font-size:1.5rem}
+  .proj-cat{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); font-weight:700}
+  .proj h3{font-family:var(--display); margin:0 0 8px; font-size:1.08rem; line-height:1.3}
+  .proj p{color:var(--muted); font-size:.89rem; margin:0 0 8px; line-height:1.6}
+  .proj-desc.clamp{display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
+  .more-btn{align-self:flex-start; background:none; border:none; color:var(--brand); font-family:var(--display); font-weight:600; font-size:.8rem; cursor:pointer; padding:0; margin:0 0 14px}
+  .more-btn:hover{text-decoration:underline}
+  .link-more{background:none; border:none; color:var(--brand); font-family:var(--display); font-weight:600; font-size:.94rem; cursor:pointer; padding:6px 0; margin-top:8px}
+  .link-more:hover{text-decoration:underline}
+  .collapse{display:none}
+  .collapse.open{display:block}
+  .proj .stack{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px}
+  .proj .stack span{font-size:.7rem; padding:4px 8px; border-radius:7px; background:color-mix(in oklab, var(--brand-2) 12%, transparent); border:1px solid var(--border); color:var(--text)}
+  .proj-links{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto}
+  .proj-link{display:inline-flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600; padding:7px 12px; border-radius:9px; border:1px solid var(--border); background:var(--card-2); color:var(--text); transition:background .18s ease, border-color .18s ease}
+  .proj-link:hover{background:color-mix(in oklab, var(--brand) 18%, var(--card-2)); border-color:var(--brand)}
+  .proj-link.live{background:color-mix(in oklab, var(--accent) 16%, var(--card-2))}
+
+  .edu-card{display:flex; gap:16px; align-items:flex-start}
+  .edu-ico{font-size:1.6rem}
+  .grade-list{list-style:none; margin:8px 0 0; padding:0}
+  .grade-list li{display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); font-size:.88rem}
+  .grade-list li:last-child{border-bottom:none}
+  .grade-num{color:var(--accent); font-weight:700}
+  .cert-list{list-style:none; margin:0; padding:0}
+  .cert-list li{display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); font-size:.9rem}
+  .cert-list li:last-child{border-bottom:none}
+  .cert-list .who{color:var(--muted); font-size:.78rem}
+  .cert-date{color:var(--accent); font-size:.8rem; white-space:nowrap; font-weight:600}
+
+  .contact-card{background:linear-gradient(140deg, color-mix(in oklab, var(--brand) 14%, var(--card)), var(--card)); border:1px solid var(--border); border-radius:24px; padding:44px; text-align:center}
+  .contact-card h2{font-family:var(--display); font-size:clamp(1.6rem,3.4vw,2.3rem); margin:0 0 10px}
+  .contact-card p{color:var(--muted); max-width:660px; margin:0 auto 26px; line-height:1.7}
+  .contact-links{display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
+
+  footer{text-align:center; color:var(--muted); font-size:.86rem; padding:40px 0 60px}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width:980px){
+    .links{display:none}
+    .theme{margin-left:auto}
+    .hero__photo{
+      width:100%;
+      background-position:60% 12%;
+      -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 34%,rgba(0,0,0,.55) 54%,transparent 82%);
+              mask-image:linear-gradient(180deg,#000 0%,#000 34%,rgba(0,0,0,.55) 54%,transparent 82%);
+    }
+    .hero__scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 30%,transparent) 0%,color-mix(in srgb,var(--bg) 72%,transparent) 40%,color-mix(in srgb,var(--bg) 96%,transparent) 62%,var(--bg) 74%)}
+    .hero{padding-top:calc(var(--nav-h) + 34vh)}
+    .cols-4{grid-template-columns:repeat(2,1fr)}
+    .cols-2,.cols-3{grid-template-columns:1fr}
+  }
+  @media (max-width:620px){
+    .stats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px}
+    .btn{flex:1 1 100%; text-align:center}
+    .cols-4{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="shell">
+    <a class="brand" href="#top">Adossi Fred William</a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#what">What I Do</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme" type="button" id="themeBtn" aria-label="Switch theme">&#127769;</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__photo" role="img" aria-label="Portrait of Adossi Fred William"></div>
+    <div class="hero__scrim"></div>
+    <div class="hero__grid"></div>
+
+    <div class="shell">
+      <div class="hero__inner">
+        <p class="pill rise d1">
+          <span class="dot" aria-hidden="true"></span>
+          Open to roles, collaborations, and ambitious projects
+        </p>
+
+        <h1 class="rise d2">
+          Software Engineer <span class="grad">and</span>
+          <span class="break grad">Machine Learning Engineer</span>
+        </h1>
+
+        <p class="lede rise d3">
+          I build software systems that are dependable enough to run in production and
+          intelligent enough to make a real difference for the people who use them.
+        </p>
+
+        <p class="body rise d4">
+          My work brings together software engineering, machine learning, and modern cloud
+          technology, which lets me take an idea all the way through to a working system people
+          can rely on. Whether a project calls for a trained machine learning model, a backend
+          built to grow alongside its users, or a mobile and web experience, I enjoy turning
+          something complicated into a product that feels effortless to use.
+        </p>
+
+        <div class="actions rise d5">
+          <a class="btn btn--primary" href="#projects">View my work</a>
+          <a class="btn btn--ghost" href="https://github.com/Adossi-design" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn--ghost" href="#contact">Contact</a>
+        </div>
+
+        <dl class="stats rise d6">
+          <div class="stat"><b>40+</b><span>GitHub repositories</span></div>
+          <div class="stat"><b>11</b><span>ML and AI builds</span></div>
+          <div class="stat"><b>15+</b><span>Paid client projects</span></div>
+          <div class="stat"><b>4.06</b><span>CGPA / 5.00</span></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap reveal">
+      <p class="eyebrow">About</p>
+      <h2 class="section-title">I specialise in building software</h2>
+      <p class="section-sub">What defines my work is not the industry it happens to serve, but the care and craft that go into how the software itself is engineered.</p>
+      <p class="copy">I am <b>Adossi Fred William</b>, a Software Engineering student at African Leadership University, and a great deal of my energy goes into machine learning, full-stack development, backend engineering, and mobile development. What I enjoy most is taking a difficult technical problem and working through it patiently until it becomes software that ordinary people can pick up and use without having to think about what is happening underneath.</p>
+      <div class="collapse" id="aboutMore">
+        <p class="copy" style="margin-top:16px;">For me, software engineering has always meant a good deal more than writing code, because the harder and far more rewarding part is designing systems that can grow, that remain easy to maintain as the years pass, and that genuinely solve a problem worth solving. I try to pair thoughtful architecture with machine learning that has been tested against reality, so that the products I build hold up on a technical level while still being useful to the person sitting on the other side of the screen. The work gathered here reflects that range, moving from healthcare systems and financial technology platforms to developer collaboration tools, analytics dashboards, mobile applications, prediction models, agricultural technology, and web applications that are ready for production.</p>
+        <p class="copy" style="margin-top:16px;">Whatever the domain happens to be, whether it is healthcare, finance, education, agriculture, productivity, or tooling for other developers, my approach does not really change, because I still begin by designing the right architecture, I still care deeply about writing code that stays clean and maintainable, and I still measure the result by whether it can be deployed at scale and whether it makes a real difference for the people it was built for.</p>
+      </div>
+      <button class="link-more" type="button" data-target="aboutMore">Read more</button>
+
+      <p class="eyebrow" style="margin-top:44px;">Domains I have built in</p>
+      <div class="grid cols-4">
+        <div class="card focus-card"><span class="focus-ico">🩺</span><h4>Healthcare</h4><p>I have built telemedicine platforms, medical assistant tools, and diagnostic support that are designed to work even where connectivity and access to professional care are limited.</p></div>
+        <div class="card focus-card"><span class="focus-ico">💳</span><h4>Finance</h4><p>My finance work covers credit scoring, mobile money analytics, and tools that help bring people who have been left outside the formal financial system back into it.</p></div>
+        <div class="card focus-card"><span class="focus-ico">🎓</span><h4>Education</h4><p>In education I have created learning tools supported by artificial intelligence, along with models that help predict and make sense of how students are likely to perform.</p></div>
+        <div class="card focus-card"><span class="focus-ico">🌾</span><h4>Agriculture</h4><p>For agriculture I have developed crop disease detection, online marketplaces, and systems that help farmers keep track of their everyday operations.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section id="what">
+    <div class="wrap reveal">
+      <p class="eyebrow">What I do</p>
+      <h2 class="section-title">Engineering that runs the whole way through</h2>
+      <p class="section-sub">I work across the entire lifecycle of a product, from shaping its architecture and writing the code through to deploying it in a way that can genuinely scale.</p>
+      <div class="grid cols-3">
+        <div class="card do-card">
+          <div class="skill-head"><span class="skill-ico">🏗️</span> Software Engineering</div>
+          <p>I design and build software systems that are meant to scale, and I rely on solid engineering habits throughout, which means paying close attention to architecture, REST APIs, authentication, database design, testing, and the deployment pipelines that carry everything into production.</p>
+        </div>
+        <div class="card do-card">
+          <div class="skill-head"><span class="skill-ico">🧠</span> Machine Learning Engineering</div>
+          <p>I build machine learning systems that are meant to live in the real world rather than remain inside a notebook, so my work stretches from preparing the data and developing the model through evaluation, explainability, deployment, and the inference services that finally deliver predictions to users.</p>
+        </div>
+        <div class="card do-card">
+          <div class="skill-head"><span class="skill-ico">🌐</span> Full-Stack Development</div>
+          <p>I develop web applications from end to end, which means I am comfortable moving between the interface a person sees, the backend services behind it, the database, the authentication, the real-time communication, and the cloud environment where all of it runs.</p>
+        </div>
+        <div class="card do-card">
+          <div class="skill-head"><span class="skill-ico">📱</span> Mobile Development</div>
+          <p>I create cross-platform mobile applications with Flutter and Firebase, and I try to give them an experience that feels modern and considered while keeping the architecture underneath ready to grow as the audience grows.</p>
+        </div>
+        <div class="card do-card">
+          <div class="skill-head"><span class="skill-ico">⚙️</span> Backend Engineering</div>
+          <p>I build backend systems with security in mind, drawing on Python, Node.js, FastAPI, NestJS, and Flask on the server side, and on PostgreSQL, MySQL, Prisma, GraphQL, and REST APIs for the data and the communication between services.</p>
+        </div>
+        <div class="card do-card">
+          <div class="skill-head"><span class="skill-ico">🔎</span> Machine Learning</div>
+          <p>My machine learning experience is fairly broad, reaching across computer vision, deep learning, and predictive analytics, as well as time series forecasting, classification, regression, clustering, explainable models, feature engineering, and model optimisation.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap reveal">
+      <p class="eyebrow">Toolkit</p>
+      <h2 class="section-title">Technical skills</h2>
+      <p class="section-sub">I have grouped these by how far I have actually taken each one, from tools I have shipped to real users, through the ones I have built and evaluated inside projects, to the ones I am actively learning right now.</p>
+
+      <div class="tier">
+        <div class="tier-head"><h3>Shipped to real users</h3><span>paid client work or deployed projects</span></div>
+        <div class="tier-bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+        <div class="tier-chips">
+          <span class="tier-chip">Python</span><span class="tier-chip">JavaScript ES6+</span><span class="tier-chip">TypeScript</span><span class="tier-chip">Flutter</span><span class="tier-chip">Dart</span><span class="tier-chip">React</span><span class="tier-chip">Next.js</span><span class="tier-chip">Node.js</span><span class="tier-chip">FastAPI</span><span class="tier-chip">Firebase</span><span class="tier-chip">Firestore</span><span class="tier-chip">Riverpod</span><span class="tier-chip">Google Maps SDK</span><span class="tier-chip">Docker</span><span class="tier-chip">Streamlit</span><span class="tier-chip">HTML5</span><span class="tier-chip">CSS3</span><span class="tier-chip">Tailwind</span><span class="tier-chip">SQL</span><span class="tier-chip">MySQL</span><span class="tier-chip">SQLite</span><span class="tier-chip">Git</span><span class="tier-chip">Linux</span><span class="tier-chip">Nginx</span><span class="tier-chip">XML processing</span>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><h3>Built and evaluated in projects</h3><span>trained, tested and written up</span></div>
+        <div class="tier-bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+        <div class="tier-chips">
+          <span class="tier-chip">TensorFlow</span><span class="tier-chip">Keras</span><span class="tier-chip">scikit-learn</span><span class="tier-chip">CNN</span><span class="tier-chip">LSTM</span><span class="tier-chip">VGG16</span><span class="tier-chip">ResNet50</span><span class="tier-chip">MobileNetV2</span><span class="tier-chip">XGBoost</span><span class="tier-chip">Random Forest</span><span class="tier-chip">Logistic Regression</span><span class="tier-chip">K-Means</span><span class="tier-chip">PCA</span><span class="tier-chip">SHAP</span><span class="tier-chip">LIME</span><span class="tier-chip">pandas</span><span class="tier-chip">NumPy</span><span class="tier-chip">librosa</span><span class="tier-chip">NestJS</span><span class="tier-chip">Prisma</span><span class="tier-chip">Socket.IO</span><span class="tier-chip">Clerk</span><span class="tier-chip">Turborepo</span><span class="tier-chip">Flask</span><span class="tier-chip">PostgreSQL</span><span class="tier-chip">REST API design</span><span class="tier-chip">JWT auth</span><span class="tier-chip">GitHub Actions</span><span class="tier-chip">Postman</span><span class="tier-chip">R</span>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><h3>Studying now</h3><span>learning actively, not yet shipped</span></div>
+        <div class="tier-bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tier-chips">
+          <span class="tier-chip">PyTorch</span><span class="tier-chip">CRNN</span><span class="tier-chip">Django</span><span class="tier-chip">GraphQL</span><span class="tier-chip">USSD gateway integration</span><span class="tier-chip">MLOps tooling</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap reveal">
+      <p class="eyebrow">Portfolio</p>
+      <h2 class="section-title">Selected projects</h2>
+      <p class="section-sub">Selected from more than forty public repositories, these span machine learning, mobile, full-stack, backend, and cloud work, and each card links straight to its source code. Press More on any card to read the full story.</p>
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">All <span class="n">26</span></button>
+        <button class="filter-btn" data-filter="ml">ML and AI <span class="n">11</span></button>
+        <button class="filter-btn" data-filter="mobile">Mobile <span class="n">4</span></button>
+        <button class="filter-btn" data-filter="web">Full-Stack and Web <span class="n">7</span></button>
+        <button class="filter-btn" data-filter="foundations">Foundations <span class="n">4</span></button>
+      </div>
+      <div class="grid cols-3" id="projGrid"></div>
+
+      <div class="card" style="margin-top:26px;">
+        <div class="skill-head"><span class="skill-ico">📚</span> Coursework and foundations</div>
+        <p style="color:var(--muted); margin:0 0 14px; font-size:.9rem; line-height:1.6;">Beyond the projects I have chosen to feature, my GitHub keeps the fuller record of my engineering training at ALU, which reaches into areas such as DevOps, shell scripting, back-end and front-end work, regular expressions, and lower-level programming, and each item below opens its own repository.</p>
+        <div class="tags" id="courseGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap reveal">
+      <p class="eyebrow">Journey</p>
+      <h2 class="section-title">Professional experience</h2>
+      <p class="section-sub">A path that has carried me through machine learning, data work, field research, and the delivery of real products for real clients.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-top">
+            <div><span class="tl-role">Machine Learning Intern</span> · <span class="tl-org">CodeAlpha</span></div>
+            <span class="tl-date">2025 · Remote</span>
+          </div>
+          <ul>
+            <li>I designed and deployed an African Credit Scoring System and made a point of building explainability into it with SHAP and LIME, then containerised the whole solution with Docker so that it was genuinely ready for production.</li>
+            <li>I also built a Speech Emotion Recognition pipeline that combined CNN and LSTM architectures on the RAVDESS dataset, and I relied on audio augmentation together with a speaker-independent split so that no information could leak between training and evaluation.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top">
+            <div><span class="tl-role">Field Research Consultant and Web Developer</span> · <span class="tl-org">Afrifarmers Market</span></div>
+            <span class="tl-date">2025 · Rwanda</span>
+          </div>
+          <ul>
+            <li>I carried out structured field research with around thirty cooperative members in Rwamagana District, and I turned what I learned from them directly into the requirements for the product we would go on to build.</li>
+            <li>After delivering a consultancy report on the findings, I was trusted with a follow-on contract, which gave me the chance to build a web application for managing operations and tracking transactions as they happen.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top">
+            <div><span class="tl-role">Data Analysis Intern</span> · <span class="tl-org">MTN Mobile Money (MoMo)</span></div>
+            <span class="tl-date">2024 · Rwanda</span>
+          </div>
+          <ul>
+            <li>Having only just arrived in Rwanda, I secured the role by going to MTN's head office in person, finding my way to the right contact, and following up with an email and a formal interview.</li>
+            <li>Once I was inside, I parsed and processed Mobile Money transaction records stored in XML using Python, and I built an interactive dashboard that presented the insights clearly to colleagues who did not come from a technical background.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top">
+            <div><span class="tl-role">Founder and Lead Developer</span> · <span class="tl-org">Independent Web Development Practice</span></div>
+            <span class="tl-date">2025 to Present</span>
+          </div>
+          <ul>
+            <li>Alongside full-time study, I run my own client-facing development practice, and over the past year it has grown to more than fifteen paid projects spanning web applications, business websites, portfolios, and design work.</li>
+            <li>I take responsibility for the entire lifecycle of each engagement, which starts with gathering requirements and scoping the work and continues through design, delivery, and handover, and when a contract is large enough I bring together and coordinate a team of four to see it through.</li>
+            <li>One of my clients was based in Nigeria, and I delivered their portfolio within four days, while a separate engagement saw me build a multi-language institute website at a four-figure contract value.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top">
+            <div><span class="tl-role">Agricultural Field Worker and Operations Trainee</span> · <span class="tl-org">Family Farming Business</span></div>
+            <span class="tl-date">2019 to 2023 · Chad</span>
+          </div>
+          <ul>
+            <li>For four years I worked across several farm sites, where my responsibilities ranged from preparing the land and operating tractors to harvesting and maintaining relationships with the farmers around us.</li>
+            <li>During that time I was trained in farm management and commercial negotiation, and the problems I saw at close range are the very same ones that continue to shape the agricultural technology I build today.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap reveal">
+      <p class="eyebrow">Learning</p>
+      <h2 class="section-title">Education and certifications</h2>
+      <p class="section-sub">A foundation of formal study at university, supported by a habit of continuously learning on my own.</p>
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="edu-card">
+            <span class="edu-ico">🎓</span>
+            <div style="flex:1;">
+              <h3 style="margin:0 0 4px; font-family:var(--display);">BSc (Hons) Software Engineering</h3>
+              <p style="margin:0; color:var(--brand); font-weight:600;">African Leadership University, Kigali, Rwanda</p>
+              <p style="margin:6px 0 0; color:var(--muted); font-size:.88rem;">June 2024 to an expected finish in July 2027, with a CGPA of 4.06 out of 5.00, placing me in the Second Class Upper, Distinction band, and 320 of 320 attempted credits earned.</p>
+              <ul class="grade-list">
+                <li><span>Web Infrastructure</span><span class="grade-num">98.80</span></li>
+                <li><span>Frontend Web Development</span><span class="grade-num">93.80</span></li>
+                <li><span>Enterprise Innovation Program</span><span class="grade-num">92.50</span></li>
+                <li><span>Foundations Project</span><span class="grade-num">89.82</span></li>
+                <li><span>Enterprise Web Development</span><span class="grade-num">86.10</span></li>
+                <li><span>Mathematics for Machine Learning</span><span class="grade-num">84.42</span></li>
+                <li><span>Mobile Application Development</span><span class="grade-num">83.80</span></li>
+              </ul>
+              <p style="margin:10px 0 0; color:var(--muted); font-size:.82rem;">My wider coursework has also included Machine Learning, Linear Algebra for Machine Learning, Data Analysis with R, Statistics, Mobile App Development, and Python with databases.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="skill-head"><span class="skill-ico">📜</span> Certifications</div>
+          <ul class="cert-list">
+            <li><div>Neural Networks and Deep Learning<div class="who">DeepLearning.AI and Coursera</div></div><span class="cert-date">May 2026</span></li>
+            <li><div>Linear Algebra for ML and Data Science<div class="who">DeepLearning.AI and Coursera</div></div><span class="cert-date">Jun 2026</span></li>
+            <li><div>Flutter and Dart for iOS, Android and Mobile Apps<div class="who">IBM and Coursera</div></div><span class="cert-date">Mar 2026</span></li>
+            <li><div>Data Analysis with R Programming<div class="who">Google and Coursera</div></div><span class="cert-date">Jan 2026</span></li>
+            <li><div>Claude 101<div class="who">Anthropic, certificate no. cizcecur6axf</div></div><span class="cert-date">2026</span></li>
+            <li><div>AI for Everyone<div class="who">DeepLearning.AI and Coursera</div></div><span class="cert-date">Jul 2026</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:18px;">
+        <div class="card">
+          <div class="skill-head"><span class="skill-ico">🌟</span> Leadership and community</div>
+          <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:.9rem;">
+            <li style="margin-bottom:9px;">As the founder and facilitator of the AI Study Lab, I have watched it grow from twelve members to more than thirty across Chad, Cameroon, and Rwanda, and I reshaped it into an on-demand support model once the way people were actually using it told me that was what they needed.</li>
+            <li style="margin-bottom:9px;">Through community mentorship between Chad and Rwanda, I have guided more than ten students into places at ALU, the University of Rwanda, and CMU Africa, while advising over twenty others along the way.</li>
+            <li>I am also a member of the Claude Builder Club at ALU, where the focus is on building artificial intelligence that serves a genuine social purpose.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="skill-head"><span class="skill-ico">🏆</span> Awards and interests</div>
+          <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:.9rem;">
+            <li style="margin-bottom:9px;">I took second place at the Claude Builder Club Hackathon at ALU in 2026 for an AI-powered social impact solution, which I am still developing well beyond the competition itself.</li>
+            <li style="margin-bottom:9px;">Long before any of this, I ran a self-funded natural juice business in N'Djamena, where I handled everything from sourcing and production through to pricing and selling.</li>
+            <li>Away from engineering I keep a steady routine of basketball and daily strength training, and my wider interests reach into artificial intelligence, financial inclusion, public speaking, and drawing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap reveal">
+      <div class="contact-card">
+        <p class="eyebrow" style="justify-content:center;">Get in touch</p>
+        <h2>Let us build something intelligent and lasting</h2>
+        <p>What keeps me engaged is the chance to build software that is intelligent, that can scale gracefully, and that leaves a lasting mark, and I try to create technology that answers the problems in front of us now while remaining ready for the ones that are still to come. If you are working on something ambitious, or you are putting together a team that wants to build software which genuinely endures, I would be very glad to hear from you and to be part of it.</p>
+        <div class="contact-links">
+          <a class="btn btn--primary" href="mailto:f.adossi@alustudent.com">f.adossi@alustudent.com</a>
+          <a class="btn btn--ghost" href="tel:+250793227492">+250 793 227 492</a>
+          <a class="btn btn--ghost" href="https://github.com/Adossi-design" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn--ghost" href="https://linkedin.com/in/adossi" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      © <span id="year"></span> Adossi Fred William · Software Engineer and Machine Learning Engineer · Kigali, Rwanda
+    </div>
+  </footer>
+</main>
+
+<script>
+  const REPO = "https://github.com/Adossi-design/";
+  const projects = [
+    { cat:"ml", icon:"🌾", name:"Rice Leaf Disease Classifier", repo:"rice_disease_classifier", desc:"This deep learning project looks at a photograph of a rice leaf and works out which disease it is showing, sorting it into bacterial blight, blast, brown spot, or tungro, and because I built it as a full MLOps pipeline rather than a notebook, it carries a farmer all the way from an uploaded photo to an answer they can act on.", stack:["Python","TensorFlow","Keras","CNN","Hugging Face"] },
+    { cat:"ml", icon:"🌽", name:"Maize Leaf Disease Classification", repo:"Maize_Leaf-Disease_Classification", desc:"Here I built an end-to-end pipeline that sorts maize leaf photographs into four categories, and rather than settling for a single approach I placed a traditional model built with scikit-learn side by side with deep learning built in TensorFlow, so that I could understand where each one succeeds and where each one struggles.", stack:["Python","TensorFlow","scikit-learn","CNN"] },
+    { cat:"ml", icon:"🔬", name:"Malaria Diagnosis with CNN and Transfer Learning", repo:"Malaria-Diagnosis", desc:"This project compares five convolutional neural networks for telling parasitised blood cells apart from healthy ones, and because each model was put through seven separate experiments, the comparison is genuinely careful, with my own baseline CNN reaching an F1 score of 0.9647 and an AUC of 0.9938 at its best.", stack:["Python","TensorFlow","VGG16","ResNet50","MobileNetV2","CNN"] },
+    { cat:"ml", icon:"💳", name:"African Credit Scoring System", repo:"CodeAlpha_credit-scoring-model", desc:"Built on the Zindi financial inclusion survey of 23,524 people, this platform predicts how likely someone is to hold a bank account even when there is no credit history to lean on, and because the decision matters to real lives, I trained nine different models, added SHAP and LIME so the reasoning can be explained, and served the whole thing through FastAPI and Streamlit inside a Docker container.", stack:["XGBoost","Random Forest","scikit-learn","SHAP","LIME","FastAPI","Docker"] },
+    { cat:"ml", icon:"✍️", name:"HandScript AI, Handwriting Recognition", repo:"CodeAlpha_Handwritten-Character-Recognition", desc:"HandScript AI is a convolutional neural network that reads handwritten capital letters from A to Z and reaches 98.9 percent accuracy on the test set, but what I like most about it is that I wrapped it in a Streamlit app, so that anyone can draw a letter and watch the model read it back to them in the moment.", stack:["Python","TensorFlow","Keras","CNN","Streamlit"] },
+    { cat:"ml", icon:"🎗️", name:"FredCare AI, Breast Cancer Prediction", repo:"CodeAlpha_Breast-Cancer-Prediction", desc:"FredCare AI is a clinical decision support application that helps flag whether a breast cancer case appears malignant at an early stage, and it has been written to feel like a tool a real person could trust, pairing the model with a clean interface, plain-language results, and a clear disclaimer for whoever happens to be reading them.", stack:["Python","scikit-learn","Flask","HTML","CSS","JS"] },
+    { cat:"ml", icon:"🎓", name:"Student Performance Prediction System", repo:"linear_regression_model", desc:"This project predicts how students are likely to perform based on their study habits and personal circumstances, and after comparing a Linear Regression, a Decision Tree, and a Random Forest, I took the strongest model, placed it behind a public FastAPI service, and connected it live to a Flutter mobile app, so that the study reaches all the way to a phone in someone's hand.", stack:["scikit-learn","Random Forest","FastAPI","Flutter"] },
+    { cat:"ml", icon:"🤰", name:"Maternal Health Risk Prediction", repo:"Maternal_Health_Risk_Prediction", desc:"Working from the UCI maternal health dataset, this service predicts whether a mother's risk level is low, mid, or high from six vital signs, and it reflects a discipline I care about, because it keeps the exploratory research to one side and ships only the winning model behind a clean, layered FastAPI application.", stack:["scikit-learn","Random Forest","FastAPI","HTML","JS"] },
+    { cat:"ml", icon:"⚡", name:"Tetouan City Power Forecast", repo:"tetouan-power-forecast", desc:"This time series project forecasts how much electricity the city of Tetouan uses, drawing on weather data and recent demand across more than fifty thousand records from 2017, and rather than living inside a notebook it is wired to two databases, an API, and a prediction script, with a tuned Random Forest ultimately outperforming the linear baseline.", stack:["Python","scikit-learn","Random Forest","SQL","REST API"] },
+    { cat:"ml", icon:"🔐", name:"Multimodal Verification and Prediction Pipeline", repo:"Formative2_MachineLearning_Pipeline", desc:"This system verifies a person twice before it will reveal anything, first by their face and then by their voice, and it only shows the recommendation when both checks pass and clearly belong to the same person, which makes it a good demonstration of designing a pipeline where several models have to agree before anything at all can happen.", stack:["Python","Face Recognition","Audio Processing","ML"] },
+    { cat:"ml", icon:"📐", name:"Principal Component Analysis from First Principles", repo:"Formative-2---PrincipleComponentAnalysis", desc:"For this one I implemented Principal Component Analysis entirely from first principles using nothing but NumPy, working through covariance, eigenvalues, eigenvectors, and variance decomposition on an African malaria dataset, because I wanted to understand the mathematics beneath the tools rather than simply call a ready-made function.", stack:["Python","NumPy"] },
+    { cat:"mobile", icon:"⏱️", name:"Productivity Tracking and Analytics App", repo:"Productivity-Tracking-Analytics", desc:"This cross-platform time-tracking app is built with Flutter and Firebase, and instead of merely listing hours it runs three analytics engines directly on the device, using K-Means to group sessions into work tiers, a linear-regression forecaster to predict the hours ahead, and a heuristic engine to flag anomalies, which means genuine machine learning is happening on the phone itself.", stack:["Flutter","Dart","Firebase","K-Means","Linear Regression"] },
+    { cat:"mobile", icon:"🗺️", name:"Kigali City Services Directory", repo:"Kigali_City_Service_App", desc:"This Flutter app helps people discover, explore, and review the places and services around Kigali, complete with real-time search, category filters, embedded Google Maps, and directions, and I built it because finding my way around a new city in a language I did not yet speak was a daily obstacle that I knew a great many others were facing too.", stack:["Flutter","Dart","Firebase","Riverpod","Google Maps"] },
+    { cat:"mobile", icon:"🏛️", name:"CitizenConnect", repo:"CitizenConnect", desc:"CitizenConnect is a civic-technology app that connects citizens with government agencies, and for my team I owned the entire Firebase backend, which meant handling authentication with email verification, role detection, the full range of Firestore operations, file storage, and the security rules that keep everything safe.", stack:["Flutter","Dart","Firebase","Firestore","Firebase Auth"] },
+    { cat:"mobile", icon:"🛡️", name:"Guardian Watch", repo:"Guardian-Watch-app", desc:"Guardian Watch is an early-stage Flutter app that I began in order to explore an idea around safety and monitoring, and I am happy to describe it honestly as a work in progress, since it currently lays down the project structure and the opening screens as one of my ongoing mobile explorations.", stack:["Flutter","Dart"] },
+    { cat:"web", icon:"🩺", name:"HealthBridge Africa", repo:"HealthBridge_Africa", desc:"HealthBridge Africa is a telemedicine platform that reaches patients in three different ways, as a mobile app, as a web application, and through a USSD dial code that works on the most basic phones with no internet at all, and it carries two AI health assistants, one that supports doctors during consultations and another that explains a patient's health to them in language they can actually understand.", stack:["JavaScript","React Native","Node.js","MySQL","USSD"] },
+    { cat:"web", icon:"🤝", name:"PeerForge", repo:"PeerForge", desc:"PeerForge is a space where computer science students can share their work, collaborate on projects, message one another in real time, and build up a public portfolio, and it is put together as a Turborepo monorepo, with a Next.js and TypeScript frontend, a NestJS and Prisma API, Socket.IO for the messaging, and Clerk handling authentication across both the REST and socket layers.", stack:["Next.js","TypeScript","NestJS","Prisma","Socket.IO","Clerk","Turborepo"] },
+    { cat:"web", icon:"🛒", name:"Toumaï Marketplace", repo:"Smart-Farm", live:"https://smart-farm-smoky.vercel.app", desc:"Toumaï is a responsive agricultural marketplace that puts farmers, fishermen, and local sellers in direct contact with buyers, so that the usual middlemen no longer take their share, and it comes with real-time messaging, straightforward listings, category search, role-based dashboards, and a dark mode for good measure.", stack:["React","Node.js","SQLite","JavaScript"] },
+    { cat:"web", icon:"📊", name:"MTN MoMo SMS Analytics Dashboard", repo:"Momo_SMS_Analysis_Project", desc:"This dashboard grew out of a real frustration, because I had hundreds of Mobile Money messages sitting in my phone and no easy way to see what they said about my spending, so I built a system that reads a raw XML export of those messages, pulls out the financial details through pattern matching, and turns them into a clear picture of where the money actually went over time.", stack:["Python","JavaScript","XML Parsing","SQL","HTML","CSS"] },
+    { cat:"web", icon:"💱", name:"Fred-Cash, Converter and Calculator", repo:"Fred-Cash", desc:"Fred-Cash brings together a real-time currency converter that handles more than forty-five currencies and an interactive calculator, and it goes a little further than an ordinary frontend, since it is deployed with load balancing across several servers and pays close attention to keeping the API key secure.", stack:["HTML","CSS","JavaScript","REST API","Nginx","Load Balancing"] },
+    { cat:"web", icon:"📄", name:"Personal Resume Website", repo:"My-Personal-Resume-Website", desc:"This was my personal resume website, a single clean page that brought together my skills, experience, education, and projects, and it stands as an early record of how I first began to present myself and my story on the web.", stack:["HTML","CSS","JavaScript"] },
+    { cat:"web", icon:"🌐", name:"Personal Portfolio Website", repo:"My-personal-Website", desc:"This personal website is where I gather who I am, what I offer, and the projects I have worked on in one place, and it has been part of how I steadily refine my own web presence and show prospective clients the kind of work they can expect from me.", stack:["HTML","CSS","JavaScript"] },
+    { cat:"foundations", icon:"🏠", name:"AirBnB Clone (Full Web App)", repo:"alu-AirBnB_clone_v2", desc:"This team project takes the well-known AirBnB clone well past its starting console and into a fuller application backed by a database, complete with a command interpreter, storage that persists in both JSON and a database, a BaseModel that the other classes inherit from, and a suite of unit tests kept to the PEP8 standard.", stack:["Python","MySQL","SQLAlchemy","Flask","unittest"] },
+    { cat:"foundations", icon:"⌨️", name:"AirBnB Clone (Console)", repo:"alu-AirBnB_clone", desc:"This was the first stage of the AirBnB clone, focused on the backend console that manages the program's data, and it lets a user create, update, and destroy objects while using JSON serialization so that everything is still there the next time the program is opened.", stack:["Python","unittest","JSON Serialization"] },
+    { cat:"foundations", icon:"🔢", name:"Sparse Matrix Processor", repo:"sparse_matrix", desc:"This command-line program carries out addition, subtraction, and multiplication on sparse matrices that are loaded from text files, and it checks the dimensions properly before it acts, while storing only the non-zero entries so that large and mostly empty matrices are handled without wasting memory.", stack:["JavaScript","Node.js","Data Structures"] },
+    { cat:"foundations", icon:"🧮", name:"Data Structures and Algorithms", repo:"DSA", desc:"This repository gathers my ongoing work with data structures and algorithms, where I practise the fundamental building blocks that every capable engineer relies on, and it stands as steady evidence that I invest in the basics which make the more ambitious projects possible.", stack:["Python","Algorithms","Data Structures"] },
+  ];
+  const catLabel = { ml:"ML and AI", mobile:"Mobile", web:"Full-Stack", foundations:"Foundations" };
+
+  const coursework = [
+    { name:"Fred-AI", repo:"Fred-AI" },
+    { name:"ALU Machine Learning", repo:"alu-machine_learning" },
+    { name:"Higher-Level Programming", repo:"alu-higher_level_programming" },
+    { name:"Back-End", repo:"alu-back-end" },
+    { name:"System Engineering and DevOps", repo:"alu-system_engineering-devops" },
+    { name:"Web Stack", repo:"alu-webstack" },
+    { name:"Scripting", repo:"alu-scripting" },
+    { name:"Regex Data Extraction", repo:"alu_regex-data-extraction-Adossi_Fred_William" },
+    { name:"Web Front-End", repo:"alu-web_front_end" },
+    { name:"Web Development", repo:"alu-web-development" },
+    { name:"Shell", repo:"alu-shell" },
+    { name:"Zero-Day (Shell)", repo:"alu-zero_day" },
+    { name:"Interview Prep", repo:"alu-interview" },
+    { name:"Guess Game", repo:"Guess-game" },
+    { name:"Submission Reminder App", repo:"submission_reminder_app_githusername" },
+    { name:"Intro to GitHub", repo:"skills-introduction-to-github" },
+  ];
+
+  const grid = document.getElementById('projGrid');
+  function render(filter){
+    grid.innerHTML = "";
+    projects.filter(p => filter === "all" || p.cat === filter).forEach(p => {
+      const el = document.createElement('div');
+      el.className = "card proj reveal in";
+      el.innerHTML = `
+        <div class="proj-top"><span class="proj-ico">${p.icon}</span><span class="proj-cat">${catLabel[p.cat]}</span></div>
+        <h3>${p.name}</h3>
+        <p class="proj-desc clamp">${p.desc}</p>
+        <button class="more-btn" type="button" hidden>More</button>
+        <div class="stack">${p.stack.map(s => `<span>${s}</span>`).join("")}</div>
+        <div class="proj-links">
+          <a class="proj-link" href="${REPO}${p.repo}" target="_blank" rel="noopener">Code</a>
+          ${p.live ? `<a class="proj-link live" href="${p.live}" target="_blank" rel="noopener">Live demo</a>` : ""}
+        </div>`;
+      grid.appendChild(el);
+    });
+    requestAnimationFrame(attachClamps);
+  }
+
+  // Show a per-card More toggle only when the description is actually truncated
+  function attachClamps(){
+    grid.querySelectorAll('.proj').forEach(card => {
+      const p = card.querySelector('.proj-desc');
+      const btn = card.querySelector('.more-btn');
+      if(!p || !btn) return;
+      if(p.scrollHeight - p.clientHeight > 2){
+        btn.hidden = false;
+        btn.onclick = () => {
+          const open = p.classList.toggle('clamp') === false;
+          btn.textContent = open ? 'Less' : 'More';
+        };
+      } else {
+        btn.hidden = true;
+      }
+    });
+  }
+  render("all");
+  document.getElementById('filters').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if(!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+
+  const courseGrid = document.getElementById('courseGrid');
+  coursework.forEach(c => {
+    const a = document.createElement('a');
+    a.className = "tag"; a.href = REPO + c.repo; a.target = "_blank"; a.rel = "noopener";
+    a.style.cssText = "text-decoration:none; cursor:pointer;";
+    a.textContent = c.name;
+    courseGrid.appendChild(a);
+  });
+
+  const root = document.documentElement, themeBtn = document.getElementById('themeBtn');
+  const saved = localStorage.getItem('theme');
+  if(saved) root.setAttribute('data-theme', saved);
+  const syncIcon = () => { themeBtn.innerHTML = root.getAttribute('data-theme') === 'light' ? '&#9728;' : '&#127769;'; };
+  syncIcon();
+  themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next); localStorage.setItem('theme', next); syncIcon();
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Scroll spy: highlight the nav link for the section currently in view
+  const navMap = {};
+  document.querySelectorAll('.links a').forEach(a => {
+    if(a.hash){ const sec = document.querySelector(a.hash); if(sec) navMap[a.hash.slice(1)] = { link:a, sec }; }
+  });
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const item = navMap[e.target.id];
+      if(!item) return;
+      if(e.isIntersecting){
+        Object.values(navMap).forEach(o => o.link.classList.remove('active'));
+        item.link.classList.add('active');
+      }
+    });
+  }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+  Object.values(navMap).forEach(o => spy.observe(o.sec));
+
+  // Read more / less on prose blocks (About and any other collapse)
+  document.querySelectorAll('.link-more').forEach(btn => {
+    const target = document.getElementById(btn.dataset.target);
+    if(!target) return;
+    btn.addEventListener('click', () => {
+      const open = target.classList.toggle('open');
+      btn.textContent = open ? 'Read less' : 'Read more';
+    });
+  });
+
+  // Re-measure card clamps once web fonts have settled
+  window.addEventListener('load', attachClamps);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(attachClamps); }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
