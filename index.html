@@ -90,7 +90,9 @@
     color:var(--text);
     font-family:var(--body);
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
+  img{max-width:100%}
   a{color:inherit;text-decoration:none}
   :focus-visible{outline:2px solid var(--g3); outline-offset:3px; border-radius:6px}
 
@@ -124,6 +126,7 @@
     transition:background .18s ease, transform .18s ease;
   }
   .theme:hover{background:var(--nav-hover); transform:translateY(-1px)}
+  .nav-toggle{display:none; width:44px; height:44px; place-items:center; background:var(--nav-hover); border:1px solid var(--nav-line); border-radius:12px; color:var(--nav-strong); font-size:1.2rem; cursor:pointer}
 
   /* ---------------- HERO (always dark, by design) ---------------- */
   .hero{
@@ -320,8 +323,15 @@
 
   /* ---------------- RESPONSIVE ---------------- */
   @media (max-width:980px){
-    .links{display:none}
-    .theme{margin-left:auto}
+    .nav-toggle{display:grid; margin-left:auto}
+    .links{
+      display:none; position:fixed; top:var(--nav-h); left:0; right:0; margin:0;
+      flex-direction:column; gap:6px; padding:14px 20px;
+      background:var(--nav-bg); backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--nav-line); box-shadow:var(--shadow);
+    }
+    .links.open{display:flex}
+    .links a{width:100%; font-size:1.02rem; padding:12px 14px}
     .hero__photo{
       width:100%;
       background-position:60% 12%;
@@ -329,14 +339,32 @@
               mask-image:linear-gradient(180deg,#000 0%,#000 34%,rgba(0,0,0,.55) 54%,transparent 82%);
     }
     .hero__scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 30%,transparent) 0%,color-mix(in srgb,var(--bg) 72%,transparent) 40%,color-mix(in srgb,var(--bg) 96%,transparent) 62%,var(--bg) 74%)}
-    .hero{padding-top:calc(var(--nav-h) + 34vh)}
+    .hero{padding-top:calc(var(--nav-h) + 30vh)}
     .cols-4{grid-template-columns:repeat(2,1fr)}
     .cols-2,.cols-3{grid-template-columns:1fr}
+    section{padding:66px 0 18px}
+    .contact-card{padding:34px 22px}
   }
   @media (max-width:620px){
-    .stats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px}
+    .stats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px}
     .btn{flex:1 1 100%; text-align:center}
     .cols-4{grid-template-columns:1fr}
+  }
+  @media (max-width:520px){
+    .brand{font-size:1.08rem}
+    .hero h1{font-size:clamp(1.95rem,8vw,2.7rem)}
+    .lede{font-size:1.02rem}
+    .hero{padding-top:calc(var(--nav-h) + 26vh); min-height:auto}
+    .tier-head{gap:4px}
+    .tier-head span{width:100%}
+    section{padding:56px 0 16px}
+    .contact-card{padding:28px 18px; border-radius:18px}
+    .card{padding:18px}
+  }
+  @media (max-width:380px){
+    .brand{font-size:1rem}
+    .stats{grid-template-columns:1fr 1fr; gap:16px}
+    .hero h1{font-size:clamp(1.75rem,8.6vw,2.3rem)}
   }
 </style>
 </head>
@@ -345,7 +373,7 @@
 <header class="nav">
   <div class="shell">
     <a class="brand" href="#top">Adossi Fred William</a>
-    <nav class="links">
+    <nav class="links" id="navLinks">
       <a href="#about">About</a>
       <a href="#what">What I Do</a>
       <a href="#skills">Skills</a>
@@ -353,6 +381,7 @@
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
+    <button class="nav-toggle" type="button" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
     <button class="theme" type="button" id="themeBtn" aria-label="Switch theme">&#127769;</button>
   </div>
 </header>
@@ -773,6 +802,18 @@
     a.textContent = c.name;
     courseGrid.appendChild(a);
   });
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinksEl = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinksEl.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+  navLinksEl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinksEl.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
 
   const root = document.documentElement, themeBtn = document.getElementById('themeBtn');
   const saved = localStorage.getItem('theme');
