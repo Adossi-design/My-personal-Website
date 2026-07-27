@@ -1,0 +1,308 @@
+// Portfolio CMS for Adossi Fred William: all public copy, media and list items live here.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------- enums
+
+enum Category {
+  ML_AI
+  MOBILE
+  FULLSTACK
+  FOUNDATIONS
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  VIDEO_EMBED
+  NONE
+}
+
+enum BlockType {
+  TEXT
+  TEXTAREA
+  MARKDOWN
+}
+
+// ---------------------------------------------------------------- projects
+
+model Project {
+  id       String   @id @default(cuid())
+  slug     String   @unique
+  title    String
+  /// Small label above the card title, e.g. "ML · Agriculture"
+  domain   String
+  category Category
+  /// Emoji shown on the card, preserved from the original design
+  iconKey  String   @default("🧩")
+
+  /// Card copy, clamped to three lines in the UI
+  shortDescription String @db.VarChar(180)
+  /// Detail-page copy, markdown
+  fullDescription  String @db.Text
+
+  mediaType MediaType @default(NONE)
+  mediaUrl  String?
+  posterUrl String?
+  /// Required by validation whenever mediaType is IMAGE
+  mediaAlt  String    @default("")
+
+  techStack String[] @default([])
+  repoUrl   String?
+  liveUrl   String?
+
+  /// Array of { label, value } pairs, e.g. [{ "label": "F1 score", "value": "0.9647" }]
+  metrics Json @default("[]")
+
+  featured      Boolean @default(false)
+  /// Position 1..6 on the homepage grid; null when not featured
+  featuredOrder Int?
+  published     Boolean @default(true)
+  /// Position in the full /projects index
+  sortOrder     Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, featured, featuredOrder])
+  @@index([published, category, sortOrder])
+  @@index([updatedAt])
+}
+
+// ---------------------------------------------------------------- site copy
+
+/// Key/value store for every piece of prose on the public site.
+model ContentBlock {
+  id           String    @id @default(cuid())
+  /// Dotted path used by the renderer, e.g. "hero.headline"
+  key          String    @unique
+  /// Human label shown in the admin, e.g. "Hero headline"
+  label        String
+  value        String    @db.Text
+  type         BlockType @default(TEXT)
+  /// Admin grouping: hero, about, what, skills, projects, experience, education, contact, footer
+  group        String
+  /// Order within its group in the admin UI
+  sortOrder    Int       @default(0)
+  /// The seeded original, so a field can be reset to how it launched
+  defaultValue String    @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([group, sortOrder])
+}
+
+// ---------------------------------------------------------------- CV sections
+
+model Experience {
+  id           String   @id @default(cuid())
+  role         String
+  organisation String
+  period       String
+  location     String   @default("")
+  bullets      String[] @default([])
+  sortOrder    Int      @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+model EducationItem {
+  id          String @id @default(cuid())
+  degree      String
+  institution String
+  period      String
+  /// Free-text summary line under the institution
+  meta        String @db.Text
+  /// Array of { course, score } pairs
+  grades      Json   @default("[]")
+  /// Closing note, e.g. wider coursework
+  note        String @default("") @db.Text
+  iconKey     String @default("🎓")
+  sortOrder   Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+model Certification {
+  id           String  @id @default(cuid())
+  name         String
+  issuer       String
+  /// Free text so values like "May 2026" or "2026" display exactly as written
+  date         String
+  credentialId String?
+  sortOrder    Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+// ---------------------------------------------------------------- skills
+
+model SkillTier {
+  id        String @id @default(cuid())
+  name      String
+  subtitle  String
+  /// Filled segments of the ten-segment tier bar (10 = shipped, 6 = evaluated, 3 = studying)
+  level     Int    @default(10)
+  sortOrder Int    @default(0)
+
+  items SkillItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+model SkillItem {
+  id        String @id @default(cuid())
+  name      String
+  tierId    String
+  sortOrder Int    @default(0)
+
+  tier SkillTier @relation(fields: [tierId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tierId, sortOrder])
+}
+
+// ---------------------------------------------------------------- "What I do" / "Domains"
+
+/// The six "What I do" cards.
+model Capability {
+  id          String @id @default(cuid())
+  title       String
+  description String @db.Text
+  iconKey     String @default("🏗️")
+  sortOrder   Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+/// The four "Domains I have built in" cards.
+model Domain {
+  id          String @id @default(cuid())
+  title       String
+  description String @db.Text
+  iconKey     String @default("🩺")
+  sortOrder   Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+// ------------------------------------ additions the live page renders but the brief omitted
+
+/// The four hero figures: "40+ GitHub repositories" etc.
+model HeroStat {
+  id        String @id @default(cuid())
+  value     String
+  label     String
+  sortOrder Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+/// Repo links in the "Coursework and foundations" strip.
+model CourseworkItem {
+  id        String @id @default(cuid())
+  name      String
+  repo      String
+  sortOrder Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+/// Generic bulleted card powering "Leadership and community" and "Awards and interests".
+model InfoList {
+  id        String   @id @default(cuid())
+  title     String
+  iconKey   String   @default("🌟")
+  items     String[] @default([])
+  sortOrder Int      @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+// ---------------------------------------------------------------- settings
+
+/// Singleton row, always id = "singleton".
+model SiteSettings {
+  id String @id @default("singleton")
+
+  name             String
+  roleTitle        String
+  email            String
+  phone            String
+  location         String
+  githubUrl        String
+  linkedinUrl      String
+  availabilityText String
+  availabilityOn   Boolean @default(true)
+
+  heroPhotoUrl String?
+  resumePdfUrl String?
+
+  metaTitle       String
+  metaDescription String  @db.Text
+  ogImageUrl      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------- auth
+
+model User {
+  id             String @id @default(cuid())
+  email          String @unique
+  hashedPassword String
+  name           String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Backs login rate limiting. Serverless instances do not share memory, so the
+/// attempt counter has to live in the database to actually hold.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  ip        String
+  email     String   @default("")
+  success   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([ip, createdAt])
+}
