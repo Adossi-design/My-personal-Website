@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { upload } from "@vercel/blob/client";
 import { toast } from "sonner";
 import { formatBytes, IMAGE_TYPES, MAX_IMAGE_BYTES, MAX_PDF_BYTES, MAX_VIDEO_BYTES, VIDEO_TYPES } from "@/lib/media";
 import { buttonClass } from "./ui";
@@ -26,13 +27,14 @@ type Props = {
   label: string;
 };
 
-// Progress needs XMLHttpRequest, because fetch cannot report upload progress.
 export function MediaUploader({ kind, value, onChange, label }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [progress, setProgress] = useState<number | null>(null);
   const [dragging, setDragging] = useState(false);
 
-  function upload(file: File) {
+  async function send(file: File) {
+    // Checked here for a fast, friendly refusal, and again on the server when the
+    // upload token is issued, because the browser is not a security boundary.
     if (file.size > LIMITS[kind]) {
       toast.error(`That file is ${formatBytes(file.size)}. The limit is ${formatBytes(LIMITS[kind])}.`);
       return;
@@ -42,36 +44,26 @@ export function MediaUploader({ kind, value, onChange, label }: Props) {
       return;
     }
 
-    const form = new FormData();
-    form.append("file", file);
-    form.append("kind", kind);
-
-    const request = new XMLHttpRequest();
-    request.open("POST", "/api/admin/upload");
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-").slice(-80) || "upload";
     setProgress(0);
 
-    request.upload.addEventListener("progress", (event) => {
-      if (event.lengthComputable) setProgress(Math.round((event.loaded / event.total) * 100));
-    });
-
-    request.addEventListener("load", () => {
+    try {
+      // The file goes straight from the browser to blob storage, so it is never
+      // limited by the serverless request body size.
+      const blob = await upload(`portfolio/${kind}/${Date.now()}-${safeName}`, file, {
+        access: "public",
+        handleUploadUrl: "/api/admin/upload",
+        clientPayload: kind,
+        onUploadProgress: (event) => setProgress(Math.round(event.percentage)),
+      });
+      onChange(blob.url);
+      toast.success("Upload complete");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "The upload failed";
+      toast.error(message);
+    } finally {
       setProgress(null);
-      if (request.status >= 200 && request.status < 300) {
-        const data = JSON.parse(request.responseText);
-        onChange(data.url);
-        toast.success("Upload complete");
-      } else {
-        const message = safeError(request.responseText);
-        toast.error(message);
-      }
-    });
-
-    request.addEventListener("error", () => {
-      setProgress(null);
-      toast.error("The upload failed");
-    });
-
-    request.send(form);
+    }
   }
 
   async function removeCurrent() {
@@ -98,12 +90,10 @@ export function MediaUploader({ kind, value, onChange, label }: Props) {
           e.preventDefault();
           setDragging(false);
           const file = e.dataTransfer.files?.[0];
-          if (file) upload(file);
+          if (file) void send(file);
         }}
         className={`rounded-lg border-2 border-dashed p-4 text-center transition ${
-          dragging
-            ? "border-slate-500 bg-slate-50 dark:bg-slate-800"
-            : "border-slate-300 dark:border-slate-700"
+          dragging ? "border-slate-500 bg-slate-50 dark:bg-slate-800" : "border-slate-300 dark:border-slate-700"
         }`}
       >
         {value ? (
@@ -121,9 +111,7 @@ export function MediaUploader({ kind, value, onChange, label }: Props) {
         ) : (
           <>
             <p className="text-sm text-slate-600 dark:text-slate-400">Drop {label} here</p>
-            <p className="mt-0.5 text-xs text-slate-500">
-              Up to {formatBytes(LIMITS[kind])}
-            </p>
+            <p className="mt-0.5 text-xs text-slate-500">Up to {formatBytes(LIMITS[kind])}</p>
             <button type="button" className={`${buttonClass} mt-2`} onClick={() => inputRef.current?.click()}>
               Choose a file
             </button>
@@ -147,7 +135,7 @@ export function MediaUploader({ kind, value, onChange, label }: Props) {
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];
-          if (file) upload(file);
+          if (file) void send(file);
           e.target.value = "";
         }}
       />
@@ -167,12 +155,4 @@ function Preview({ kind, url }: { kind: Kind; url: string }) {
       Open the uploaded PDF
     </a>
   );
-}
-
-function safeError(body: string): string {
-  try {
-    return JSON.parse(body).error ?? "The upload was rejected";
-  } catch {
-    return "The upload was rejected";
-  }
 }
