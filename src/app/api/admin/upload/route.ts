@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { del } from "@vercel/blob";
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { z } from "zod";
-import { ApiError, requireAdmin, withAdmin } from "@/lib/guard";
+import { ApiError, requireAdmin, UnauthorizedError, withAdmin } from "@/lib/guard";
 import { isBlobConfigured } from "@/lib/env";
 import { IMAGE_TYPES, MAX_IMAGE_BYTES, MAX_PDF_BYTES, MAX_VIDEO_BYTES, PDF_TYPES, VIDEO_TYPES } from "@/lib/media";
 
@@ -58,6 +58,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result);
   } catch (error) {
+    // An auth failure has to stay a 401, otherwise a client cannot tell a rejected
+    // request apart from an expired session.
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
     const message = error instanceof Error ? error.message : "The upload was rejected";
     const status = error instanceof ApiError ? error.status : 400;
     return NextResponse.json({ error: message }, { status });
