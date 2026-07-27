@@ -1,0 +1,13 @@
+/* Tailwind is scoped to the admin, so its preflight never resets the public site. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: rgb(241 245 249);
+  }
+  [data-theme="dark"] body {
+    background-color: rgb(2 6 23);
+  }
+}
