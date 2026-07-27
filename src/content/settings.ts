@@ -7,7 +7,7 @@ export const siteSettings = {
   phone: "+250 793 227 492",
   location: "Kigali, Rwanda",
   githubUrl: "https://github.com/Adossi-design",
-  linkedinUrl: "https://linkedin.com/in/adossi",
+  linkedinUrl: "https://www.linkedin.com/in/fred-william-adossi-640a59345",
   availabilityText: "Open to roles, collaborations, and ambitious projects",
   availabilityOn: true,
   heroPhotoUrl: "/assets/profile.jpg",
