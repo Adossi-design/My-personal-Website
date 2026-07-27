@@ -1,17 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { del, put } from "@vercel/blob";
+import { del } from "@vercel/blob";
+import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { z } from "zod";
-import { ApiError, withAdmin } from "@/lib/guard";
+import { ApiError, requireAdmin, withAdmin } from "@/lib/guard";
 import { isBlobConfigured } from "@/lib/env";
-import {
-  formatBytes,
-  IMAGE_TYPES,
-  MAX_IMAGE_BYTES,
-  MAX_PDF_BYTES,
-  MAX_VIDEO_BYTES,
-  PDF_TYPES,
-  VIDEO_TYPES,
-} from "@/lib/media";
+import { IMAGE_TYPES, MAX_IMAGE_BYTES, MAX_PDF_BYTES, MAX_VIDEO_BYTES, PDF_TYPES, VIDEO_TYPES } from "@/lib/media";
 
 const kindSchema = z.enum(["image", "video", "pdf"]);
 
@@ -21,64 +14,53 @@ const RULES = {
   pdf: { types: PDF_TYPES as readonly string[], max: MAX_PDF_BYTES, label: "PDF" },
 } as const;
 
+// The browser sends the file straight to blob storage and only asks this route for a
+// signed token. Routing the bytes through the function instead would cap every upload
+// at the 4.5 MB serverless request limit, well below the sizes the admin advertises.
 export async function POST(request: NextRequest) {
-  return withAdmin(async () => {
-    if (!isBlobConfigured()) {
-      throw new ApiError(
-        "Blob storage is not configured. Set BLOB_READ_WRITE_TOKEN to a real token from Vercel.",
-        503,
-      );
-    }
+  if (!isBlobConfigured()) {
+    return NextResponse.json(
+      { error: "Blob storage is not configured. Set BLOB_READ_WRITE_TOKEN to a real token from Vercel." },
+      { status: 503 },
+    );
+  }
 
-    const form = await request.formData().catch(() => null);
-    if (!form) throw new ApiError("Expected a file upload", 400);
-
-    const file = form.get("file");
-    const kindResult = kindSchema.safeParse(form.get("kind"));
-    if (!(file instanceof File)) throw new ApiError("No file was attached", 400);
-    if (!kindResult.success) throw new ApiError("Unknown upload kind", 400);
-
-    const rule = RULES[kindResult.data];
-
-    // Both checks matter: the browser can lie about type, and size is capped
-    // here rather than trusting whatever the form claimed.
-    if (!rule.types.includes(file.type)) {
-      throw new ApiError(`That file type is not allowed. Use ${rule.label}.`, 415);
-    }
-    if (file.size > rule.max) {
-      throw new ApiError(`That file is ${formatBytes(file.size)}. The limit is ${formatBytes(rule.max)}.`, 413);
-    }
-    if (file.size === 0) throw new ApiError("That file is empty", 400);
-
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-").slice(-80) || "upload";
-    const blob = await putOrExplain(`portfolio/${kindResult.data}/${Date.now()}-${safeName}`, file);
-
-    return NextResponse.json({
-      url: blob.url,
-      pathname: blob.pathname,
-      contentType: file.type,
-      size: file.size,
-    });
-  });
-}
-
-// A bad token or a missing store surfaces as a generic error from the SDK, which
-// reads as "something went wrong" and tells the admin nothing actionable.
-async function putOrExplain(pathname: string, file: File) {
+  let body: HandleUploadBody;
   try {
-    return await put(pathname, file, { access: "public", contentType: file.type, addRandomSuffix: true });
+    body = (await request.json()) as HandleUploadBody;
+  } catch {
+    return NextResponse.json({ error: "Expected an upload request" }, { status: 400 });
+  }
+
+  try {
+    const result = await handleUpload({
+      body,
+      request,
+      // Runs before any byte is accepted, so the type and size ceiling are still
+      // enforced by the server even though the upload never passes through it.
+      onBeforeGenerateToken: async (_pathname, clientPayload) => {
+        await requireAdmin();
+
+        const parsed = kindSchema.safeParse(clientPayload);
+        if (!parsed.success) throw new ApiError("Unknown upload kind", 400);
+        const rule = RULES[parsed.data];
+
+        return {
+          allowedContentTypes: [...rule.types],
+          maximumSizeInBytes: rule.max,
+          addRandomSuffix: true,
+        };
+      },
+      onUploadCompleted: async () => {
+        // Nothing to record: the project row stores the URL when the form is saved.
+      },
+    });
+
+    return NextResponse.json(result);
   } catch (error) {
-    const message = error instanceof Error ? error.message : "";
-    if (/store does not exist/i.test(message)) {
-      throw new ApiError(
-        "The blob store could not be found. Create a Blob store in Vercel and copy its token into BLOB_READ_WRITE_TOKEN.",
-        503,
-      );
-    }
-    if (/unauthorized|forbidden|invalid token/i.test(message)) {
-      throw new ApiError("Blob storage rejected the token. Check BLOB_READ_WRITE_TOKEN.", 503);
-    }
-    throw error;
+    const message = error instanceof Error ? error.message : "The upload was rejected";
+    const status = error instanceof ApiError ? error.status : 400;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
