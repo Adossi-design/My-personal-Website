@@ -1,48 +1,71 @@
 # Adossi Fred William, Portfolio and Admin CMS
 
-Portfolio for **Adossi Fred William**, Software Engineer and Machine Learning Engineer, rebuilt as a
-database-driven Next.js application with a private admin dashboard.
+This is my personal portfolio, rebuilt from a single static HTML page into a database-driven Next.js
+application with a private admin dashboard behind it.
 
-Every piece of text, every project, and every image or video on the public site is editable from
-`/admin` without touching code.
+**Live at [my-personal-website-eta-seven.vercel.app](https://my-personal-website-eta-seven.vercel.app)**
 
-## Stack
+I am a Software Engineering student at African Leadership University in Kigali, Rwanda, originally
+from N'Djamena, Chad, and I work across machine learning, full-stack development, backend
+engineering and mobile. This site is where I gather that work in one place.
+
+## Why I rebuilt it
+
+The original version was a single `index.html` file. It looked the way I wanted, but every time I
+finished a project or changed a sentence I had to edit code and redeploy, and my project list lived
+inside a JavaScript array. That is fine for a page that never changes, and mine changes constantly.
+
+So I moved every piece of text, every project and every image into a database, and built an admin
+dashboard to edit them. I can now add a project or reword a paragraph from my phone, and the public
+site updates immediately. Nothing on the public site is hardcoded any more.
+
+The one thing I did not want to lose was the design, so I ported the original stylesheet across
+unchanged rather than rewriting it.
+
+## What I used
 
 | Layer | Choice |
 |---|---|
 | Framework | Next.js 15, App Router, TypeScript |
-| Styling | Ported CSS for the public site, Tailwind for the admin |
+| Styling | My original CSS for the public site, Tailwind for the admin |
 | Database | PostgreSQL on Neon |
 | ORM | Prisma 6 |
-| Auth | NextAuth v5, Credentials provider, single admin user |
-| Media | Vercel Blob |
+| Auth | NextAuth v5, credentials provider, a single admin account |
+| Media | Vercel Blob with client uploads |
 | Validation | Zod on every route, action and form |
 | Rich text | Markdown, sanitised with rehype-sanitize |
 | Hosting | Vercel |
 
-## Why the public site is not built with Tailwind
+## Two decisions worth explaining
 
-The original design leans on `color-mix()`, layered `mask-image` gradients, `clamp()` sizing and a
-`[data-theme]` cascade. Rewriting that as utility classes is where a visual regression would creep
-in unnoticed, so the stylesheet is ported verbatim into `src/app/(public)/globals.css` and the design
-tokens are also mapped into `tailwind.config.ts` for anything built with Tailwind.
+**I did not rebuild the public site in Tailwind.** My design leans on `color-mix()`, layered
+`mask-image` gradients, `clamp()` sizing and a `[data-theme]` cascade for the light and dark themes.
+Rewriting that as utility classes is exactly where a visual regression creeps in without anyone
+noticing, so I ported the stylesheet verbatim into `src/app/(public)/globals.css` and mapped the same
+design tokens into `tailwind.config.ts` for anything built with Tailwind.
 
-Tailwind is loaded only from `src/app/admin/admin.css`. That matters: Tailwind's preflight resets
-heading sizes and removes list bullets, which would quietly break the public design if it were
-global.
+Tailwind therefore loads only from `src/app/admin/admin.css`. That matters more than it sounds:
+Tailwind's preflight resets heading sizes and strips list bullets, and if it were global it would
+quietly break my public design.
 
-## Project layout
+**Uploads go straight from the browser to storage.** Vercel serverless functions cap request bodies
+at 4.5 MB. If files travelled through my API route, a normal phone photo would fail and a project
+demo video would be impossible. Instead the browser asks my API for a short-lived signed token and
+sends the file directly to blob storage. The route still authorises the request and still fixes the
+size and type ceiling, it just does so when issuing the token rather than by handling the bytes.
+
+## How the project is organised
 
 ```
 prisma/
   schema.prisma            15 models, 3 enums
   migrations/              generated with `prisma migrate diff`
   seed/
-    index.ts               the only file here: loads src/content into the database
+    index.ts               the only file here, loads src/content into the database
 src/
   config/
     site.ts                shared constants, one definition of the featured cap
-  content/                 canonical default content, owned by the app
+  content/                 my default content, owned by the app
     projects.ts            26 projects
     copy.ts                47 copy blocks
     cv.ts                  experience, education, certifications
@@ -54,7 +77,7 @@ src/
       login/               sign in, outside the dashboard shell
       (dashboard)/         every authenticated screen, plus its server actions
     api/
-      admin/               REST routes for projects, featured toggle, uploads
+      admin/               project routes, featured toggle, upload tokens
       auth/                NextAuth handler
     preview/card/          renders the real card component for the admin iframe
   components/
@@ -62,8 +85,8 @@ src/
     admin/                 FeaturedSelector, ProjectForm, MediaUploader, editors
   lib/
     db.ts                  Prisma singleton
-    auth.ts                NextAuth with the Credentials provider
-    auth.config.ts         edge-safe half, imported by middleware
+    auth.ts                NextAuth with the credentials provider
+    auth.config.ts         edge safe half, imported by middleware
     guard.ts               requireAdmin and the API error shape
     rate-limit.ts          login throttling, backed by Postgres
     queries/               data access, one file per concern
@@ -71,38 +94,37 @@ src/
 middleware.ts              guards /admin and /api/admin
 ```
 
-Route handlers authorise, validate with a Zod schema, call a function in `lib/queries`, then
-revalidate. No Prisma calls live inside components.
+A few rules I held myself to:
 
-The dependency direction is deliberate: the seed script imports from `src/content`, never the other
-way round. Default content belongs to the application, and the seed is just a script that loads it,
-so runtime code never reaches into database tooling.
+- Route handlers authorise, validate with a Zod schema, call a function in `lib/queries`, then
+  revalidate. No Prisma calls sit inside components.
+- The seed imports from `src/content`, never the other way round. My default content belongs to the
+  application, and the seed is only a script that loads it, so runtime code never reaches into
+  database tooling.
+- `ProjectCard.tsx` is written once and used by the homepage, `/projects` and the admin live preview.
+  A second copy styled for the admin would drift from the real card, which would defeat the point of
+  having a preview at all.
 
-`ProjectCard.tsx` is written once and used by the homepage, `/projects`, and the admin live preview,
-so the preview can never drift from the real card.
+## Running it locally
 
-## Local setup
-
-Requires Node 20 or newer.
+Node 20 or newer.
 
 ```bash
 npm install
 cp .env.example .env
 ```
 
-Fill in `.env`:
+Then fill in `.env`:
 
-1. **`DATABASE_URL`** from [neon.tech](https://neon.tech). Create a project in **AWS eu-central-1
-   (Frankfurt)** so it sits beside the Vercel region configured in `vercel.json`. Copy the
-   **Pooled connection** string, the one whose host contains `-pooler`. The direct endpoint opens a
-   new connection per serverless invocation and will exhaust the connection limit under load.
-2. **`AUTH_SECRET`** with `openssl rand -base64 32`.
-3. **`ADMIN_EMAIL`** and **`ADMIN_PASSWORD`** for the admin user the seed creates. The password must
-   be at least 10 characters. Never commit real values.
-4. **`BLOB_READ_WRITE_TOKEN`** once blob storage is connected, see below. Uploads are disabled
-   without it, and the admin says so rather than failing silently.
-
-Then:
+1. **`DATABASE_URL`** from [neon.tech](https://neon.tech). I put mine in AWS eu-central-1 (Frankfurt)
+   so it sits beside the Vercel region set in `vercel.json`. Use the **pooled** connection string,
+   the one whose host contains `-pooler`. The direct endpoint opens a new connection per serverless
+   invocation and will exhaust the connection limit.
+2. **`AUTH_SECRET`**, generated with `openssl rand -base64 32`.
+3. **`ADMIN_EMAIL`** and **`ADMIN_PASSWORD`** for the account the seed creates. The password has to
+   be at least 10 characters and the seed refuses anything shorter.
+4. **`BLOB_READ_WRITE_TOKEN`** once blob storage is connected. Without a real token uploads are
+   disabled, and the admin says so rather than appearing to work.
 
 ```bash
 npx prisma migrate deploy   # apply the schema
@@ -127,62 +149,61 @@ The public site is at `/` and the dashboard at `/admin`.
 
 ## Re-running the seed
 
-The seed is safe to re-run, but not every model behaves the same way.
+It is safe to re-run, but the models do not all behave the same way, and I would rather know that
+than find out later:
 
 - **Projects and copy blocks** are upserted by `slug` and `key`. For copy blocks only the label,
-  type, grouping and stored original are refreshed, so text you have edited in the admin is not
-  overwritten.
+  type, grouping and stored original refresh, so text I have edited in the admin survives.
 - **Experience, education, certifications, skills and the card lists** are replaced wholesale. Edits
-  made to those through the admin will be lost on a re-seed.
+  made through the admin to those are lost on a re-seed.
 - **Site settings** are created once and never overwritten.
-- **The admin user** is upserted, so re-running after changing `ADMIN_PASSWORD` resets the password.
+- **The admin user** is upserted, so re-running after changing `ADMIN_PASSWORD` resets my password.
 
-## Creating or changing the admin user
+## The admin account
 
 The seed reads `ADMIN_EMAIL`, `ADMIN_PASSWORD` and `ADMIN_NAME` from the environment. There is no
-hardcoded password anywhere.
+password hardcoded anywhere in this repository.
 
 ```bash
 # change the values in .env, then
 npm run db:seed
 ```
 
-Day to day, use **Admin, Account** to change the password. It requires the current password and
-hashes the new one with bcrypt at cost 12.
+Day to day I use **Admin, Account** to change it. That asks for the current password and hashes the
+new one with bcrypt at cost 12.
 
 ## Deploying to Vercel
 
-1. Push the repository to GitHub.
-2. In Vercel, choose **Add New Project** and import it. The framework is detected automatically.
-3. Add environment variables under **Settings, Environment Variables**, for Production and Preview:
-   `DATABASE_URL`, `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME`,
-   `NEXT_PUBLIC_SITE_URL` and `BLOB_READ_WRITE_TOKEN`.
-4. Deploy. `vercel.json` sets the build command to
-   `prisma generate && prisma migrate deploy && next build`, so migrations are applied automatically
-   on every deploy.
-5. Seed the production database once from your machine, with the production `DATABASE_URL`,
-   `ADMIN_EMAIL` and `ADMIN_PASSWORD` set:
+1. Push to GitHub.
+2. In Vercel, **Add New Project** and import the repository. Next.js is detected automatically.
+3. Add environment variables for Production and Preview: `DATABASE_URL`, `AUTH_SECRET`, and
+   optionally `ADMIN_EMAIL`, `ADMIN_PASSWORD` and `ADMIN_NAME` if I ever want to seed from there.
 
-   ```bash
-   npm run db:seed
-   ```
+   I deliberately leave `NEXT_PUBLIC_SITE_URL` unset. `siteUrl()` falls back to Vercel's own
+   `VERCEL_PROJECT_PRODUCTION_URL`, so canonical URLs, OpenGraph tags and the sitemap pick up the
+   right domain on their own. I only set it once a custom domain is attached.
 
-`regions` is set to `fra1` in `vercel.json`, the closest Vercel region to Kigali. Keep the database
-in the matching Neon region, otherwise every query pays a cross-continent round trip.
+4. Deploy. `vercel.json` runs `prisma generate && prisma migrate deploy && next build`, so migrations
+   apply themselves on every deploy.
+5. Seed the production database once from my machine with the production values set.
 
-### If a build fails to reach the database
+`regions` is `fra1` in `vercel.json`, the closest Vercel region to Kigali, and the database and blob
+store are both in Frankfurt to match. A mismatch there means every query pays a cross-continent trip.
 
-A Neon instance that has scaled to zero can refuse the first burst of connections during a build,
-because the build prerenders 26 project pages in parallel. Redeploying works. Using the pooled
-connection string makes it far less likely.
+**If a build cannot reach the database**, a Neon instance that has scaled to zero can refuse the
+first burst of connections while the build prerenders 26 project pages in parallel. Redeploying
+works, and the pooled connection string makes it far less likely.
 
-## Connecting blob storage
+## Blob storage
 
-1. In the Vercel dashboard, open the project, then **Storage**, then **Create**, then **Blob**.
-2. Connect the store to the project. Vercel adds `BLOB_READ_WRITE_TOKEN` to the environment.
-3. For local development run `vercel env pull .env.local`, or copy the token into `.env`.
+1. Vercel dashboard, then **Storage**, **Create**, **Blob**.
+2. Region **fra1**, to match the functions and the database. This cannot be changed later.
+3. Access **Public**. The public site renders these images with a plain `<img>` tag, so private
+   blobs requiring a token would break every photo on the site.
+4. Tick **Add a read-write token env var**, which is what creates `BLOB_READ_WRITE_TOKEN`.
+5. Redeploy, because the running deployment was built without the variable.
 
-Limits enforced on the server, in `src/app/api/admin/upload/route.ts`:
+Limits enforced when the upload token is signed, in `src/app/api/admin/upload/route.ts`:
 
 | Kind | Types | Maximum |
 |---|---|---|
@@ -190,21 +211,22 @@ Limits enforced on the server, in `src/app/api/admin/upload/route.ts`:
 | Video | MP4, WebM | 100 MB |
 | PDF | PDF | 15 MB |
 
-The browser is checked as well, but the server check is the one that counts. Removing media from a
-project deletes the stored blob too, so unused files do not accumulate.
+The browser checks too, for a quicker and friendlier refusal, but the browser is not a security
+boundary and the signed token is what actually holds. Each token is also bound to a single pathname,
+so it cannot be reused to write somewhere else. Removing media from a project deletes the stored
+blob as well, so unused files do not pile up.
 
 ## Custom domain
 
-1. In Vercel, open **Settings, Domains** and add your domain.
-2. At your registrar, add the records Vercel shows. For an apex domain that is an `A` record to
-   `76.76.21.21`; for `www` it is a `CNAME` to `cname.vercel-dns.com`.
-3. Wait for the certificate to be issued, usually a few minutes.
-4. Update `NEXT_PUBLIC_SITE_URL` to the new origin and redeploy, so canonical URLs, OpenGraph tags
-   and `sitemap.xml` all point at the right host.
+1. **Settings, Domains** in Vercel, add the domain.
+2. At the registrar, add the records Vercel shows. An apex domain takes an `A` record to
+   `76.76.21.21`; `www` takes a `CNAME` to `cname.vercel-dns.com`.
+3. Wait for the certificate, usually a few minutes.
+4. Set `NEXT_PUBLIC_SITE_URL` to the new origin and redeploy so canonical URLs, OpenGraph tags and
+   `sitemap.xml` all follow.
 
-This repository previously published to GitHub Pages. A Next.js application cannot be served from
-Pages, so once you move to Vercel, point the domain at Vercel and treat the Pages deployment as
-retired.
+This repository used to publish to GitHub Pages. A Next.js application cannot be served from Pages,
+so that deployment is retired.
 
 ## The admin dashboard
 
@@ -212,7 +234,7 @@ retired.
 |---|---|
 | `/admin` | Counts, a featured indicator, recently edited projects |
 | `/admin/projects` | Featured selector, drag to reorder, search, filters, bulk actions |
-| `/admin/projects/new` | Create, with live card preview |
+| `/admin/projects/new` | Create a project, with a live card preview |
 | `/admin/projects/[id]` | Edit or delete |
 | `/admin/content` | All 47 copy blocks, grouped, with per-field reset |
 | `/admin/experience` | Roles and bullets, drag to reorder |
@@ -222,23 +244,23 @@ retired.
 | `/admin/settings` | Identity, contact, availability, hero photo, résumé, SEO |
 | `/admin/account` | Change password |
 
-The featured limit of six is enforced in the database layer, not only in the UI. Toggling a seventh
-returns HTTP 409 whether the request comes from the dashboard or from `curl`.
+Six projects appear on the homepage at a time and that cap is enforced in the database layer, not
+only in the interface. Featuring a seventh returns HTTP 409 whether the request comes from the
+dashboard or from `curl`.
 
 Every mutation calls `revalidatePath` for `/`, `/projects` and the affected project page, so the
-public site reflects a change immediately rather than after a redeploy. Public pages also carry a
-one hour `revalidate` as a safety net.
+public site reflects a change immediately rather than after a redeploy. Public pages also carry a one
+hour `revalidate` as a safety net in case a revalidation is ever missed.
 
 ## Security
 
 - Passwords hashed with bcrypt at cost 12.
 - Session cookies are `httpOnly`, `sameSite=lax`, and `secure` in production.
-- Login is limited to 5 failed attempts per IP per 15 minutes. The counter lives in Postgres,
-  because serverless instances do not share memory, and it is enforced inside the credentials
-  provider rather than in the form, so posting directly to `/api/auth/callback/credentials` is
-  covered too.
-- `middleware.ts` guards `/admin` and `/api/admin`. Every mutating route and action independently
-  calls `requireAdmin()`, because middleware alone is not a security boundary.
+- Login is limited to 5 failed attempts per IP per 15 minutes. The counter lives in Postgres because
+  serverless instances do not share memory, and it is enforced inside the credentials provider rather
+  than in the form, so posting straight to `/api/auth/callback/credentials` is covered too.
+- `middleware.ts` guards `/admin` and `/api/admin`, and every mutating route and action calls
+  `requireAdmin()` independently, because middleware on its own is not a security boundary.
 - Markdown is sanitised with `rehype-sanitize` before rendering.
 - `DATABASE_URL`, `AUTH_SECRET` and `BLOB_READ_WRITE_TOKEN` are read only on the server and never
   reach the client bundle.
@@ -252,7 +274,5 @@ one hour `revalidate` as a safety net.
 - `npm audit` reports advisories inside Next.js's own dependency tree, in `sharp`, `postcss` and
   `undici`, plus the ESLint chain which is development only. They cannot be resolved at the
   application level on Next 15.
-- Uploads require a real `BLOB_READ_WRITE_TOKEN`. Until one is set the admin shows a banner and the
-  upload route returns 503 with an explanation, rather than appearing to work.
 
 Adossi Fred William, Kigali, Rwanda
