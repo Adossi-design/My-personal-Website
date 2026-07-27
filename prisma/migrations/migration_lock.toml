@@ -1,0 +1,2 @@
+# Prisma manages this file, keep it in version control and do not edit it manually
+provider = "postgresql"
