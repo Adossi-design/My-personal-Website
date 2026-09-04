@@ -1,8 +1,8 @@
 // Three tiers, where level is how many of the ten bar segments are filled.
 export const skillTiers = [
   {
-    name: "Shipped to real users",
-    subtitle: "paid client work or deployed projects",
+    name: "Used in client work and deployed projects",
+    subtitle: "tools I have used beyond the classroom",
     level: 10,
     items: [
       "Python",
@@ -33,8 +33,8 @@ export const skillTiers = [
     ],
   },
   {
-    name: "Built and evaluated in projects",
-    subtitle: "trained, tested and written up",
+    name: "Used in projects and experiments",
+    subtitle: "tools I have applied while building and learning",
     level: 6,
     items: [
       "TensorFlow",
@@ -70,8 +70,8 @@ export const skillTiers = [
     ],
   },
   {
-    name: "Studying now",
-    subtitle: "learning actively, not yet shipped",
+    name: "Currently learning",
+    subtitle: "skills I am still developing",
     level: 3,
     items: ["PyTorch", "CRNN", "Django", "GraphQL", "USSD gateway integration", "MLOps tooling"],
   },
@@ -83,37 +83,37 @@ export const capabilities = [
     title: "Software Engineering",
     iconKey: "🏗️",
     description:
-      "I design and build software systems that are meant to scale, and I rely on solid engineering habits throughout, which means paying close attention to architecture, REST APIs, authentication, database design, testing, and the deployment pipelines that carry everything into production.",
+      "This is my foundation. I enjoy breaking a problem into smaller parts, designing a clear structure, writing maintainable code, testing it, and learning from the way people use the result.",
   },
   {
-    title: "Machine Learning Engineering",
+    title: "Machine Learning",
     iconKey: "🧠",
     description:
-      "I build machine learning systems that are meant to live in the real world rather than remain inside a notebook, so my work stretches from preparing the data and developing the model through evaluation, explainability, deployment, and the inference services that finally deliver predictions to users.",
+      "I work with data preparation, model training, evaluation, and deployment. I am especially interested in computer vision and predictive systems, while staying honest about what a model can and cannot prove.",
   },
   {
     title: "Full-Stack Development",
     iconKey: "🌐",
     description:
-      "I develop web applications from end to end, which means I am comfortable moving between the interface a person sees, the backend services behind it, the database, the authentication, the real-time communication, and the cloud environment where all of it runs.",
+      "I build web applications from the interface to the backend and database. I like seeing a complete product come together and making sure the experience is clear for the person using it.",
   },
   {
     title: "Mobile Development",
     iconKey: "📱",
     description:
-      "I create cross-platform mobile applications with Flutter and Firebase, and I try to give them an experience that feels modern and considered while keeping the architecture underneath ready to grow as the audience grows.",
+      "I use Flutter and Firebase to create mobile experiences that work across platforms. My focus is on simple navigation, useful features, and a structure that can grow with the product.",
   },
   {
     title: "Backend Engineering",
     iconKey: "⚙️",
     description:
-      "I build backend systems with security in mind, drawing on Python, Node.js, FastAPI, NestJS, and Flask on the server side, and on PostgreSQL, MySQL, Prisma, GraphQL, and REST APIs for the data and the communication between services.",
+      "I build APIs, authentication flows, databases, and services with Python and JavaScript tools. I pay attention to data design, access control, reliability, and how each service supports the wider product.",
   },
   {
-    title: "Machine Learning",
+    title: "Product Thinking and Collaboration",
     iconKey: "🔎",
     description:
-      "My machine learning experience is fairly broad, reaching across computer vision, deep learning, and predictive analytics, as well as time series forecasting, classification, regression, clustering, explainable models, feature engineering, and model optimisation.",
+      "Client work, field research, and team projects have taught me to ask better questions, listen before building, explain technical choices clearly, and adjust when the first idea does not fit the real need.",
   },
 ];
 
@@ -123,24 +123,24 @@ export const domains = [
     title: "Healthcare",
     iconKey: "🩺",
     description:
-      "I have built telemedicine platforms, medical assistant tools, and diagnostic support that are designed to work even where connectivity and access to professional care are limited.",
+      "I am interested in tools that can improve access to health information and support professionals without pretending that software can replace medical judgement.",
   },
   {
-    title: "Finance",
+    title: "Agriculture",
     iconKey: "💳",
     description:
-      "My finance work covers credit scoring, mobile money analytics, and tools that help bring people who have been left outside the formal financial system back into it.",
+      "My years of farm work made agricultural challenges real to me. I want to understand how software and AI can support farmers with useful information and better access to markets.",
   },
   {
     title: "Education",
     iconKey: "🎓",
     description:
-      "In education I have created learning tools supported by artificial intelligence, along with models that help predict and make sense of how students are likely to perform.",
+      "Education changed my own path. Through mentoring and the AI Study Lab, I have also seen how much confidence and access to guidance can change a student's direction.",
   },
   {
-    title: "Agriculture",
+    title: "Entrepreneurship",
     iconKey: "🌾",
     description:
-      "For agriculture I have developed crop disease detection, online marketplaces, and systems that help farmers keep track of their everyday operations.",
+      "From running a small juice business to delivering paid software projects, I enjoy turning an idea into something useful and taking responsibility for the people who trust me to deliver it.",
   },
 ];

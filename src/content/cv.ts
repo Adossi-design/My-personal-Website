@@ -7,8 +7,8 @@ export const experience = [
     period: "2025",
     location: "Remote",
     bullets: [
-      "I designed and deployed an African Credit Scoring System and made a point of building explainability into it with SHAP and LIME, then containerised the whole solution with Docker so that it was genuinely ready for production.",
-      "I also built a Speech Emotion Recognition pipeline that combined CNN and LSTM architectures on the RAVDESS dataset, and I relied on audio augmentation together with a speaker-independent split so that no information could leak between training and evaluation.",
+      "I built an African financial inclusion project using 23,524 survey responses. I prepared the data, compared four models, and created a Streamlit application for individual and batch exploration.",
+      "I also built a speech emotion recognition pipeline using the RAVDESS dataset. I compared CNN and LSTM approaches, used audio augmentation, and kept speakers separate between training and evaluation.",
     ],
   },
   {
@@ -17,8 +17,8 @@ export const experience = [
     period: "2025",
     location: "Rwanda",
     bullets: [
-      "I carried out structured field research with around thirty cooperative members in Rwamagana District, and I turned what I learned from them directly into the requirements for the product we would go on to build.",
-      "After delivering a consultancy report on the findings, I was trusted with a follow-on contract, which gave me the chance to build a web application for managing operations and tracking transactions as they happen.",
+      "I spoke with around thirty cooperative members in Rwamagana District to understand their daily work, record keeping, and operational challenges. Their answers became the starting point for the product requirements.",
+      "After presenting the research in a consultancy report, I received a follow-on contract to build a web application for managing operations and tracking transactions.",
     ],
   },
   {
@@ -27,8 +27,8 @@ export const experience = [
     period: "2024",
     location: "Rwanda",
     bullets: [
-      "Having only just arrived in Rwanda, I secured the role by going to MTN's head office in person, finding my way to the right contact, and following up with an email and a formal interview.",
-      "Once I was inside, I parsed and processed Mobile Money transaction records stored in XML using Python, and I built an interactive dashboard that presented the insights clearly to colleagues who did not come from a technical background.",
+      "Soon after arriving in Rwanda, I visited MTN's head office, found the right contact, followed up by email, and completed a formal interview to earn the opportunity.",
+      "During the internship, I used Python to process Mobile Money transaction records stored in XML and built a dashboard that made the results easier for non-technical colleagues to understand.",
     ],
   },
   {
@@ -37,9 +37,9 @@ export const experience = [
     period: "2025 to Present",
     location: "",
     bullets: [
-      "Alongside full-time study, I run my own client-facing development practice, and over the past year it has grown to more than fifteen paid projects spanning web applications, business websites, portfolios, and design work.",
-      "I take responsibility for the entire lifecycle of each engagement, which starts with gathering requirements and scoping the work and continues through design, delivery, and handover, and when a contract is large enough I bring together and coordinate a team of four to see it through.",
-      "One of my clients was based in Nigeria, and I delivered their portfolio within four days, while a separate engagement saw me build a multi-language institute website at a four-figure contract value.",
+      "Alongside university, I run an independent development practice. I have completed more than fifteen paid projects, including web applications, business websites, portfolios, and design work.",
+      "I usually handle the full process, from understanding the client's needs and planning the work to design, development, delivery, and handover. For larger work, I have coordinated a team of four.",
+      "My clients have included people and organisations outside Rwanda. One portfolio was delivered in four days, and another project was a multilingual institute website with a four-figure contract value.",
     ],
   },
   {
@@ -48,8 +48,8 @@ export const experience = [
     period: "2019 to 2023",
     location: "Chad",
     bullets: [
-      "For four years I worked across several farm sites, where my responsibilities ranged from preparing the land and operating tractors to harvesting and maintaining relationships with the farmers around us.",
-      "During that time I was trained in farm management and commercial negotiation, and the problems I saw at close range are the very same ones that continue to shape the agricultural technology I build today.",
+      "For four years, I worked across several farm sites. I prepared land, operated tractors, helped with harvests, and maintained relationships with farmers in the area.",
+      "I also learned about farm management and commercial negotiation. The challenges I saw during that time still shape my interest in agricultural technology today.",
     ],
   },
 ];
@@ -60,7 +60,7 @@ export const educationItems = [
     institution: "African Leadership University, Kigali, Rwanda",
     period: "June 2024 to an expected finish in July 2027",
     iconKey: "🎓",
-    meta: "June 2024 to an expected finish in July 2027, with a CGPA of 4.14 out of 5.00 and all 380 attempted credits earned, as recorded on my August 2026 transcript.",
+    meta: "Started in June 2024 and expected to finish in July 2027. Current CGPA: 4.14 out of 5.00, with all 380 attempted credits earned on my August 2026 transcript.",
     grades: [
       { course: "Web Infrastructure", score: "98.80" },
       { course: "Machine Learning Pipeline", score: "94.26" },
@@ -71,7 +71,7 @@ export const educationItems = [
       { course: "Mathematics for Machine Learning", score: "84.42" },
       { course: "Mobile Application Development", score: "83.80" },
     ],
-    note: "My wider coursework has also included Machine Learning, Linear Algebra for Machine Learning, Data Analysis with R, Statistics, Mobile App Development, and Python with databases.",
+    note: "Other coursework includes Machine Learning, Linear Algebra for Machine Learning, Data Analysis with R, Statistics, Mobile App Development, and Python with databases.",
   },
 ];
 

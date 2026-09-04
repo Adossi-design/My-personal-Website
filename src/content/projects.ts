@@ -27,37 +27,37 @@ export const projects: SeedProject[] = [
     category: Category.ML_AI,
     iconKey: "🔬",
     shortDescription:
-      "Investigates how compact and transfer-learning CNNs compare on malaria cell images, with my baseline model reaching 0.9647 F1 on the held-out test set.",
-    fullDescription: `## The problem
+      "I compared several ways to identify malaria-infected cells and learned that a simpler model can sometimes perform as well as a larger one on the same test set.",
+    fullDescription: `## Why we built it
 
-Malaria diagnosis depends on trained professionals examining blood-smear microscopy, yet specialist time and laboratory capacity are limited in many of the communities most affected by the disease. This study asks a focused technical question: **how reliably can different convolutional-network approaches distinguish parasitised from uninfected single-cell images under one fair evaluation pipeline?**
+Malaria diagnosis often requires trained professionals to examine blood-smear images. In places with limited laboratory staff, a reliable support tool could help specialists review cases more efficiently. Our team wanted to understand how different image models perform when they are trained and tested under the same conditions.
 
-## Who this work is intended to serve
+## Who it could help
 
-The long-term beneficiaries would be laboratory professionals and clinics that need dependable decision-support tools, particularly in resource-constrained settings. This project is a comparative research study, however—not a clinical product—and it has not been tested in a healthcare workflow.
+The long-term users could be laboratory professionals and clinics that need dependable decision support. This project is a research comparison, not a medical product. It has not been tested in a clinic and should not be used to make a diagnosis.
 
-## What we investigated
+## What we tried
 
-Our five-person ALU team compared a baseline CNN, an advanced CNN, VGG16, ResNet50, and MobileNetV2. Every model used the same fixed 80/20 split of the NIH Malaria Cell Images dataset and went through seven controlled experiments so that architectural and training choices could be compared fairly.
+Our five-person ALU team compared a baseline CNN, an advanced CNN, VGG16, ResNet50, and MobileNetV2. We used the same split of the NIH Malaria Cell Images dataset for every model. Each teammate ran seven experiments so that our comparison would be consistent.
 
-## My contribution
+## My part
 
-I owned the baseline CNN: a deliberately simple two-block network trained from scratch to establish the performance floor for the more complex approaches. I ran seven experiments changing one factor at a time, including learning rate, dropout, augmentation, and batch size.
+I worked on the baseline CNN. I kept the network simple on purpose so that the larger models had a clear point of comparison. Across seven experiments, I changed factors such as the learning rate, dropout, data augmentation, and batch size.
 
-## Evidence so far
+## What I learned
 
-- The shared dataset contains 27,558 balanced single-cell images.
-- All models were evaluated on the same 5,512-image held-out test set.
-- My strongest baseline reached **0.9650 accuracy, 0.9647 F1, and 0.9938 AUC**.
-- All five approaches finished within 0.003 F1, an important finding: complexity did not automatically produce a meaningful advantage at the chosen image resolution.
+- The dataset contains 27,558 balanced single-cell images.
+- We tested every model on the same 5,512 held-out images.
+- My best baseline reached **0.9650 accuracy, 0.9647 F1, and 0.9938 AUC**.
+- All five models finished within 0.003 F1 of one another. On this dataset, a more complex model did not automatically give a better result.
 
-## Limitations
+## What is still missing
 
-These results come from a curated public dataset of segmented cells, not prospectively collected clinical cases. They do not establish diagnostic safety, performance across laboratories or populations, workflow usefulness, or regulatory readiness. A model error in this context could carry serious consequences.
+The images come from a clean public dataset of individual cells. Real clinical images can vary across microscopes, laboratories, and patient groups. The study does not prove that the model is safe, useful in a clinical workflow, or ready for medical use.
 
-## Intended impact and next question
+## What I would explore next
 
-The intended contribution is a reproducible foundation for investigating affordable diagnostic support—not a replacement for microscopists or clinicians. My next question would be whether a compact model can remain calibrated across locally collected images from different microscopes while communicating uncertainty clearly enough to support human review.`,
+I would test a compact model on locally collected images from different microscopes. I would also study how to show uncertainty clearly so that a professional can review difficult cases instead of receiving an overconfident answer.`,
     techStack: ["Python", "TensorFlow", "VGG16", "ResNet50", "MobileNetV2", "CNN"],
     repo: "Malaria-Diagnosis",
     metrics: [
@@ -74,40 +74,37 @@ The intended contribution is a reproducible foundation for investigating afforda
     category: Category.ML_AI,
     iconKey: "💳",
     shortDescription:
-      "Explores alternative signals for financial inclusion by modelling bank-account access across 23,524 East African survey responses—with its limits stated clearly.",
-    fullDescription: `## The problem
+      "I explored what East African survey data can tell us about access to bank accounts, while learning why a prediction is not the same as a fair credit decision.",
+    fullDescription: `## Why I built it
 
-Many people across East Africa remain outside formal financial systems and therefore have little or no conventional financial history. That makes it difficult to explore inclusive services using the records that established institutions normally expect.
+Many people in East Africa use money and run businesses without having the formal financial history that banks normally expect. During my CodeAlpha internship, I wanted to explore whether other kinds of information could help us understand financial access.
 
-## Who this work is intended to serve
+## Who it is about
 
-This exploration is motivated by people in Kenya, Rwanda, Tanzania, and Uganda who are financially active but underrepresented in formal records. It may also help researchers and responsible financial-service teams study alternative indicators of financial access.
+The data represents people in Kenya, Rwanda, Tanzania, and Uganda. The project may be useful to researchers studying financial inclusion, but it is not a system for approving or rejecting a loan.
 
-## What I investigated
+## What I tried
 
-I used 23,524 responses from four national financial-inclusion surveys to investigate whether demographic, employment, household, location, and mobile-access variables could predict **bank-account ownership**. Because only about 14 percent of respondents held an account, I applied SMOTE only to the training data and compared four candidate models on an untouched test split.
+I used 23,524 responses from four national surveys. The data includes information about employment, households, location, mobile access, and whether a person owns a bank account. Because only about 14 percent of respondents had an account, I balanced only the training data and compared four models on a separate test set.
 
 ## What I built
 
-The Streamlit application supports individual assessment, interactive data exploration, and batch CSV processing. Its feature pipeline derives contextual indicators such as digital inclusion and economic vulnerability, while preserving the exact fitted preprocessing steps for inference.
+I created a Streamlit application for individual exploration, charts, and batch CSV processing. I also built the data checks, feature preparation, model comparison, and saved prediction pipeline.
 
-## My contribution
+## What I learned
 
-I built the end-to-end project during my CodeAlpha internship: data validation, feature engineering, model comparison, saved inference pipeline, scoring interface, analytics views, and batch workflow.
+- Logistic Regression gave the best test ROC-AUC at **0.857**.
+- Random Forest reached 0.841, Decision Tree reached 0.815, and KNN reached 0.788.
+- The simpler model was competitive and easier to inspect.
+- A model can find patterns in existing data without proving that those patterns are fair or appropriate for a real decision.
 
-## Evidence so far
+## What is still missing
 
-- Four models were evaluated using test ROC-AUC.
-- Logistic Regression performed best at **0.857 ROC-AUC**, ahead of Random Forest (0.841), Decision Tree (0.815), and KNN (0.788).
-- The lighter logistic model was selected because it matched heavier alternatives while remaining easier to run and inspect.
+The target is bank-account ownership, not repayment or creditworthiness. Demographic survey data can also carry the effects of past exclusion. The surveys were collected between 2016 and 2018, and I have not completed a fairness audit or a pilot with a financial institution.
 
-## Limitations
+## What I would explore next
 
-This is not a validated credit-risk model. Its target is bank-account ownership—not repayment behaviour or creditworthiness—and demographic survey variables can encode historical exclusion. The data spans surveys from 2016 to 2018, no fairness audit or institutional pilot has yet been completed, and the resulting score must not be used to approve or deny a real person credit.
-
-## Intended impact and next question
-
-The intended impact is to support research into more inclusive financial systems without disguising a proxy as a decision-ready product. The next step is to work with financial-inclusion specialists, define an appropriate outcome, audit group-level errors and calibration, and study whether consented non-traditional data adds value without reproducing discrimination.`,
+I would work with financial inclusion specialists to choose a more suitable outcome, review errors across different groups, and decide whether consented alternative data can add value without repeating unfair patterns.`,
     techStack: ["Python", "scikit-learn", "Logistic Regression", "SMOTE", "Streamlit", "Plotly"],
     repo: "CodeAlpha_credit-scoring-model",
     metrics: [
@@ -123,41 +120,37 @@ The intended impact is to support research into more inclusive financial systems
     category: Category.FULLSTACK,
     iconKey: "🩺",
     shortDescription:
-      "Explores inclusive telemedicine through mobile, web, and an offline USSD pathway, with separate AI support designed for clinicians and patients.",
-    fullDescription: `## The problem
+      "I am building a healthcare platform that can work through mobile, web, and USSD so access does not depend on owning a smartphone or having reliable internet.",
+    fullDescription: `## Why I started it
 
-Distance, limited connectivity, fragmented records, and shortages of specialist support can all stand between African patients and understandable, continuous care. A smartphone-only product excludes many of the people most affected by those constraints.
+Distance, weak connectivity, scattered health records, and limited access to specialists can make it harder for patients to receive continuous care. I did not want the idea to depend only on smartphones because that would leave out many of the people it is meant to support.
 
-## Who this work is intended to serve
+## Who it is for
 
-HealthBridge Africa is designed around three groups: patients seeking access and understandable information, clinicians who need context during consultations, and administrators responsible for operating the service without viewing private medical records.
+HealthBridge Africa is designed around patients, clinicians, and service administrators. Patients need access and clear information. Clinicians need useful context during consultations. Administrators need to operate the platform without seeing private medical records.
 
-## What I investigated
+## What I am exploring
 
-I explored how one health platform could preserve a consistent care pathway across very different levels of connectivity—and how AI assistance could support, rather than replace, professional judgement.
+I am exploring how one care experience can work across different devices and levels of connectivity. I am also exploring how AI can support a professional or explain information to a patient without taking over the professional's role.
 
 ## What I built
 
-Patients can use a mobile or web interface, while a USSD gateway supports registration, consultation requests, and recent-history checks on basic phones without internet access. MedAssist supplies contextual clinical support to doctors; HealthGuide explains diagnoses and medication in plain language to patients. Role checks, explicit doctor-access approval, rate limiting, and protected health records are enforced on the backend.
+The prototype includes mobile and web experiences. A USSD gateway supports registration, consultation requests, and recent-history checks on basic phones. MedAssist provides contextual support for doctors, while HealthGuide explains diagnoses and medication in simpler language for patients. The backend includes role checks, doctor-access approval, rate limiting, and protected health records.
 
-## My contribution
+## What I learned
 
-I created and maintain the platform across the application, Node and MySQL backend, Python and Redis USSD gateway, access-control model, bilingual interface, and the two role-specific AI assistants.
+- Designing for three access channels changes how every workflow has to be planned.
+- Different users need different forms of AI assistance.
+- The backend currently has thirteen automated tests for core behaviour.
+- English and French interfaces can make the product useful to more people in the region.
 
-## Evidence so far
+## What is still missing
 
-- Three access channels: mobile, web, and USSD.
-- Two purpose-specific AI assistants with explicit human-oversight boundaries.
-- Thirteen automated backend tests covering core behaviour.
-- English and French interfaces support broader regional accessibility.
+This is a working prototype, not a medical service. It has not been clinically validated, tested in the field, certified for security, or reviewed by regulators. The AI layer can be wrong, and a real USSD service would require a telecom partner.
 
-## Limitations
+## What I would do next
 
-HealthBridge Africa is a working prototype, not a deployed medical service. It has not undergone clinical validation, security certification, field evaluation, or regulatory review. The AI layer depends on an external model and can produce incorrect guidance; USSD availability also depends on telecom integration.
-
-## Intended impact and next question
-
-The intended impact is to make continuity of care and understandable health information more accessible across device and connectivity barriers. The next step is participatory research with patients and healthcare professionals to identify the smallest safe workflow worth piloting, define escalation rules, and evaluate usefulness before expanding features.`,
+I would work directly with patients and healthcare professionals to choose one small and safe workflow to test first. Their feedback should decide what is useful, what needs stronger safeguards, and what should not be automated.`,
     techStack: ["JavaScript", "React Native", "Node.js", "MySQL", "USSD"],
     repo: "HealthBridge_Africa",
     metrics: [
@@ -177,39 +170,35 @@ The intended impact is to make continuity of care and understandable health info
     iconKey: "🤝",
     shortDescription:
       "A collaboration environment where computer science students can find projects, share work, and form teams instead of learning in isolation.",
-    fullDescription: `## The problem
+    fullDescription: `## Why I built it
 
-Computer science students often build in isolation even when classmates around them need the same collaborators, feedback, or project experience. General social networks are not designed around the process of finding technical work, showing progress, and forming a team.
+Computer science students often work alone even when other students nearby are looking for the same feedback, experience, or teammate. General social platforms make it easy to post, but they are not designed around finding technical projects and building together.
 
-## Who this work is intended to serve
+## Who it is for
 
-PeerForge is intended for computer science students who want to discover peers, contribute to projects, discuss technical ideas, and build a visible record of practical work.
+PeerForge is for computer science students who want to discover projects, meet collaborators, discuss ideas, and show the work they have contributed to.
 
-## What I investigated
+## What I explored
 
-I explored what a student-builder network needs beyond a conventional feed: structured project posts, collaboration status, technical tags, real-time conversation, profiles, notifications, and a public portfolio of contributions.
+I thought about what students need beyond a normal social feed. That led to structured project posts, collaboration status, technical tags, conversations, profiles, notifications, and a visible record of contributions.
 
 ## What I built
 
-The platform combines a Next.js web application with a NestJS and Prisma API inside a Turborepo monorepo. Socket.IO carries real-time messaging, while Clerk authentication is verified across both REST requests and socket connections. Students can publish work, recruit collaborators, discuss ideas, save posts, and present their projects.
+Students can publish work, ask for collaborators, join discussions, save posts, send messages, and present their projects. Behind the interface, the web and API applications share types in one repository. Authentication covers both normal requests and real-time messages.
 
-## My contribution
+## What I learned
 
-I designed and built the full-stack system, shared types, authentication flow, real-time layer, project and post experiences, and deployment structure.
+- Collaboration tools need more structure than a normal feed.
+- Real-time features add useful energy, but they also make authentication and state harder to manage.
+- A technically complete feature does not prove that students will keep using it.
 
-## Evidence so far
+## What is still missing
 
-- Separate web and API applications share contracts inside one monorepo.
-- Authentication covers both HTTP and WebSocket communication.
-- The implemented interface supports project discovery, collaboration states, discussions, messaging, notifications, and profiles.
+PeerForge has not yet shown sustained adoption or better collaboration outcomes. Recommendation quality, moderation, accessibility, abuse prevention, and the experience for a new community still need real user testing.
 
-## Limitations
+## What I would explore next
 
-The product has not yet demonstrated sustained adoption or improved collaboration outcomes. Recommendation quality, moderation, abuse prevention, accessibility testing, and the cold-start experience all require evaluation with real student communities.
-
-## Intended impact and next question
-
-The intended impact is to help students move from solitary coursework toward visible, collaborative practice. The next question is whether structured project matching actually leads to more completed collaborations—and which signals can improve matching without turning participation into a popularity contest.`,
+I would test it with a small student community and measure whether people form teams and finish projects together. I would also learn which matching signals are useful without turning the platform into a popularity contest.`,
     techStack: ["Next.js", "TypeScript", "NestJS", "Prisma", "Socket.IO", "Clerk", "Turborepo"],
     repo: "PeerForge",
     metrics: [
@@ -228,41 +217,37 @@ The intended impact is to help students move from solitary coursework toward vis
     category: Category.ML_AI,
     iconKey: "🌾",
     shortDescription:
-      "Helps investigate four rice-leaf diseases from a photograph through a deployed, retrainable pipeline tested under simulated concurrent demand.",
-    fullDescription: `## The problem
+      "I built a tool that checks a rice-leaf photo for four diseases and explored what it would take to move a model from training into a usable service.",
+    fullDescription: `## Why I built it
 
-For a smallholder farmer, a rice disease can threaten both household food and annual income. Bacterial blight, blast, brown spot, and tungro require different responses, yet an expert may not be nearby when early symptoms first appear.
+For a smallholder farmer, crop disease can affect both food and income. Different rice diseases need different responses, but an agricultural expert may not be nearby when the first signs appear. My own farm experience made this problem especially meaningful to me.
 
-## Who this work is intended to serve
+## Who it could help
 
-The intended users are smallholder rice farmers and agricultural extension workers who need an accessible first check in the field. The system is decision support only; it does not replace an agronomist or laboratory confirmation.
+The idea is meant for smallholder rice farmers and agricultural extension workers who need an accessible first check. It is a support tool, not a replacement for an agronomist or a laboratory result.
 
-## What I investigated
+## What I explored
 
-I investigated whether a lightweight transfer-learning model could distinguish four visually similar diseases, run affordably in the cloud, expose its confidence, accept new labelled data, and continue learning through a controlled retraining workflow.
+I wanted to learn whether a lightweight image model could recognise four visually similar diseases, run at a reasonable cost, show confidence scores, accept new labelled images, and support retraining later.
 
 ## What I built
 
-The public application accepts a leaf photograph and returns per-class confidence scores. It also exposes dataset and service monitoring, bulk labelled-image upload, background retraining, health endpoints, and database records of predictions and training runs. MobileNetV2 was selected because its size fits the resource constraints better than a large network.
+The public application accepts a leaf photograph and returns a confidence score for each class. It also includes service monitoring, batch image upload, background retraining, health checks, and records of predictions and training runs. I chose MobileNetV2 because a smaller model made more sense for the available resources.
 
-## My contribution
+## What I learned
 
-I built the complete pipeline: data preparation, exploratory analysis, two-stage training, evaluation, FastAPI service, browser interface, persistence, Docker deployment, retraining flow, monitoring, and Locust/Nginx scaling experiment.
+- The dataset contains 5,932 labelled images across four roughly balanced classes.
+- The model reached about **89% accuracy and 0.90 macro-F1** on 1,185 held-out images.
+- I deployed a public demo and recorded a walkthrough.
+- In a simulated 50-user test, four containers increased throughput from 12.2 to 23.3 requests per second and reduced median latency from 3.6 to 1.2 seconds, with no failed requests.
 
-## Evidence so far
+## What is still missing
 
-- 5,932 labelled images across four approximately balanced disease classes.
-- About **89% accuracy and 0.90 macro-F1** on 1,185 held-out images.
-- A public Hugging Face deployment and recorded video demonstration.
-- Under a simulated 50-user load, scaling from one to four containers increased throughput from 12.2 to 23.3 requests per second and reduced median latency from 3.6 to 1.2 seconds, with zero failed requests.
+This was not a field trial. The dataset covers only four known diseases, and performance may change with different lighting, crop varieties, locations, early symptoms, or an unfamiliar disease. Farmers and extension professionals have not evaluated the tool yet.
 
-## Limitations
+## What I would do next
 
-The dataset is not a field trial and covers only four known disease classes. Image quality, crop variety, geography, lighting, unfamiliar diseases, and early-stage symptoms may change performance. The classifier is not calibrated for real agricultural decisions and has not yet been evaluated with farmers or extension professionals.
-
-## Intended impact and next question
-
-The intended impact is earlier, more accessible disease recognition so that farmers can seek the right expert guidance before damage spreads. The next step is to co-design a field study, add an explicit “uncertain or unknown” pathway, and measure performance and usefulness on locally collected images rather than only a public benchmark.`,
+I would collect local images with agricultural partners, add a clear "uncertain or unknown" result, and test whether the tool helps people decide when to ask an expert for support.`,
     techStack: ["Python", "TensorFlow", "Keras", "CNN", "Hugging Face"],
     repo: "rice_diseases_classifier",
     liveUrl: "https://huggingface.co/spaces/Fred-William/rice-disease-classifier",
@@ -283,41 +268,37 @@ The intended impact is earlier, more accessible disease recognition so that farm
     category: Category.MOBILE,
     iconKey: "⏱️",
     shortDescription:
-      "Turns personal work logs into private, on-device insight, while exposing model quality and separating learned predictions from rule-based recommendations.",
-    fullDescription: `## The problem
+      "I built a private productivity tracker that turns work sessions into simple patterns and forecasts without sending the analysis to a separate server.",
+    fullDescription: `## Why I built it
 
-Time trackers record hours, but a list of timestamps rarely helps someone understand patterns, sustainability, or the reliability of a forecast. Sending detailed behavioural data to an analytics server also creates avoidable privacy and latency costs.
+Most time trackers show a list of hours without helping a person understand the pattern behind them. I wanted to explore whether a small, private analytics system could help someone reflect on their work without sending detailed behaviour data to another server.
 
-## Who this work is intended to serve
+## Who it is for
 
-The application is intended for students, independent professionals, and other people who want evidence about their work habits while keeping the analytics on their own device.
+The app is meant for students, independent professionals, and anyone who wants a clearer picture of their work habits while keeping the analysis on their own device.
 
-## What I investigated
+## What I explored
 
-I investigated how far transparent, lightweight analytics can go on-device: unsupervised grouping of session depth, chronological forecasting of future hours, and reviewable heuristics for anomalies and patterns.
+I tested three kinds of local analysis: grouping similar work sessions, forecasting future hours, and using clear rules to point out unusual patterns. I kept these separate so a user can tell which results come from a learned model and which come from a rule.
 
 ## What I built
 
-The Flutter application runs three distinct engines. K-Means groups sessions and reports a silhouette score; ordinary least-squares regression reports MAE, RMSE, and R² on a held-out chronological tail before forecasting; and a clearly labelled rule-based engine detects unusual patterns and produces recommendations. Firebase synchronises each user's records under per-user security rules.
+The Flutter app uses K-Means for grouping, linear regression for forecasting, and a rule-based engine for recommendations. It reports evaluation measures for the learned models instead of showing a prediction without context. Firebase synchronises each user's records with per-user security rules.
 
-## My contribution
+## What I learned
 
-I built the cross-platform application, analytics implementations, validation metrics, real-time data layer, authentication, notifications, bilingual interface, security rules, automated tests, and continuous-integration workflow.
+- The app runs three different analysis engines on the device.
+- Forecast quality is checked on later, held-out data rather than the training data.
+- The project includes automated tests and a GitHub Actions workflow.
+- One Flutter codebase supports Android, iOS, web, Windows, Linux, and macOS.
 
-## Evidence so far
+## What is still missing
 
-- Three complementary analytics engines run locally on the device.
-- Forecast quality is evaluated on unseen historical data rather than the training observations.
-- Automated tests cover clustering, forecasting, anomaly detection, score bounds, and a widget smoke test; CI runs formatting, static analysis, and tests on every change.
-- One codebase targets Android, iOS, web, Windows, macOS, and Linux.
+The forecast uses only one feature, so it cannot understand deadlines, health, changing workloads, or seasonal patterns. I have not yet shown that the recommendations improve behaviour. History queries also need pagination, and web notifications require the tab to stay open.
 
-## Limitations
+## What I would do next
 
-The forecaster is intentionally a one-feature linear baseline and cannot yet model seasonality or richer behavioural context. K-Means currently clusters duration alone, the application loads entries without pagination, and web notifications require an open browser tab. No longitudinal user study has established behaviour change or wellbeing benefits.
-
-## Intended impact and next question
-
-The intended impact is to help people reflect on work patterns without surrendering detailed personal data to a remote analytics service. The next question is whether transparent feedback changes planning decisions over time—and whether richer local features can improve predictions without making them harder to understand.`,
+I would test the app with people over a longer period and ask whether the feedback actually changes how they plan. I would also explore richer local features while keeping the results understandable.`,
     techStack: ["Flutter", "Dart", "Firebase", "K-Means", "Linear Regression"],
     repo: "Productivity-Tracking-Analytics",
     metrics: [
@@ -333,9 +314,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "🌽",
     shortDescription:
-      "Sorts maize leaf photographs into four categories, placing a scikit-learn model beside deep learning to see where each one struggles.",
+      "I explored whether image classification could help recognise four maize leaf conditions and compared a traditional model with deep learning.",
     fullDescription:
-      "Here I built an end-to-end pipeline that sorts maize leaf photographs into four categories, and rather than settling for a single approach I placed a traditional model built with scikit-learn side by side with deep learning built in TensorFlow, so that I could understand where each one succeeds and where each one struggles.",
+      "## Why I built it\n\nCrop disease can be difficult to recognise early, especially when expert advice is not nearby. I built this project to explore how image classification might support farmers or agricultural workers with a first check.\n\n## What I learned\n\nI compared a traditional scikit-learn model with a TensorFlow deep-learning model instead of assuming that the more complex option would always be better. The work taught me to look at where each approach succeeds and fails across four leaf categories.\n\n## Technical note\n\nThe project covers data preparation, model training, comparison, and evaluation. It is a learning project, not a field-tested agricultural tool.",
     techStack: ["Python", "TensorFlow", "scikit-learn", "CNN"],
     repo: "Maize_Leaf-Disease_Classification",
     metrics: [{ label: "Categories", value: "4" }],
@@ -346,9 +327,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "✍️",
     shortDescription:
-      "Reads handwritten capital letters at 98.9 percent test accuracy, wrapped in a Streamlit app so anyone can draw a letter and watch it read back.",
+      "I turned a handwriting model into an interactive app so people can draw a letter and immediately see how the model understands it.",
     fullDescription:
-      "HandScript AI is a convolutional neural network that reads handwritten capital letters from A to Z and reaches 98.9 percent accuracy on the test set, but what I like most about it is that I wrapped it in a Streamlit app, so that anyone can draw a letter and watch the model read it back to them in the moment.",
+      "## Why I built it\n\nI wanted to make computer vision easier to see and understand. Instead of leaving a handwriting model inside a notebook, I created an app where a person can draw a capital letter and watch the model respond.\n\n## What I learned\n\nThe model reached 98.9 percent accuracy on its test set across 26 letters. Building the Streamlit interface also taught me that a model becomes much easier to discuss when people can interact with it directly.\n\n## Technical note\n\nThe project uses a convolutional neural network built with TensorFlow and Keras. The test result belongs to the project dataset and does not guarantee the same performance on every person's handwriting.",
     techStack: ["Python", "TensorFlow", "Keras", "CNN", "Streamlit"],
     repo: "CodeAlpha_Handwritten-Character-Recognition",
     metrics: [
@@ -362,9 +343,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "🎗️",
     shortDescription:
-      "Clinical decision support that helps flag whether a breast cancer case appears malignant early, with plain-language results and a clear disclaimer.",
+      "I explored how a prediction interface could explain a breast-cancer risk result clearly while reminding users that a model is not a diagnosis.",
     fullDescription:
-      "FredCare AI is a clinical decision support application that helps flag whether a breast cancer case appears malignant at an early stage, and it has been written to feel like a tool a real person could trust, pairing the model with a clean interface, plain-language results, and a clear disclaimer for whoever happens to be reading them.",
+      "## Why I built it\n\nHealth predictions can be confusing or harmful when they are shown without context. I built FredCare AI to practise presenting a model result in plain language with a visible reminder that professional medical judgement still matters.\n\n## What I learned\n\nThe project made me think beyond model output. The wording, interface, and disclaimer are part of the responsibility too.\n\n## Technical note\n\nThe prototype uses a scikit-learn model behind a Flask application. It has not been clinically validated and must not be used as a diagnosis.",
     techStack: ["Python", "scikit-learn", "Flask", "HTML", "CSS", "JS"],
     repo: "CodeAlpha_Breast-Cancer-Prediction",
   },
@@ -374,9 +355,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "🎓",
     shortDescription:
-      "Predicts student performance from study habits and circumstances, with the strongest model served over FastAPI and wired live to a Flutter app.",
+      "I explored how study habits and personal circumstances relate to student performance, then connected the best model to a mobile app.",
     fullDescription:
-      "This project predicts how students are likely to perform based on their study habits and personal circumstances, and after comparing a Linear Regression, a Decision Tree, and a Random Forest, I took the strongest model, placed it behind a public FastAPI service, and connected it live to a Flutter mobile app, so that the study reaches all the way to a phone in someone's hand.",
+      "## Why I built it\n\nI care about education and wanted to understand which patterns in study habits and personal circumstances appear alongside student performance. The idea is to support reflection, not to label a student's ability.\n\n## What I learned\n\nI compared Linear Regression, Decision Tree, and Random Forest models, then connected the strongest one to a Flutter app through FastAPI. This taught me how to carry a machine learning experiment into a working mobile experience.\n\n## Technical note\n\nThe model reflects patterns in its dataset. It should not be used to make high-stakes decisions about a student.",
     techStack: ["scikit-learn", "Random Forest", "FastAPI", "Flutter"],
     repo: "linear_regression_model",
     metrics: [{ label: "Models compared", value: "3" }],
@@ -387,9 +368,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "🤰",
     shortDescription:
-      "Predicts whether a mother's risk level is low, mid, or high from six vital signs, shipping only the winning model behind a layered FastAPI service.",
+      "I studied how six vital signs relate to maternal health risk and built a small service that presents low, medium, or high risk categories.",
     fullDescription:
-      "Working from the UCI maternal health dataset, this service predicts whether a mother's risk level is low, mid, or high from six vital signs, and it reflects a discipline I care about, because it keeps the exploratory research to one side and ships only the winning model behind a clean, layered FastAPI application.",
+      "## Why I built it\n\nMaternal health is an area where timely attention can matter greatly. I used this project to learn how six recorded vital signs relate to low, medium, and high risk categories in a public dataset.\n\n## What I learned\n\nI separated the model exploration from the FastAPI service that uses the selected model. That helped me understand why research code and application code need different structures.\n\n## Technical note\n\nThis is an educational prototype based on the UCI dataset. It has not been clinically validated and cannot replace care from a qualified professional.",
     techStack: ["scikit-learn", "Random Forest", "FastAPI", "HTML", "JS"],
     repo: "Maternal_Health_Risk_Prediction",
     metrics: [
@@ -403,9 +384,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "⚡",
     shortDescription:
-      "Forecasts city electricity demand from weather and recent load across more than fifty thousand records, wired to two databases and an API.",
+      "I explored how weather and recent demand can help forecast a city's electricity use, then moved the result beyond a notebook into an API workflow.",
     fullDescription:
-      "This time series project forecasts how much electricity the city of Tetouan uses, drawing on weather data and recent demand across more than fifty thousand records from 2017, and rather than living inside a notebook it is wired to two databases, an API, and a prediction script, with a tuned Random Forest ultimately outperforming the linear baseline.",
+      "## Why I built it\n\nElectricity providers need to plan for changing demand. I used data from Tetouan to explore how weather and recent electricity use could support a short-term forecast.\n\n## What I learned\n\nThe dataset contains more than 50,000 records from 2017. A tuned Random Forest performed better than my linear baseline. Connecting the work to databases, an API, and a prediction script helped me practise the full path from data to service.\n\n## Technical note\n\nThis is a learning project based on historical data from one city. A real planning tool would need newer data, monitoring, and testing across changing conditions.",
     techStack: ["Python", "scikit-learn", "Random Forest", "SQL", "REST API"],
     repo: "tetouan-power-forecast",
     metrics: [
@@ -419,9 +400,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "🔐",
     shortDescription:
-      "Verifies a person by face and then by voice, revealing its recommendation only when both checks pass and clearly belong to the same person.",
+      "I combined face and voice checks to explore how several models can work together before a system reveals a result.",
     fullDescription:
-      "This system verifies a person twice before it will reveal anything, first by their face and then by their voice, and it only shows the recommendation when both checks pass and clearly belong to the same person, which makes it a good demonstration of designing a pipeline where several models have to agree before anything at all can happen.",
+      "## Why I built it\n\nMany AI applications depend on more than one signal. I built this pipeline to understand how a system can combine face and voice checks before it continues to a recommendation.\n\n## What I learned\n\nThe hardest part was not a single model. It was coordinating several stages, passing results safely, and deciding what should happen when one check fails.\n\n## Technical note\n\nThis is a demonstration project, not a secure identity product. Real biometric systems require consent, privacy protection, bias testing, anti-spoofing, and much stronger security review.",
     techStack: ["Python", "Face Recognition", "Audio Processing", "ML"],
     repo: "Formative2_MachineLearning_Pipeline",
   },
@@ -431,9 +412,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.ML_AI,
     iconKey: "📐",
     shortDescription:
-      "PCA implemented from scratch in NumPy alone, working through covariance, eigenvalues, eigenvectors, and variance decomposition.",
+      "I implemented Principal Component Analysis from the mathematics upward because I wanted to understand what happens behind a library call.",
     fullDescription:
-      "For this one I implemented Principal Component Analysis entirely from first principles using nothing but NumPy, working through covariance, eigenvalues, eigenvectors, and variance decomposition on an African malaria dataset, because I wanted to understand the mathematics beneath the tools rather than simply call a ready-made function.",
+      "## Why I built it\n\nIt is easy to call a machine learning function without understanding what it does. I implemented Principal Component Analysis from first principles because I wanted a clearer understanding of the mathematics behind dimensionality reduction.\n\n## What I learned\n\nWorking through covariance, eigenvalues, eigenvectors, and explained variance helped me connect linear algebra to the behaviour I normally see in a library.\n\n## Technical note\n\nThe implementation uses NumPy and an African malaria dataset. The goal was learning and mathematical understanding, not outperforming a production library.",
     techStack: ["Python", "NumPy"],
     repo: "Formative-2---PrincipleComponentAnalysis",
   },
@@ -443,9 +424,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.MOBILE,
     iconKey: "🗺️",
     shortDescription:
-      "Helps people discover and review the services around Kigali, with real-time search, category filters, embedded Google Maps, and directions.",
+      "I built a mobile guide to help newcomers find useful places and services around Kigali, inspired by my own first months in the city.",
     fullDescription:
-      "This Flutter app helps people discover, explore, and review the places and services around Kigali, complete with real-time search, category filters, embedded Google Maps, and directions, and I built it because finding my way around a new city in a language I did not yet speak was a daily obstacle that I knew a great many others were facing too.",
+      "## Why I built it\n\nWhen I first arrived in Kigali, finding the right places and services in a city where I did not yet speak the local language was a daily challenge. I built this app for newcomers and residents who need a simpler way to discover what is nearby.\n\n## What I learned\n\nThe project taught me to combine search, categories, maps, directions, reviews, and live data in one mobile experience. It also reminded me that a useful product can begin with a small problem from everyday life.\n\n## Technical note\n\nThe app uses Flutter, Firebase, Riverpod, and Google Maps.",
     techStack: ["Flutter", "Dart", "Firebase", "Riverpod", "Google Maps"],
     repo: "Kigali_City_Service_App",
   },
@@ -455,9 +436,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.MOBILE,
     iconKey: "🏛️",
     shortDescription:
-      "A civic-technology app connecting citizens with government agencies, where I owned the entire Firebase backend and its security rules.",
+      "I worked on a civic app designed to make communication between citizens and government agencies easier and more organised.",
     fullDescription:
-      "CitizenConnect is a civic-technology app that connects citizens with government agencies, and for my team I owned the entire Firebase backend, which meant handling authentication with email verification, role detection, the full range of Firestore operations, file storage, and the security rules that keep everything safe.",
+      "## Why we built it\n\nCitizens can struggle to know where to send a request or how to follow what happens next. Our team explored a mobile space where people and government agencies could communicate more clearly.\n\n## My part and what I learned\n\nI was responsible for the Firebase backend. I worked on email verification, user roles, Firestore operations, file storage, and security rules. The project taught me how much a civic product depends on clear permissions and careful handling of user information.\n\n## Technical note\n\nCitizenConnect is a team learning project built with Flutter and Firebase. It is not an official government service.",
     techStack: ["Flutter", "Dart", "Firebase", "Firestore", "Firebase Auth"],
     repo: "CitizenConnect",
   },
@@ -467,9 +448,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.MOBILE,
     iconKey: "🛡️",
     shortDescription:
-      "An early-stage Flutter app exploring an idea around safety and monitoring, currently laying down the structure and opening screens.",
+      "An early mobile experiment where I am exploring a safety and monitoring idea without presenting an unfinished concept as a finished product.",
     fullDescription:
-      "Guardian Watch is an early-stage Flutter app that I began in order to explore an idea around safety and monitoring, and I am happy to describe it honestly as a work in progress, since it currently lays down the project structure and the opening screens as one of my ongoing mobile explorations.",
+      "## Why I started it\n\nI wanted to explore how a mobile app might support a safety and monitoring use case. The idea is still at an early stage, so the main value for me has been learning how to shape the problem before adding many features.\n\n## Current state\n\nThe repository contains the Flutter project structure and opening screens. It is a work in progress, not a working safety service.\n\n## What comes next\n\nBefore building further, I need to define the intended user, the exact safety problem, the privacy risks, and what responsible monitoring should mean in practice.",
     techStack: ["Flutter", "Dart"],
     repo: "Guardian-Watch-app",
   },
@@ -479,9 +460,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FULLSTACK,
     iconKey: "🛒",
     shortDescription:
-      "An agricultural marketplace putting farmers, fishermen, and local sellers in direct contact with buyers, so the middlemen no longer take a share.",
+      "I built a marketplace concept that helps farmers, fishers, and local sellers connect directly with buyers and keep more control over a sale.",
     fullDescription:
-      "Toumaï is a responsive agricultural marketplace that puts farmers, fishermen, and local sellers in direct contact with buyers, so that the usual middlemen no longer take their share, and it comes with real-time messaging, straightforward listings, category search, role-based dashboards, and a dark mode for good measure.",
+      "## Why I built it\n\nFarmers and local producers can lose income when they have limited access to buyers. Toumaï explores a more direct connection between farmers, fishers, sellers, and customers.\n\n## What it offers\n\nUsers can create listings, search by category, communicate in real time, and use dashboards based on their role. The goal is to make local trade easier to organise and give producers more control over how they reach buyers.\n\n## What I learned\n\nThe project brought together my interest in agriculture and entrepreneurship. It also taught me how marketplaces depend on trust, communication, and clear roles, not only product listings.\n\n## Technical note\n\nThe application uses React, Node.js, SQLite, and JavaScript. Real use would require payment, moderation, identity, and logistics planning.",
     techStack: ["React", "Node.js", "SQLite", "JavaScript"],
     repo: "Smart-Farm",
     liveUrl: "https://smart-farm-smoky.vercel.app",
@@ -492,9 +473,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FULLSTACK,
     iconKey: "📊",
     shortDescription:
-      "Reads a raw XML export of Mobile Money messages, extracts the financial detail by pattern matching, and shows where the money actually went.",
+      "I turned a difficult export of Mobile Money messages into a clearer view of spending patterns and transaction history.",
     fullDescription:
-      "This dashboard grew out of a real frustration, because I had hundreds of Mobile Money messages sitting in my phone and no easy way to see what they said about my spending, so I built a system that reads a raw XML export of those messages, pulls out the financial details through pattern matching, and turns them into a clear picture of where the money actually went over time.",
+      "## Why I built it\n\nI had hundreds of Mobile Money messages on my phone and no easy way to understand what they said about my spending. I built this dashboard to turn that messy history into something I could review.\n\n## What I learned\n\nThe project reads a raw XML export, identifies transaction details through pattern matching, stores the results, and presents them in a dashboard. It taught me how much cleaning and interpretation can sit between raw data and a useful chart.\n\n## Technical note\n\nThe project uses Python, XML processing, SQL, JavaScript, HTML, and CSS. Financial records are sensitive, so a wider product would need strong privacy and security controls.",
     techStack: ["Python", "JavaScript", "XML Parsing", "SQL", "HTML", "CSS"],
     repo: "Momo_SMS_Analysis_Project",
   },
@@ -504,9 +485,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FULLSTACK,
     iconKey: "💱",
     shortDescription:
-      "A real-time converter covering more than forty-five currencies plus a calculator, deployed with load balancing across several servers.",
+      "I built a currency converter and calculator to practise using live exchange data and deploying a small web service across several servers.",
     fullDescription:
-      "Fred-Cash brings together a real-time currency converter that handles more than forty-five currencies and an interactive calculator, and it goes a little further than an ordinary frontend, since it is deployed with load balancing across several servers and pays close attention to keeping the API key secure.",
+      "## Why I built it\n\nCurrency conversion is a simple everyday need, but it gave me a useful way to learn about external data, API security, and web deployment.\n\n## What I learned\n\nFred-Cash converts more than forty-five currencies and includes a calculator. I also deployed it behind load balancing across several servers and kept the exchange-rate API key away from the browser.\n\n## Technical note\n\nThe project uses HTML, CSS, JavaScript, a REST API, Nginx, and load balancing. Exchange results depend on the freshness and availability of the external service.",
     techStack: ["HTML", "CSS", "JavaScript", "REST API", "Nginx", "Load Balancing"],
     repo: "Fred-Cash",
     metrics: [{ label: "Currencies", value: "45+" }],
@@ -517,9 +498,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FULLSTACK,
     iconKey: "📄",
     shortDescription:
-      "A single clean page bringing together my skills, experience, education, and projects, an early record of how I first told my story on the web.",
+      "My first résumé website, built to gather my education, experience, skills, and early projects in one clear place.",
     fullDescription:
-      "This was my personal resume website, a single clean page that brought together my skills, experience, education, and projects, and it stands as an early record of how I first began to present myself and my story on the web.",
+      "## Why I built it\n\nI needed one link where people could understand my early experience, education, skills, and projects. Building that page also helped me learn how to present my own story on the web.\n\n## What I learned\n\nThe project was simple, but it taught me that clear structure and readable writing matter as much as visual style on a personal website. It now serves as a record of how my online presence began.",
     techStack: ["HTML", "CSS", "JavaScript"],
     repo: "My-Personal-Resume-Website",
   },
@@ -529,9 +510,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FULLSTACK,
     iconKey: "🌐",
     shortDescription:
-      "Where I gather who I am, what I offer, and the projects I have worked on in one place, and steadily refine my own web presence.",
+      "The evolving digital home where I bring together my story, work, skills, interests, and plans for the future.",
     fullDescription:
-      "This personal website is where I gather who I am, what I offer, and the projects I have worked on in one place, and it has been part of how I steadily refine my own web presence and show prospective clients the kind of work they can expect from me.",
+      "## Why I built it\n\nI wanted a digital home that could grow with me. It brings together my background, projects, experience, skills, interests, and future direction for employers, researchers, clients, students, and collaborators.\n\n## What I learned\n\nThe site has moved from a static page to a database-driven Next.js application with an admin system. Rebuilding it has taught me about content design, accessibility, animation, deployment, and the challenge of writing about myself in a way that is clear and honest.\n\n## What comes next\n\nThis website will keep changing as I learn, build, work with more people, and understand my own direction more clearly.",
     techStack: ["HTML", "CSS", "JavaScript"],
     repo: "My-personal-Website",
   },
@@ -541,9 +522,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FOUNDATIONS,
     iconKey: "🏠",
     shortDescription:
-      "Carries the AirBnB clone past its console into a database-backed application, with JSON and database storage and PEP8-clean unit tests.",
+      "A team learning project that helped me understand how a larger web application connects models, storage, a command interface, and tests.",
     fullDescription:
-      "This team project takes the well-known AirBnB clone well past its starting console and into a fuller application backed by a database, complete with a command interpreter, storage that persists in both JSON and a database, a BaseModel that the other classes inherit from, and a suite of unit tests kept to the PEP8 standard.",
+      "## Why we built it\n\nThis team project was designed to teach us how the parts of a larger web application fit together. It moved an earlier command-line project into a fuller, database-backed system.\n\n## What I learned\n\nI worked with a command interpreter, shared models, JSON and database storage, inheritance, SQLAlchemy, Flask, and unit tests. The biggest lesson was how one decision in the data layer affects the rest of the application.\n\n## Technical note\n\nThis is an educational AirBnB clone created as part of software engineering training, not a commercial booking platform.",
     techStack: ["Python", "MySQL", "SQLAlchemy", "Flask", "unittest"],
     repo: "alu-AirBnB_clone_v2",
   },
@@ -553,9 +534,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FOUNDATIONS,
     iconKey: "⌨️",
     shortDescription:
-      "The first stage of the AirBnB clone, a backend console that creates, updates, and destroys objects with JSON serialization so state survives.",
+      "The first stage of a larger team project, where I learned how a command-line interface can create and manage data that persists between sessions.",
     fullDescription:
-      "This was the first stage of the AirBnB clone, focused on the backend console that manages the program's data, and it lets a user create, update, and destroy objects while using JSON serialization so that everything is still there the next time the program is opened.",
+      "## Why we built it\n\nBefore building a web interface, our team needed to understand the data and the operations behind it. We created a console where a user can create, view, update, and delete objects.\n\n## What I learned\n\nJSON serialization keeps the objects available after the program closes. This project strengthened my understanding of object-oriented Python, command interpreters, testing, and persistent state.\n\n## Technical note\n\nThis was the foundation stage of an educational AirBnB clone.",
     techStack: ["Python", "unittest", "JSON Serialization"],
     repo: "alu-AirBnB_clone",
   },
@@ -565,9 +546,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FOUNDATIONS,
     iconKey: "🔢",
     shortDescription:
-      "Adds, subtracts, and multiplies sparse matrices from text files, checking dimensions first and storing only non-zero entries to save memory.",
+      "I built a command-line tool that handles large, mostly empty matrices without storing every zero in memory.",
     fullDescription:
-      "This command-line program carries out addition, subtraction, and multiplication on sparse matrices that are loaded from text files, and it checks the dimensions properly before it acts, while storing only the non-zero entries so that large and mostly empty matrices are handled without wasting memory.",
+      "## Why I built it\n\nA sparse matrix may contain many zeros, so storing every position wastes memory. I built this processor to understand how the right data structure changes the cost of a calculation.\n\n## What I learned\n\nThe program loads matrices from text files, checks their dimensions, and performs addition, subtraction, and multiplication while storing only non-zero values. It gave me practical experience with efficiency, validation, and data structures.\n\n## Technical note\n\nThe command-line application is built with JavaScript and Node.js.",
     techStack: ["JavaScript", "Node.js", "Data Structures"],
     repo: "sparse_matrix",
   },
@@ -577,9 +558,9 @@ The intended impact is to help people reflect on work patterns without surrender
     category: Category.FOUNDATIONS,
     iconKey: "🧮",
     shortDescription:
-      "My ongoing work with the fundamental data structures and algorithms that make the more ambitious projects possible.",
+      "A growing collection of data structures and algorithm exercises that keeps my engineering foundations active and honest.",
     fullDescription:
-      "This repository gathers my ongoing work with data structures and algorithms, where I practise the fundamental building blocks that every capable engineer relies on, and it stands as steady evidence that I invest in the basics which make the more ambitious projects possible.",
+      "## Why I keep it\n\nLarger applications still depend on basic ideas such as choosing the right structure, understanding complexity, and solving a problem step by step. This repository is where I keep practising those foundations.\n\n## What I am learning\n\nThe exercises help me improve problem solving, recognise common patterns, and write solutions that are easier to explain and reason about. It is ongoing learning rather than a finished product.",
     techStack: ["Python", "Algorithms", "Data Structures"],
     repo: "DSA",
   },

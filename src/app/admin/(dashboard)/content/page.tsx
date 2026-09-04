@@ -5,13 +5,14 @@ export const dynamic = "force-dynamic";
 
 const GROUP_ORDER = [
   "hero",
-  "journey",
   "about",
   "what",
-  "skills",
+  "journey",
   "projects",
-  "research",
   "experience",
+  "skills",
+  "personal",
+  "research",
   "education",
   "contact",
   "footer",

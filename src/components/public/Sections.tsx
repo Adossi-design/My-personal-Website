@@ -169,6 +169,34 @@ export function ResearchVisionSection({ copy }: { copy: Copy }) {
   );
 }
 
+export function PersonalSection({ copy, infoLists }: { copy: Copy; infoLists: InfoList[] }) {
+  return (
+    <>
+      <p className="eyebrow">{copy("personal.eyebrow")}</p>
+      <h2 className="section-title">{copy("personal.title")}</h2>
+      <p className="section-sub">{copy("personal.subtitle")}</p>
+
+      <div className="grid cols-2 personal-grid">
+        {infoLists.map((list) => (
+          <div className="card" key={list.id}>
+            <div className="skill-head">
+              <span className="skill-ico" aria-hidden="true">
+                {list.iconKey}
+              </span>{" "}
+              {list.title}
+            </div>
+            <ul className="personal-list">
+              {list.items.map((entry, index) => (
+                <li key={index}>{entry}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 export function ExperienceSection({ copy, experience }: { copy: Copy; experience: Experience[] }) {
   return (
     <>
@@ -203,10 +231,9 @@ type EducationProps = {
   copy: Copy;
   education: EducationItem[];
   certifications: Certification[];
-  infoLists: InfoList[];
 };
 
-export function EducationSection({ copy, education, certifications, infoLists }: EducationProps) {
+export function EducationSection({ copy, education, certifications }: EducationProps) {
   return (
     <>
       <p className="eyebrow">{copy("education.eyebrow")}</p>
@@ -268,28 +295,6 @@ export function EducationSection({ copy, education, certifications, infoLists }:
           </ul>
         </div>
       </div>
-
-      {infoLists.length > 0 && (
-        <div className="grid cols-2" style={{ marginTop: 18 }}>
-          {infoLists.map((list) => (
-            <div className="card" key={list.id}>
-              <div className="skill-head">
-                <span className="skill-ico" aria-hidden="true">
-                  {list.iconKey}
-                </span>{" "}
-                {list.title}
-              </div>
-              <ul style={{ margin: 0, paddingLeft: 18, color: "var(--muted)", fontSize: ".9rem", listStyle: "disc" }}>
-                {list.items.map((entry, i) => (
-                  <li key={i} style={{ marginBottom: i === list.items.length - 1 ? 0 : 9 }}>
-                    {entry}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
 
       <div className="academic-cta-row">
         <Link className="btn btn--primary" href="/academic-profile">

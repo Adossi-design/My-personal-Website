@@ -67,8 +67,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <div className="wrap">
         {project.featured && (
           <div className="case-study-banner">
-            <span>Evidence-led case study</span>
-            <p>Technical results, present limitations, intended impact, and future research questions are separated explicitly below.</p>
+            <span>Project story</span>
+            <p>Why I built it, who it may help, what I learned, and the technical details are explained below.</p>
           </div>
         )}
         <DetailMedia project={project} />

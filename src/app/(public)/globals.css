@@ -618,6 +618,12 @@ footer{text-align:center; color:var(--muted); font-size:.86rem; padding:40px 0 6
 .academic-skills p{font-family:var(--mono); font-size:.7rem; line-height:1.7}
 .academic-certs{list-style:none; padding:0!important}.academic-certs li + li{padding-top:10px; border-top:1px solid var(--border)}
 .academic-certs b,.academic-certs span{display:block}.academic-certs b{color:var(--text)}.academic-certs span{font-size:.72rem}
+.personal-grid{margin-top:28px}
+.personal-list{margin:0; padding-left:20px; color:var(--muted); font-size:.92rem; line-height:1.7}
+.personal-list li + li{margin-top:12px}
+.academic-about .prose{font-size:.86rem}
+.academic-about .prose p{margin:0}
+.academic-about .prose p + p{margin-top:12px}
 
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width:980px){

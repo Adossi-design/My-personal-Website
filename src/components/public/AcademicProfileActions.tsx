@@ -4,7 +4,7 @@ export function AcademicProfileActions() {
   return (
     <div className="academic-actions no-print">
       <a className="btn btn--primary" href="/documents/adossi-fred-william-academic-resume.pdf" download>
-        Download academic résumé
+        Download résumé
       </a>
       <a
         className="btn btn--ghost"

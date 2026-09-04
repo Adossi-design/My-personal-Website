@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AcademicProfileActions } from "@/components/public/AcademicProfileActions";
+import { Markdown } from "@/components/public/Markdown";
 import { getCopy } from "@/lib/queries/content";
 import { getFeaturedProjects } from "@/lib/queries/projects";
 import {
@@ -17,8 +18,8 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  const title = `Academic profile | ${settings.name}`;
-  const description = `${settings.name}'s academic preparation, research direction, selected projects, experience, and leadership.`;
+  const title = `Profile | ${settings.name}`;
+  const description = `${settings.name}'s background, experience, projects, education, skills, interests, and future direction.`;
   return {
     title,
     description,
@@ -39,14 +40,16 @@ export default async function AcademicProfilePage() {
     getFeaturedProjects(),
   ]);
 
+  const about = [copy("about.body1"), copy("about.body2"), copy("about.body3")].join("\n\n");
+
   return (
     <main id="top" className="academic-page">
       <section className="academic-shell journey-section" data-tone="education">
         <header className="academic-header">
           <div>
-            <p className="eyebrow">Academic and research profile</p>
+            <p className="eyebrow">Personal and professional profile</p>
             <h1>{settings.name}</h1>
-            <p className="academic-role">Software Engineering student · Aspiring AI Research Engineer</p>
+            <p className="academic-role">{settings.roleTitle}</p>
             <p className="academic-contact">
               {settings.location} · <a href={`mailto:${settings.email}`}>{settings.email}</a> ·{" "}
               <a href={settings.linkedinUrl}>LinkedIn</a> · <a href={settings.githubUrl}>GitHub</a>
@@ -57,11 +60,52 @@ export default async function AcademicProfilePage() {
 
         <div className="academic-lead">
           <p>{copy("hero.lede")}</p>
-          <p>{copy("research.subtitle")}</p>
+          <p>{copy("hero.body")}</p>
         </div>
 
         <div className="academic-grid">
           <div className="academic-main">
+            <section className="academic-block academic-about">
+              <h2>About me</h2>
+              <Markdown>{about}</Markdown>
+            </section>
+
+            <section className="academic-block">
+              <h2>Selected projects</h2>
+              <div className="academic-projects">
+                {projects.map((project) => (
+                  <article key={project.id}>
+                    <h3>{project.title}</h3>
+                    <p className="academic-highlight">{project.domain}</p>
+                    <p>{project.shortDescription}</p>
+                    <a href={`/projects/${project.slug}`}>Read the project story →</a>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="academic-block">
+              <h2>Experience</h2>
+              <div className="academic-experience">
+                {experience.map((item) => (
+                  <article key={item.id}>
+                    <div className="academic-row">
+                      <div>
+                        <h3>{item.role}</h3>
+                        <p className="academic-highlight">{item.organisation}</p>
+                      </div>
+                      <span>{item.period}</span>
+                    </div>
+                    <ul>
+                      {item.bullets.map((bullet, index) => (
+                        <li key={index}>{bullet}</li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+            </section>
+
             <section className="academic-block">
               <h2>Education</h2>
               {education.map((item) => {
@@ -89,8 +133,10 @@ export default async function AcademicProfilePage() {
             </section>
 
             <section className="academic-block">
-              <h2>Research direction</h2>
+              <h2>Current direction and long-term vision</h2>
               <h3>{copy("research.title")}</h3>
+              <p>{copy("research.subtitle")}</p>
+              <h3>{copy("research.vision.title")}</h3>
               <p>{copy("research.vision.body")}</p>
               <div className="academic-grades">
                 {[1, 2, 3, 4].map((index) => (
@@ -98,55 +144,17 @@ export default async function AcademicProfilePage() {
                 ))}
               </div>
             </section>
-
-            <section className="academic-block">
-              <h2>Selected research and engineering projects</h2>
-              <div className="academic-projects">
-                {projects.map((project) => (
-                  <article key={project.id}>
-                    <h3>{project.title}</h3>
-                    <p className="academic-highlight">{project.domain}</p>
-                    <p>{project.shortDescription}</p>
-                    <a href={`/projects/${project.slug}`}>Read the evidence-led case study →</a>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section className="academic-block">
-              <h2>Experience</h2>
-              <div className="academic-experience">
-                {experience.map((item) => (
-                  <article key={item.id}>
-                    <div className="academic-row">
-                      <div>
-                        <h3>{item.role}</h3>
-                        <p className="academic-highlight">{item.organisation}</p>
-                      </div>
-                      <span>{item.period}</span>
-                    </div>
-                    <ul>
-                      {item.bullets.map((bullet, index) => (
-                        <li key={index}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </section>
           </div>
 
           <aside className="academic-side">
-            <section className="academic-block academic-proof">
-              <h2>Verified academic record</h2>
-              <strong>4.14 / 5.00</strong>
-              <p>Current CGPA</p>
-              <strong>380 / 380</strong>
-              <p>Attempted credits earned</p>
-              <a href="/documents/adossi-fred-william-unofficial-transcript.pdf" target="_blank" rel="noopener noreferrer">
-                View unofficial ALU transcript →
-              </a>
-              <small>Transcript printed 27 August 2026.</small>
+            <section className="academic-block">
+              <h2>At a glance</h2>
+              <ul>
+                <li>Software engineering is my professional foundation.</li>
+                <li>Machine learning is an area where I have built growing project experience.</li>
+                <li>AI engineering and research are the direction I am working toward.</li>
+                <li>Healthcare, agriculture, and education are the areas I care about most.</li>
+              </ul>
             </section>
 
             {infoLists.map((list) => (
@@ -161,8 +169,8 @@ export default async function AcademicProfilePage() {
             ))}
 
             <section className="academic-block">
-              <h2>Technical preparation</h2>
-              {skillTiers.slice(0, 2).map((tier) => (
+              <h2>Technical skills</h2>
+              {skillTiers.map((tier) => (
                 <div className="academic-skills" key={tier.id}>
                   <h3>{tier.name}</h3>
                   <p>{tier.items.map((item) => item.name).join(" · ")}</p>
@@ -182,10 +190,22 @@ export default async function AcademicProfilePage() {
               </ul>
             </section>
 
+            <section className="academic-block academic-proof">
+              <h2>Academic record</h2>
+              <strong>4.14 / 5.00</strong>
+              <p>Current CGPA</p>
+              <strong>380 / 380</strong>
+              <p>Attempted credits earned</p>
+              <a href="/documents/adossi-fred-william-unofficial-transcript.pdf" target="_blank" rel="noopener noreferrer">
+                View unofficial ALU transcript →
+              </a>
+              <small>Transcript printed 27 August 2026.</small>
+            </section>
+
             <section className="academic-block academic-reference">
-              <h2>References and validation</h2>
-              <p>Academic documentation, project source code, demonstrations, and professional references are available for scholarship review.</p>
-              <p className="no-print">No testimonial is published without the contributor's permission.</p>
+              <h2>Documents and references</h2>
+              <p>My résumé, transcript, project source code, and demonstrations are linked throughout this website.</p>
+              <p className="no-print">Professional or academic references can be shared when they are needed.</p>
             </section>
           </aside>
         </div>

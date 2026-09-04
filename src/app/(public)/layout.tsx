@@ -30,12 +30,12 @@ export default async function PublicLayout({ children }: { children: ReactNode }
   const [copy, settings] = await Promise.all([getCopy(), getSettings()]);
 
   const links: NavLink[] = [
-    { href: "/#journey", label: copy("nav.journey"), sectionId: "journey" },
     { href: "/#about", label: copy("nav.about"), sectionId: "about" },
+    { href: "/#journey", label: copy("nav.journey"), sectionId: "journey" },
     { href: "/#projects", label: copy("nav.projects"), sectionId: "projects" },
-    { href: "/#research", label: copy("nav.research"), sectionId: "research" },
     { href: "/#experience", label: copy("nav.experience"), sectionId: "experience" },
     { href: "/#skills", label: copy("nav.skills"), sectionId: "skills" },
+    { href: "/#research", label: copy("nav.research"), sectionId: "research" },
     { href: "/#contact", label: copy("nav.contact"), sectionId: "contact" },
   ];
 

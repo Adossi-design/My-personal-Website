@@ -2,19 +2,19 @@
 
 export const siteSettings = {
   name: "Adossi Fred William",
-  roleTitle: "Software Engineering Student and Aspiring AI Research Engineer",
+  roleTitle: "Software Engineering Student, Developer, and Aspiring AI Research Engineer",
   email: "f.adossi@alustudent.com",
   phone: "+250 793 227 492",
   location: "Kigali, Rwanda",
   githubUrl: "https://github.com/Adossi-design",
   linkedinUrl: "https://www.linkedin.com/in/fred-william-adossi-640a59345",
-  availabilityText: "Preparing for graduate research in responsible AI",
+  availabilityText: "Open to software, AI, research, and collaboration opportunities",
   availabilityOn: true,
   heroPhotoUrl: "/assets/profile.jpg",
   resumePdfUrl: "/documents/adossi-fred-william-academic-resume.pdf",
-  metaTitle: "Adossi Fred William | Aspiring AI Research Engineer",
+  metaTitle: "Adossi Fred William | Software, Machine Learning, and AI",
   metaDescription:
-    "Adossi Fred William is a Software Engineering student from Chad preparing for a career as an AI Research Engineer, with a focus on responsible AI for healthcare and agriculture in African contexts.",
+    "The personal website of Adossi Fred William, a Software Engineering student from Chad building software, exploring machine learning, and growing toward AI engineering and research.",
   ogImageUrl: null,
 };
 
@@ -22,7 +22,7 @@ export const heroStats = [
   { value: "40+", label: "GitHub repositories" },
   { value: "11", label: "ML and AI builds" },
   { value: "15+", label: "Paid client projects" },
-  { value: "4.14", label: "CGPA / 5.00" },
+  { value: "3 countries", label: "AI Study Lab community" },
 ];
 
 export const courseworkItems = [
@@ -49,18 +49,18 @@ export const infoLists = [
     title: "Leadership and community",
     iconKey: "🌟",
     items: [
-      "As the founder and facilitator of the AI Study Lab, I have watched it grow from twelve members to more than thirty across Chad, Cameroon, and Rwanda, and I reshaped it into an on-demand support model once the way people were actually using it told me that was what they needed.",
-      "Through community mentorship between Chad and Rwanda, I have guided more than ten students into places at ALU, the University of Rwanda, and CMU Africa, while advising over twenty others along the way.",
-      "I am also a member of the Claude Builder Club at ALU, where the focus is on building artificial intelligence that serves a genuine social purpose.",
+      "I founded the AI Study Lab as a place for students to learn together. It grew from twelve members to more than thirty across Chad, Cameroon, and Rwanda, and I later changed the format to match how members were actually asking for help.",
+      "Through community mentorship between Chad and Rwanda, I have supported more than ten students who later joined ALU, the University of Rwanda, and CMU Africa. I have also advised more than twenty other applicants.",
+      "I am a member of the Claude Builder Club at ALU, where students explore how AI can support useful social projects.",
     ],
   },
   {
-    title: "Awards and interests",
+    title: "Entrepreneurship, interests, and recognition",
     iconKey: "🏆",
     items: [
-      "I took second place at the Claude Builder Club Hackathon at ALU in 2026 for an AI-powered social impact solution, which I am still developing well beyond the competition itself.",
-      "Long before any of this, I ran a self-funded natural juice business in N'Djamena, where I handled everything from sourcing and production through to pricing and selling.",
-      "Away from engineering I keep a steady routine of basketball and daily strength training, and my wider interests reach into artificial intelligence, financial inclusion, public speaking, and drawing.",
+      "I placed second at the Claude Builder Club Hackathon at ALU in 2026 with an AI project focused on social impact, and I am continuing to develop the idea.",
+      "Before university, I ran a self-funded natural juice business in N'Djamena. I handled sourcing, production, pricing, and sales, which taught me to be resourceful and responsible for the full result.",
+      "Outside engineering, I enjoy basketball, strength training, drawing, public speaking, and learning about entrepreneurship and financial inclusion.",
     ],
   },
 ];

@@ -50,10 +50,10 @@ export function ProjectCard({ project, preview = false }: Props) {
 
       <div className="proj-links">
         {preview ? (
-          <span className="proj-link">{project.featured ? "Case study" : "More"}</span>
+          <span className="proj-link">{project.featured ? "Project story" : "Details"}</span>
         ) : (
           <Link className="proj-link" href={href}>
-            {project.featured ? "Case study" : "More"}
+            {project.featured ? "Project story" : "Details"}
           </Link>
         )}
         {project.repoUrl && (

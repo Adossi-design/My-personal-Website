@@ -14,21 +14,21 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "hero.headline.lead",
     label: "Hero headline, first line",
-    value: "AI Research Engineer",
+    value: "Hello, I am Adossi.",
     type: BlockType.TEXT,
     group: "hero",
   },
   {
     key: "hero.headline.joiner",
     label: "Hero headline, joining word",
-    value: "in",
+    value: "I build",
     type: BlockType.TEXT,
     group: "hero",
   },
   {
     key: "hero.headline.highlight",
     label: "Hero headline, gradient line",
-    value: "the making",
+    value: "meaningful technology",
     type: BlockType.TEXT,
     group: "hero",
   },
@@ -36,7 +36,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "hero.lede",
     label: "Hero lede",
     value:
-      "I investigate meaningful problems and turn research into responsible, reliable AI systems, with a particular interest in healthcare and agriculture across African contexts.",
+      "I am a Software Engineering student, developer, and machine learning enthusiast from Chad, currently based in Kigali, Rwanda.",
     type: BlockType.TEXTAREA,
     group: "hero",
   },
@@ -44,14 +44,14 @@ export const contentBlocks: SeedBlock[] = [
     key: "hero.body",
     label: "Hero paragraph",
     value:
-      "I am a Software Engineering student from Chad, studying in Rwanda and building toward a career that combines the curiosity and rigour of research with the practical discipline of engineering. I begin with the people affected, test ideas honestly, and work to carry useful findings beyond a notebook into systems that can operate in the real world.",
+      "Software engineering is my foundation. I use it to build useful products, explore machine learning, and grow toward a career that combines AI engineering with research. I care most about healthcare, agriculture, and education, but I am always curious about problems where technology can make everyday life better.",
     type: BlockType.TEXTAREA,
     group: "hero",
   },
   {
     key: "hero.cta.primary",
     label: "Hero primary button",
-    value: "Explore my research direction",
+    value: "Get to know me",
     type: BlockType.TEXT,
     group: "hero",
   },
@@ -64,8 +64,8 @@ export const contentBlocks: SeedBlock[] = [
   },
   {
     key: "hero.cta.tertiary",
-    label: "Hero academic profile button",
-    value: "Academic profile",
+    label: "Hero full profile button",
+    value: "Full profile",
     type: BlockType.TEXT,
     group: "hero",
   },
@@ -74,14 +74,14 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "journey.eyebrow",
     label: "Journey eyebrow",
-    value: "The path behind the work",
+    value: "My journey",
     type: BlockType.TEXT,
     group: "journey",
   },
   {
     key: "journey.title",
     label: "Journey heading",
-    value: "A journey shaped by applied knowledge",
+    value: "How I got here",
     type: BlockType.TEXT,
     group: "journey",
   },
@@ -89,21 +89,21 @@ export const contentBlocks: SeedBlock[] = [
     key: "journey.subtitle",
     label: "Journey introduction",
     value:
-      "The problems I want to investigate are connected to places, people, and experiences that taught me what technology can change—and what it cannot solve without listening first.",
+      "My path has moved through family, farming, university, client work, machine learning, and community leadership. Each part has shaped the way I think about people and technology.",
     type: BlockType.TEXTAREA,
     group: "journey",
   },
   {
     key: "journey.step1.place",
     label: "Journey step 1 place",
-    value: "N'Djamena, Chad · Foundation",
+    value: "N'Djamena, Chad · Early influence",
     type: BlockType.TEXT,
     group: "journey",
   },
   {
     key: "journey.step1.title",
     label: "Journey step 1 title",
-    value: "Watching knowledge change a family's circumstances",
+    value: "My first example of useful software",
     type: BlockType.TEXT,
     group: "journey",
   },
@@ -111,21 +111,21 @@ export const contentBlocks: SeedBlock[] = [
     key: "journey.step1.body",
     label: "Journey step 1 body",
     value:
-      "My father used his software knowledge to solve a supermarket's financial-management problem. The opportunity that followed changed our family and taught me that education becomes powerful when it is made useful to others.",
+      "I saw my father use his software knowledge to solve a financial management problem for a supermarket. The opportunity that followed helped our family and gave me an early example of how a practical skill can create real change.",
     type: BlockType.TEXTAREA,
     group: "journey",
   },
   {
     key: "journey.step2.place",
     label: "Journey step 2 place",
-    value: "Moundou, Chad · 2019–2023",
+    value: "Moundou, Chad · 2019 to 2023",
     type: BlockType.TEXT,
     group: "journey",
   },
   {
     key: "journey.step2.title",
     label: "Journey step 2 title",
-    value: "Learning agricultural problems before designing solutions",
+    value: "Learning from farm work",
     type: BlockType.TEXT,
     group: "journey",
   },
@@ -133,21 +133,21 @@ export const contentBlocks: SeedBlock[] = [
     key: "journey.step2.body",
     label: "Journey step 2 body",
     value:
-      "Four years of farm work showed me how disease, weather, missing records, and limited information shape a farmer's decisions. Food security became a lived question rather than an abstract technology theme.",
+      "I spent four years working across family farm sites. I prepared land, operated tractors, harvested crops, and worked with local farmers. That experience is why agriculture is personal to me, not just a technology topic.",
     type: BlockType.TEXTAREA,
     group: "journey",
   },
   {
     key: "journey.step3.place",
     label: "Journey step 3 place",
-    value: "Kigali, Rwanda · 2024–Present",
+    value: "Kigali, Rwanda · 2024 to present",
     type: BlockType.TEXT,
     group: "journey",
   },
   {
     key: "journey.step3.title",
     label: "Journey step 3 title",
-    value: "Building the engineering foundation",
+    value: "Studying, building, and finding my direction",
     type: BlockType.TEXT,
     group: "journey",
   },
@@ -155,7 +155,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "journey.step3.body",
     label: "Journey step 3 body",
     value:
-      "At African Leadership University, and through internships, field research, and client work, I learned to connect models with interfaces, APIs, databases, deployment, evaluation, and the people expected to use the result.",
+      "At African Leadership University, I found a strong foundation in software engineering. Internships, field research, and client projects then helped me move beyond coursework and learn how to take an idea from a conversation to a working product.",
     type: BlockType.TEXTAREA,
     group: "journey",
   },
@@ -169,7 +169,7 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "journey.step4.title",
     label: "Journey step 4 title",
-    value: "Growing by helping others grow",
+    value: "Learning through community",
     type: BlockType.TEXT,
     group: "journey",
   },
@@ -177,14 +177,14 @@ export const contentBlocks: SeedBlock[] = [
     key: "journey.step4.body",
     label: "Journey step 4 body",
     value:
-      "The AI Study Lab grew from twelve to more than thirty participants across three countries. Redesigning it around how members actually learned reinforced a principle I bring to research: listen to reality, especially when it challenges the first solution.",
+      "I started the AI Study Lab to learn with other students. It grew from twelve to more than thirty participants across three countries. Mentoring students and listening to how they actually learn has made me more patient, practical, and open to changing my approach.",
     type: BlockType.TEXTAREA,
     group: "journey",
   },
   {
     key: "journey.thesis.title",
     label: "Journey conclusion title",
-    value: "The direction",
+    value: "What connects these experiences",
     type: BlockType.TEXT,
     group: "journey",
   },
@@ -192,17 +192,17 @@ export const contentBlocks: SeedBlock[] = [
     key: "journey.thesis.body",
     label: "Journey conclusion body",
     value:
-      "Become an AI Research Engineer who can investigate meaningful African problems rigorously, translate validated research into dependable systems, and eventually build an institution that enables others to do the same.",
+      "I enjoy understanding how things work, building useful systems, and helping people grow. Today I am developing as a software engineer and machine learning practitioner. Over time, I want to become an AI Research Engineer who can study important problems and turn good research into practical tools.",
     type: BlockType.TEXTAREA,
     group: "journey",
   },
 
   // ---------------------------------------------------------------- about
-  { key: "about.eyebrow", label: "About eyebrow", value: "About", type: BlockType.TEXT, group: "about" },
+  { key: "about.eyebrow", label: "About eyebrow", value: "About me", type: BlockType.TEXT, group: "about" },
   {
     key: "about.title",
     label: "About heading",
-    value: "I begin with the problem, not the technology",
+    value: "A student, builder, and lifelong learner",
     type: BlockType.TEXT,
     group: "about",
   },
@@ -210,7 +210,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "about.subtitle",
     label: "About subheading",
     value:
-      "A model or application matters only when the problem is understood, the evidence is honest, and the result is useful to the people it was intended to serve.",
+      "I am curious, practical, and ambitious about what technology can do. I also believe good work starts with listening, learning, and being honest about what still needs to improve.",
     type: BlockType.TEXTAREA,
     group: "about",
   },
@@ -218,7 +218,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "about.body1",
     label: "About paragraph 1",
     value:
-      "I am **Adossi Fred William**, a Software Engineering student at African Leadership University and an aspiring AI Research Engineer. For each project, I ask who experiences the problem, why existing approaches fall short, and what evidence would show that a proposed solution is actually useful.",
+      "I am **Adossi Fred William**, a Software Engineering student at African Leadership University. I am from Chad and now live in Kigali, Rwanda. I enjoy turning ideas into software, exploring machine learning, working with clients, and learning from people whose experiences are different from mine.",
     type: BlockType.MARKDOWN,
     group: "about",
   },
@@ -226,7 +226,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "about.body2",
     label: "About paragraph 2, behind Read more",
     value:
-      "My strongest interests are responsible and resource-efficient AI for healthcare and agriculture. Both fields have shown me why a strong benchmark is not the same as real-world impact: useful systems must account for uncertainty, local data, human expertise, connectivity, affordability, safety, and the consequences of being wrong.",
+      "Healthcare and agriculture are the two areas I care about most. Agriculture connects to my own years of farm work, while healthcare has made me think carefully about access, safety, and the responsibility that comes with building tools people may depend on. Education matters to me too because learning changed my own possibilities, and I now enjoy helping other students find theirs.",
     type: BlockType.MARKDOWN,
     group: "about",
   },
@@ -234,7 +234,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "about.body3",
     label: "About paragraph 3, behind Read more",
     value:
-      "Programming languages, frameworks, and models remain important tools, but they are not the story by themselves. I want my work to connect careful questions, reproducible experiments, transparent limitations, thoughtful engineering, and evaluation with the people a system claims it can help.",
+      "Outside code, I enjoy basketball, strength training, drawing, public speaking, and entrepreneurship. The values I try to bring into my work are curiosity, consistency, honesty, respect for people, and the willingness to keep improving instead of pretending that a first version is perfect.",
     type: BlockType.MARKDOWN,
     group: "about",
   },
@@ -248,7 +248,7 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "about.domains.eyebrow",
     label: "Domains strip eyebrow",
-    value: "Domains I have built in",
+    value: "What I care about",
     type: BlockType.TEXT,
     group: "about",
   },
@@ -258,7 +258,7 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "what.title",
     label: "What I do heading",
-    value: "Engineering that runs the whole way through",
+    value: "What I do and how I contribute",
     type: BlockType.TEXT,
     group: "what",
   },
@@ -266,17 +266,17 @@ export const contentBlocks: SeedBlock[] = [
     key: "what.subtitle",
     label: "What I do subheading",
     value:
-      "I work across the entire lifecycle of a product, from shaping its architecture and writing the code through to deploying it in a way that can genuinely scale.",
+      "Software engineering is my base, but I enjoy working across products, data, machine learning, and people. These are the areas where I have built the most experience so far.",
     type: BlockType.TEXTAREA,
     group: "what",
   },
 
   // ---------------------------------------------------------------- skills
-  { key: "skills.eyebrow", label: "Skills eyebrow", value: "Toolkit", type: BlockType.TEXT, group: "skills" },
+  { key: "skills.eyebrow", label: "Skills eyebrow", value: "Skills", type: BlockType.TEXT, group: "skills" },
   {
     key: "skills.title",
     label: "Skills heading",
-    value: "Technical skills",
+    value: "Tools I use and skills I am growing",
     type: BlockType.TEXT,
     group: "skills",
   },
@@ -284,17 +284,17 @@ export const contentBlocks: SeedBlock[] = [
     key: "skills.subtitle",
     label: "Skills subheading",
     value:
-      "I have grouped these by how far I have actually taken each one, from tools I have shipped to real users, through the ones I have built and evaluated inside projects, to the ones I am actively learning right now.",
+      "I have grouped these by experience. Some have been used in client work or deployed projects, some in coursework and experiments, and others are still part of what I am learning now.",
     type: BlockType.TEXTAREA,
     group: "skills",
   },
 
   // ---------------------------------------------------------------- projects
-  { key: "projects.eyebrow", label: "Projects eyebrow", value: "Portfolio", type: BlockType.TEXT, group: "projects" },
+  { key: "projects.eyebrow", label: "Projects eyebrow", value: "My work", type: BlockType.TEXT, group: "projects" },
   {
     key: "projects.title",
     label: "Projects heading, homepage",
-    value: "Selected projects",
+    value: "Things I have built",
     type: BlockType.TEXT,
     group: "projects",
   },
@@ -302,7 +302,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "projects.subtitle",
     label: "Projects subheading, homepage",
     value:
-      "These case studies begin with the problem and the people a solution is intended to serve, then separate technical evidence, current limitations, intended impact, and the next question still worth investigating.",
+      "Each project started with a problem, a question, or something I wanted to understand better. I explain the reason behind the work first, then share what I built, what I learned, and where the idea could go next.",
     type: BlockType.TEXTAREA,
     group: "projects",
   },
@@ -316,7 +316,7 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "projects.index.title",
     label: "Projects heading, index page",
-    value: "Every project",
+    value: "Projects, experiments, and learning",
     type: BlockType.TEXT,
     group: "projects",
   },
@@ -324,7 +324,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "projects.index.subtitle",
     label: "Projects subheading, index page",
     value:
-      "The wider engineering record across machine learning, mobile, full-stack, backend, and cloud work. The six flagship projects include deeper, evidence-led case studies; the rest document the foundation beneath them.",
+      "This is the wider record of what I have built while learning software engineering, mobile development, backend systems, machine learning, and AI. Some are complete products, some are experiments, and some show the foundations I learned along the way.",
     type: BlockType.TEXTAREA,
     group: "projects",
   },
@@ -339,23 +339,23 @@ export const contentBlocks: SeedBlock[] = [
     key: "projects.coursework.body",
     label: "Coursework card paragraph",
     value:
-      "Beyond the projects I have chosen to feature, my GitHub keeps the fuller record of my engineering training at ALU, which reaches into areas such as DevOps, shell scripting, back-end and front-end work, regular expressions, and lower-level programming, and each item below opens its own repository.",
+      "My GitHub also keeps the smaller exercises and coursework that helped me build strong foundations. They cover frontend and backend development, DevOps, shell scripting, regular expressions, and other core engineering topics.",
     type: BlockType.TEXTAREA,
     group: "projects",
   },
 
-  // ---------------------------------------------------------------- research and future vision
+  // ---------------------------------------------------------------- direction, interests, and future vision
   {
     key: "research.eyebrow",
     label: "Research eyebrow",
-    value: "Research direction",
+    value: "Direction and interests",
     type: BlockType.TEXT,
     group: "research",
   },
   {
     key: "research.title",
     label: "Research heading",
-    value: "From meaningful questions to systems that work",
+    value: "Where I am going",
     type: BlockType.TEXT,
     group: "research",
   },
@@ -363,14 +363,14 @@ export const contentBlocks: SeedBlock[] = [
     key: "research.subtitle",
     label: "Research introduction",
     value:
-      "My goal is to become an AI Research Engineer, combining the curiosity and rigour of a researcher with the practical discipline of an engineer to investigate important problems and translate validated ideas into responsible, reliable systems.",
+      "Software engineering is where I started. Machine learning has become an important part of my work. My next step is to grow in AI engineering and research so I can investigate useful questions and turn what I learn into systems that work in real settings.",
     type: BlockType.TEXTAREA,
     group: "research",
   },
   {
     key: "research.pillar.problem.title",
     label: "Problem-first pillar title",
-    value: "Begin with the problem",
+    value: "Software engineering is my foundation",
     type: BlockType.TEXT,
     group: "research",
   },
@@ -378,14 +378,14 @@ export const contentBlocks: SeedBlock[] = [
     key: "research.pillar.problem.body",
     label: "Problem-first pillar body",
     value:
-      "Understand who is affected, listen to the realities around them, and ask which questions are genuinely worth investigating before choosing a technology.",
+      "It taught me how to break down problems, design systems, work with data, test my ideas, and build products that other people can actually use.",
     type: BlockType.TEXTAREA,
     group: "research",
   },
   {
     key: "research.pillar.rigour.title",
     label: "Rigour pillar title",
-    value: "Investigate with rigour",
+    value: "Machine learning is a growing strength",
     type: BlockType.TEXT,
     group: "research",
   },
@@ -393,14 +393,14 @@ export const contentBlocks: SeedBlock[] = [
     key: "research.pillar.rigour.body",
     label: "Rigour pillar body",
     value:
-      "Design careful experiments, evaluate uncertainty and failure, compare approaches honestly, and make the evidence reproducible rather than chasing an impressive result alone.",
+      "Through coursework and projects, I have worked with computer vision, prediction, clustering, time series, and model deployment. I am learning to evaluate results carefully and explain the limits clearly.",
     type: BlockType.TEXTAREA,
     group: "research",
   },
   {
     key: "research.pillar.translation.title",
     label: "Translation pillar title",
-    value: "Engineer for real use",
+    value: "AI research engineering is my direction",
     type: BlockType.TEXT,
     group: "research",
   },
@@ -408,7 +408,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "research.pillar.translation.body",
     label: "Translation pillar body",
     value:
-      "Turn sound research into accessible software that can operate reliably within the constraints of the people and environments it is intended to serve.",
+      "I want to combine research curiosity with strong engineering. That means asking useful questions, running careful experiments, and carrying the best ideas into reliable and accessible tools.",
     type: BlockType.TEXTAREA,
     group: "research",
   },
@@ -430,41 +430,41 @@ export const contentBlocks: SeedBlock[] = [
     key: "research.vision.body",
     label: "Future vision body",
     value:
-      "I hope to establish BRTI as an African research and technology organisation where researchers, AI and software engineers, healthcare professionals, agricultural experts, entrepreneurs, and communities investigate real challenges together and transform rigorous research into practical solutions.",
+      "One day, I hope to establish BRTI as an African research and technology organisation. I imagine a place where researchers, engineers, professionals, entrepreneurs, and young talent can study real problems, build useful technology, and train the next generation of African researchers and engineers.",
     type: BlockType.TEXTAREA,
     group: "research",
   },
   {
     key: "research.vision.focus1",
     label: "Future focus 1",
-    value: "Responsible AI",
+    value: "Healthcare",
     type: BlockType.TEXT,
     group: "research",
   },
   {
     key: "research.vision.focus2",
     label: "Future focus 2",
-    value: "Healthcare",
+    value: "Agriculture",
     type: BlockType.TEXT,
     group: "research",
   },
   {
     key: "research.vision.focus3",
     label: "Future focus 3",
-    value: "Agriculture",
+    value: "Education",
     type: BlockType.TEXT,
     group: "research",
   },
   {
     key: "research.vision.focus4",
     label: "Future focus 4",
-    value: "Research capacity",
+    value: "African talent",
     type: BlockType.TEXT,
     group: "research",
   },
 
   // ---------------------------------------------------------------- experience
-  { key: "experience.eyebrow", label: "Experience eyebrow", value: "Journey", type: BlockType.TEXT, group: "experience" },
+  { key: "experience.eyebrow", label: "Experience eyebrow", value: "Experience", type: BlockType.TEXT, group: "experience" },
   {
     key: "experience.title",
     label: "Experience heading",
@@ -476,7 +476,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "experience.subtitle",
     label: "Experience subheading",
     value:
-      "A path that has carried me through machine learning, data work, field research, and the delivery of real products for real clients.",
+      "I have learned in classrooms, internships, farms, client conversations, and team projects. Each experience has added a different part to the professional I am becoming.",
     type: BlockType.TEXTAREA,
     group: "experience",
   },
@@ -494,7 +494,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "education.subtitle",
     label: "Education subheading",
     value:
-      "A foundation of formal study at university, supported by a habit of continuously learning on my own.",
+      "My university studies give me structure and strong foundations. Courses, certifications, personal projects, and communities help me keep learning beyond the classroom.",
     type: BlockType.TEXTAREA,
     group: "education",
   },
@@ -520,12 +520,36 @@ export const contentBlocks: SeedBlock[] = [
     group: "education",
   },
 
+  // ---------------------------------------------------------------- personal life, community, and entrepreneurship
+  {
+    key: "personal.eyebrow",
+    label: "Personal section eyebrow",
+    value: "Beyond the code",
+    type: BlockType.TEXT,
+    group: "personal",
+  },
+  {
+    key: "personal.title",
+    label: "Personal section heading",
+    value: "Community, entrepreneurship, and the person behind the work",
+    type: BlockType.TEXT,
+    group: "personal",
+  },
+  {
+    key: "personal.subtitle",
+    label: "Personal section introduction",
+    value:
+      "Technology is only one part of my story. Leadership, business, sport, creativity, and helping other students have also shaped how I work and who I want to become.",
+    type: BlockType.TEXTAREA,
+    group: "personal",
+  },
+
   // ---------------------------------------------------------------- contact
   { key: "contact.eyebrow", label: "Contact eyebrow", value: "Get in touch", type: BlockType.TEXT, group: "contact" },
   {
     key: "contact.heading",
     label: "Contact heading",
-    value: "Let us investigate a problem worth solving",
+    value: "Let us build, learn, or solve something useful",
     type: BlockType.TEXT,
     group: "contact",
   },
@@ -533,7 +557,7 @@ export const contentBlocks: SeedBlock[] = [
     key: "contact.body",
     label: "Contact paragraph",
     value:
-      "I welcome conversations with researchers, scholarship programmes, engineers, healthcare and agricultural professionals, and communities working on responsible AI. If you are investigating a meaningful problem—or can help challenge one of my assumptions—I would be glad to learn from you and explore what rigorous collaboration could make possible.",
+      "I am open to conversations with employers, researchers, professors, clients, founders, students, and collaborators. You can contact me about software projects, machine learning, research ideas, community work, or a problem you think we could explore together.",
     type: BlockType.TEXTAREA,
     group: "contact",
   },
@@ -542,7 +566,7 @@ export const contentBlocks: SeedBlock[] = [
   {
     key: "footer.text",
     label: "Footer line, after the year and name",
-    value: "Software Engineer and Machine Learning Engineer · Kigali, Rwanda",
+    value: "Student, software builder, and machine learning enthusiast · Kigali, Rwanda",
     type: BlockType.TEXT,
     group: "footer",
   },
@@ -553,7 +577,7 @@ export const contentBlocks: SeedBlock[] = [
   { key: "nav.what", label: "Nav label, What I Do", value: "What I Do", type: BlockType.TEXT, group: "nav" },
   { key: "nav.skills", label: "Nav label, Skills", value: "Skills", type: BlockType.TEXT, group: "nav" },
   { key: "nav.projects", label: "Nav label, Projects", value: "Projects", type: BlockType.TEXT, group: "nav" },
-  { key: "nav.research", label: "Nav label, Research", value: "Research", type: BlockType.TEXT, group: "nav" },
+  { key: "nav.research", label: "Nav label, Direction", value: "Direction", type: BlockType.TEXT, group: "nav" },
   { key: "nav.experience", label: "Nav label, Experience", value: "Experience", type: BlockType.TEXT, group: "nav" },
   { key: "nav.contact", label: "Nav label, Contact", value: "Contact", type: BlockType.TEXT, group: "nav" },
 ];

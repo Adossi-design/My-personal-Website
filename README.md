@@ -1,14 +1,14 @@
 # Adossi Fred William, Portfolio and Admin CMS
 
-This is my personal portfolio and scholarship-facing academic profile, rebuilt from a single static
-HTML page into a database-driven Next.js application with a private admin dashboard behind it.
+This is my personal digital home, rebuilt from a single static HTML page into a database-driven
+Next.js application with a private admin dashboard behind it.
 
 **Live at [my-personal-website-eta-seven.vercel.app](https://my-personal-website-eta-seven.vercel.app)**
 
 I am a Software Engineering student at African Leadership University in Kigali, Rwanda, originally
-from N'Djamena, Chad, and an aspiring AI Research Engineer. The site presents my work through the
-problems I investigate, the people it is intended to serve, the evidence I have so far, and the
-limitations that should shape the next iteration.
+from N'Djamena, Chad, and an aspiring AI Research Engineer. The site brings together my background,
+education, experience, projects, skills, interests, community work, entrepreneurship, research goals,
+and long-term vision.
 
 ## Why I rebuilt it
 
@@ -63,13 +63,13 @@ prisma/
   migrations/              generated with `prisma migrate diff`
   seed/
     index.ts               full initial seed from src/content
-    scholarship.ts         focused, transactional scholarship-content sync
+    profile.ts             focused, transactional personal-site content sync
 src/
   config/
     site.ts                shared constants, one definition of the featured cap
   content/                 my default content, owned by the app
     projects.ts            26 projects
-    copy.ts                editable public-site copy and scholarship narrative
+    copy.ts                editable public-site copy and personal narrative
     cv.ts                  experience, education, certifications
     skills.ts              skill tiers, capabilities, domains
     settings.ts            settings, hero figures, coursework, bulleted cards
@@ -146,7 +146,7 @@ The public site is at `/` and the dashboard at `/admin`.
 | `npm run db:migrate` | Create a migration from schema changes |
 | `npm run db:deploy` | Apply pending migrations, used on Vercel |
 | `npm run db:seed` | Seed content and upsert the admin user |
-| `npm run db:scholarship` | Sync the scholarship narrative and six flagship case studies |
+| `npm run db:profile` | Sync the personal narrative, projects, and supporting profile data |
 | `npm run db:studio` | Browse the database |
 | `npm run db:reset` | Drop, re-migrate and re-seed. Destroys all data |
 

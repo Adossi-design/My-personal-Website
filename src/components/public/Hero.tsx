@@ -36,7 +36,7 @@ export function Hero({ copy, settings, stats }: Props) {
           <p className="body rise d4">{copy("hero.body")}</p>
 
           <div className="actions rise d5">
-            <a className="btn btn--primary" href="#research">
+            <a className="btn btn--primary" href="#about">
               {copy("hero.cta.primary")}
             </a>
             <a className="btn btn--ghost" href="#projects">
