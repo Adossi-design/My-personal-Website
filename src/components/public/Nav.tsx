@@ -10,7 +10,7 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
-  const [theme, setTheme] = useState<"dark" | "light">("light");
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const onHome = pathname === "/";
 
   useEffect(() => {
