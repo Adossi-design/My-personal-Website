@@ -1,20 +1,20 @@
 :root {
   color-scheme: light;
-  --bg: #f4f6f8;
-  --surface: #ffffff;
-  --surface-soft: #f7f8fa;
-  --surface-strong: #eaf0f5;
+  --bg: #e9e6dd;
+  --surface: #f2efe6;
+  --surface-soft: #ece9e1;
+  --surface-strong: #e3e0d7;
   --text: #172033;
   --heading: #10243f;
   --muted: #5f6979;
   --subtle: #8490a0;
-  --border: #d8dee6;
-  --border-strong: #bcc7d3;
+  --border: #d4cfc3;
+  --border-strong: #bcb5a8;
   --brand: #1c4f82;
   --brand-strong: #12385f;
   --accent: #9b6b2f;
   --success: #2f735d;
-  --nav-bg: rgba(255, 255, 255, 0.96);
+  --nav-bg: rgba(242, 239, 230, 0.96);
   --shadow-sm: 0 1px 2px rgba(15, 35, 60, 0.04);
   --shadow-md: 0 16px 40px rgba(15, 35, 60, 0.09);
   --display: "Source Serif 4", Georgia, serif;
@@ -1133,7 +1133,7 @@ p.copy, .copy p {
 }
 
 .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
-.contact-card .btn--primary { background: #fff; color: #102b49; }
+.contact-card .btn--primary { background: var(--surface); color: #102b49; }
 .contact-card .btn--ghost { border-color: rgba(255, 255, 255, 0.34); color: #fff; }
 .contact-card .btn--ghost:hover {
   background: rgba(255, 255, 255, 0.08);
