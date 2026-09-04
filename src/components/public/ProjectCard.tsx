@@ -32,9 +32,7 @@ export function ProjectCard({ project, preview = false }: Props) {
 
       <div className="proj-top">
         <span className="proj-cat">{project.domain}</span>
-        <span className="proj-ico" aria-hidden="true">
-          {project.iconKey}
-        </span>
+        <span className="proj-status">{project.featured ? "Selected work" : "Project"}</span>
       </div>
 
       <h3>{project.title}</h3>

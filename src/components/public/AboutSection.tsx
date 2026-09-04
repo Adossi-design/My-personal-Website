@@ -45,11 +45,9 @@ export function AboutSection(props: Props) {
         {props.domainsEyebrow}
       </p>
       <div className="grid cols-4">
-        {props.domains.map((domain) => (
+        {props.domains.map((domain, index) => (
           <div className="card focus-card" key={domain.id}>
-            <span className="focus-ico" aria-hidden="true">
-              {domain.iconKey}
-            </span>
+            <span className="card-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
             <h4>{domain.title}</h4>
             <p>{domain.description}</p>
           </div>

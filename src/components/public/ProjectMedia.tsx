@@ -19,7 +19,7 @@ const DETAIL_SIZES = "(max-width: 980px) 100vw, 1120px";
 
 // The card slot: 16:9, never a broken image box and never an empty gap.
 export function CardMedia({ project }: { project: MediaFields }) {
-  const { mediaType, mediaUrl, posterUrl, mediaAlt, iconKey, title, domain } = project;
+  const { mediaType, mediaUrl, posterUrl, mediaAlt, title, domain } = project;
 
   if (mediaType === MediaType.IMAGE && mediaUrl) {
     return (
@@ -48,7 +48,7 @@ export function CardMedia({ project }: { project: MediaFields }) {
         {still ? (
           <Image src={still} alt={mediaAlt || title} fill sizes={CARD_SIZES} />
         ) : (
-          <span aria-hidden="true">{iconKey}</span>
+          <span aria-hidden="true">Project preview</span>
         )}
         <span className="proj-media__badge">Video</span>
       </div>
@@ -57,11 +57,10 @@ export function CardMedia({ project }: { project: MediaFields }) {
 
   return (
     <div className="proj-media project-signal" role="img" aria-label={`Visual marker for ${title}`}>
-      <span className="signal-orbit" aria-hidden="true" />
       <div className="signal-copy">
-        <span aria-hidden="true">{iconKey}</span>
-        <small>{domain ?? "Research and engineering"}</small>
+        <small>Project · {domain ?? "Research and engineering"}</small>
         <strong>{title}</strong>
+        <span aria-hidden="true">Case study</span>
       </div>
     </div>
   );
@@ -69,7 +68,7 @@ export function CardMedia({ project }: { project: MediaFields }) {
 
 // The detail slot: same sources, but video gets real controls here.
 export function DetailMedia({ project }: { project: MediaFields }) {
-  const { mediaType, mediaUrl, posterUrl, mediaAlt, iconKey, title, domain } = project;
+  const { mediaType, mediaUrl, posterUrl, mediaAlt, title, domain } = project;
 
   if (mediaType === MediaType.IMAGE && mediaUrl) {
     return (
@@ -105,11 +104,10 @@ export function DetailMedia({ project }: { project: MediaFields }) {
 
   return (
     <div className="detail-media project-signal project-signal--detail" role="img" aria-label={`Visual marker for ${title}`}>
-      <span className="signal-orbit" aria-hidden="true" />
       <div className="signal-copy">
-        <span aria-hidden="true">{iconKey}</span>
-        <small>{domain ?? "Research and engineering"}</small>
+        <small>Project · {domain ?? "Research and engineering"}</small>
         <strong>{title}</strong>
+        <span aria-hidden="true">Problem · People · Process · Learning</span>
       </div>
     </div>
   );

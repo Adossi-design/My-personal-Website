@@ -10,7 +10,7 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const onHome = pathname === "/";
 
   useEffect(() => {
@@ -70,7 +70,8 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
     <header className="nav">
       <div className="shell">
         <Link className="brand" href="/">
-          {brand}
+          <span className="brand-mark" aria-hidden="true">AF</span>
+          <span className="brand-name">{brand}</span>
         </Link>
 
         <nav className={open ? "links open" : "links"} id="navLinks">
@@ -94,7 +95,11 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
           aria-controls="navLinks"
           onClick={() => setOpen((v) => !v)}
         >
-          {"☰"}
+          {open ? (
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          )}
         </button>
 
         <button
@@ -104,7 +109,11 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
           title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
           onClick={toggleTheme}
         >
-          {theme === "light" ? "☀" : "🌙"}
+          {theme === "light" ? (
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.64 5.64l1.42 1.42M16.94 16.94l1.42 1.42M18.36 5.64l-1.42 1.42M7.06 16.94l-1.42 1.42" /><circle cx="12" cy="12" r="4" /></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.4A8 8 0 018.6 4a8 8 0 1011.4 11.4z" /></svg>
+          )}
         </button>
       </div>
     </header>

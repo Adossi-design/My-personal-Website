@@ -11,7 +11,6 @@ import type {
 } from "@prisma/client";
 import type { Copy } from "@/lib/queries/content";
 import { readGrades } from "@/lib/queries/site";
-import { TIER_SEGMENTS } from "@/config/site";
 
 export function JourneySection({ copy }: { copy: Copy }) {
   const milestones = [1, 2, 3, 4].map((index) => ({
@@ -40,7 +39,7 @@ export function JourneySection({ copy }: { copy: Copy }) {
       </ol>
 
       <div className="story-thesis">
-        <span aria-hidden="true">→</span>
+        <span aria-hidden="true">Principle</span>
         <div>
           <h3>{copy("journey.thesis.title")}</h3>
           <p>{copy("journey.thesis.body")}</p>
@@ -57,12 +56,10 @@ export function CapabilitiesSection({ copy, capabilities }: { copy: Copy; capabi
       <h2 className="section-title">{copy("what.title")}</h2>
       <p className="section-sub">{copy("what.subtitle")}</p>
       <div className="grid cols-3">
-        {capabilities.map((item) => (
+        {capabilities.map((item, index) => (
           <div className="card do-card" key={item.id}>
+            <span className="card-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
             <div className="skill-head">
-              <span className="skill-ico" aria-hidden="true">
-                {item.iconKey}
-              </span>{" "}
               {item.title}
             </div>
             <p>{item.description}</p>
@@ -82,29 +79,21 @@ export function SkillsSection({ copy, tiers }: { copy: Copy; tiers: TierWithItem
       <h2 className="section-title">{copy("skills.title")}</h2>
       <p className="section-sub">{copy("skills.subtitle")}</p>
 
-      {tiers.map((tier) => {
-        const filled = Math.max(0, Math.min(TIER_SEGMENTS, tier.level));
-        return (
-          <div className="tier" key={tier.id}>
-            <div className="tier-head">
-              <h3>{tier.name}</h3>
-              <span>{tier.subtitle}</span>
-            </div>
-            <div className="tier-bar" aria-hidden="true">
-              {Array.from({ length: TIER_SEGMENTS }, (_, i) => (
-                <i key={i} className={i < filled ? "on" : undefined} />
-              ))}
-            </div>
-            <div className="tier-chips">
-              {tier.items.map((item) => (
-                <span className="tier-chip" key={item.id}>
-                  {item.name}
-                </span>
-              ))}
-            </div>
+      {tiers.map((tier) => (
+        <div className="tier" key={tier.id}>
+          <div className="tier-head">
+            <h3>{tier.name}</h3>
+            <span>{tier.subtitle}</span>
           </div>
-        );
-      })}
+          <div className="tier-chips">
+            {tier.items.map((item) => (
+              <span className="tier-chip" key={item.id}>
+                {item.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
     </>
   );
 }
@@ -147,11 +136,10 @@ export function ResearchVisionSection({ copy }: { copy: Copy }) {
       </div>
 
       <div className="vision-card">
-        <div className="vision-orbit" aria-hidden="true">
-          <span />
-          <span />
-          <span />
+        <div className="vision-mark" aria-hidden="true">
+          <span>Long-term initiative</span>
           <b>BRTI</b>
+          <small>Beral Research &amp; Technology Institute</small>
         </div>
         <div className="vision-copy">
           <p className="vision-kicker">{copy("research.vision.kicker")}</p>
@@ -180,9 +168,6 @@ export function PersonalSection({ copy, infoLists }: { copy: Copy; infoLists: In
         {infoLists.map((list) => (
           <div className="card" key={list.id}>
             <div className="skill-head">
-              <span className="skill-ico" aria-hidden="true">
-                {list.iconKey}
-              </span>{" "}
               {list.title}
             </div>
             <ul className="personal-list">
@@ -246,9 +231,7 @@ export function EducationSection({ copy, education, certifications }: EducationP
           return (
             <div className="card" key={item.id}>
               <div className="edu-card">
-                <span className="edu-ico" aria-hidden="true">
-                  {item.iconKey}
-                </span>
+                <span className="edu-label" aria-hidden="true">Education</span>
                 <div style={{ flex: 1 }}>
                   <h3 style={{ margin: "0 0 4px", fontFamily: "var(--display)", fontSize: "1.06rem" }}>{item.degree}</h3>
                   <p style={{ margin: 0, color: "var(--brand)", fontWeight: 600 }}>{item.institution}</p>
@@ -273,10 +256,8 @@ export function EducationSection({ copy, education, certifications }: EducationP
         })}
 
         <div className="card">
+          <span className="edu-label" aria-hidden="true">Credentials</span>
           <div className="skill-head">
-            <span className="skill-ico" aria-hidden="true">
-              {"📜"}
-            </span>{" "}
             {copy("education.certifications.title")}
           </div>
           <ul className="cert-list">
@@ -325,10 +306,8 @@ export function CourseworkCard({
   if (coursework.length === 0) return null;
   return (
     <div className="card" style={{ marginTop: 26 }}>
+      <span className="edu-label" aria-hidden="true">Coursework</span>
       <div className="skill-head">
-        <span className="skill-ico" aria-hidden="true">
-          {"📚"}
-        </span>{" "}
         {copy("projects.coursework.title")}
       </div>
       <p style={{ color: "var(--muted)", margin: "0 0 14px", fontSize: ".9rem", lineHeight: 1.6 }}>
