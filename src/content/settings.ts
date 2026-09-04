@@ -2,19 +2,19 @@
 
 export const siteSettings = {
   name: "Adossi Fred William",
-  roleTitle: "Software Engineer and Machine Learning Engineer",
+  roleTitle: "Software Engineering Student and Aspiring AI Research Engineer",
   email: "f.adossi@alustudent.com",
   phone: "+250 793 227 492",
   location: "Kigali, Rwanda",
   githubUrl: "https://github.com/Adossi-design",
   linkedinUrl: "https://www.linkedin.com/in/fred-william-adossi-640a59345",
-  availabilityText: "Open to roles, collaborations, and ambitious projects",
+  availabilityText: "Preparing for graduate research in responsible AI",
   availabilityOn: true,
   heroPhotoUrl: "/assets/profile.jpg",
-  resumePdfUrl: null,
-  metaTitle: "Adossi Fred William | Software Engineer & Machine Learning Engineer",
+  resumePdfUrl: "/documents/adossi-fred-william-academic-resume.pdf",
+  metaTitle: "Adossi Fred William | Aspiring AI Research Engineer",
   metaDescription:
-    "Adossi Fred William is a Software Engineer and Machine Learning Engineer who designs, builds, and deploys intelligent software systems that bring together software engineering, machine learning, and modern cloud technology.",
+    "Adossi Fred William is a Software Engineering student from Chad preparing for a career as an AI Research Engineer, with a focus on responsible AI for healthcare and agriculture in African contexts.",
   ogImageUrl: null,
 };
 
@@ -22,7 +22,7 @@ export const heroStats = [
   { value: "40+", label: "GitHub repositories" },
   { value: "11", label: "ML and AI builds" },
   { value: "15+", label: "Paid client projects" },
-  { value: "4.06", label: "CGPA / 5.00" },
+  { value: "4.14", label: "CGPA / 5.00" },
 ];
 
 export const courseworkItems = [

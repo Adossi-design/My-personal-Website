@@ -8,7 +8,7 @@ export function Hero({ copy, settings, stats }: Props) {
   const photo = settings.heroPhotoUrl ?? "/assets/profile.jpg";
 
   return (
-    <section className="hero">
+    <section className="hero" data-tone="hero">
       <div
         className="hero__photo"
         role="img"
@@ -36,13 +36,13 @@ export function Hero({ copy, settings, stats }: Props) {
           <p className="body rise d4">{copy("hero.body")}</p>
 
           <div className="actions rise d5">
-            <a className="btn btn--primary" href="#projects">
+            <a className="btn btn--primary" href="#research">
               {copy("hero.cta.primary")}
             </a>
-            <a className="btn btn--ghost" href={settings.githubUrl} target="_blank" rel="noopener noreferrer">
+            <a className="btn btn--ghost" href="#projects">
               {copy("hero.cta.secondary")}
             </a>
-            <a className="btn btn--ghost" href="#contact">
+            <a className="btn btn--ghost" href="/academic-profile">
               {copy("hero.cta.tertiary")}
             </a>
           </div>

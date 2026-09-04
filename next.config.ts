@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       // Video poster/thumbnail hosts for embedded providers
       { protocol: "https", hostname: "i.ytimg.com" },
       { protocol: "https", hostname: "i.vimeocdn.com" },
+      // Genuine project media stored in the owner's public GitHub repositories
+      { protocol: "https", hostname: "raw.githubusercontent.com" },
     ],
   },
   eslint: {

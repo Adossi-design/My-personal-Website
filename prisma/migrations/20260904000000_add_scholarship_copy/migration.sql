@@ -1,0 +1,60 @@
+-- Add the new Research, Journey, and academic-profile copy to installations
+-- that already contain the original CMS data. IDs are deterministic, valid
+-- CUID-shaped strings so the existing admin validation accepts them.
+INSERT INTO "ContentBlock" ("id", "key", "label", "value", "type", "group", "sortOrder", "defaultValue", "updatedAt")
+SELECT
+  'c' || substring(md5(seeded.key), 1, 24),
+  seeded.key,
+  seeded.label,
+  seeded.value,
+  seeded.type::"BlockType",
+  seeded.group_name,
+  seeded.sort_order,
+  seeded.value,
+  CURRENT_TIMESTAMP
+FROM (VALUES
+  ('journey.eyebrow', 'Journey eyebrow', 'The path behind the work', 'TEXT', 'journey', 0),
+  ('journey.title', 'Journey heading', 'A journey shaped by applied knowledge', 'TEXT', 'journey', 1),
+  ('journey.subtitle', 'Journey introduction', 'The problems I want to investigate are connected to places, people, and experiences that taught me what technology can change—and what it cannot solve without listening first.', 'TEXTAREA', 'journey', 2),
+  ('journey.step1.place', 'Journey step 1 place', 'N''Djamena, Chad · Foundation', 'TEXT', 'journey', 3),
+  ('journey.step1.title', 'Journey step 1 title', 'Watching knowledge change a family''s circumstances', 'TEXT', 'journey', 4),
+  ('journey.step1.body', 'Journey step 1 body', 'My father used his software knowledge to solve a supermarket''s financial-management problem. The opportunity that followed changed our family and taught me that education becomes powerful when it is made useful to others.', 'TEXTAREA', 'journey', 5),
+  ('journey.step2.place', 'Journey step 2 place', 'Moundou, Chad · 2019–2023', 'TEXT', 'journey', 6),
+  ('journey.step2.title', 'Journey step 2 title', 'Learning agricultural problems before designing solutions', 'TEXT', 'journey', 7),
+  ('journey.step2.body', 'Journey step 2 body', 'Four years of farm work showed me how disease, weather, missing records, and limited information shape a farmer''s decisions. Food security became a lived question rather than an abstract technology theme.', 'TEXTAREA', 'journey', 8),
+  ('journey.step3.place', 'Journey step 3 place', 'Kigali, Rwanda · 2024–Present', 'TEXT', 'journey', 9),
+  ('journey.step3.title', 'Journey step 3 title', 'Building the engineering foundation', 'TEXT', 'journey', 10),
+  ('journey.step3.body', 'Journey step 3 body', 'At African Leadership University, and through internships, field research, and client work, I learned to connect models with interfaces, APIs, databases, deployment, evaluation, and the people expected to use the result.', 'TEXTAREA', 'journey', 11),
+  ('journey.step4.place', 'Journey step 4 place', 'Chad · Cameroon · Rwanda', 'TEXT', 'journey', 12),
+  ('journey.step4.title', 'Journey step 4 title', 'Growing by helping others grow', 'TEXT', 'journey', 13),
+  ('journey.step4.body', 'Journey step 4 body', 'The AI Study Lab grew from twelve to more than thirty participants across three countries. Redesigning it around how members actually learned reinforced a principle I bring to research: listen to reality, especially when it challenges the first solution.', 'TEXTAREA', 'journey', 14),
+  ('journey.thesis.title', 'Journey conclusion title', 'The direction', 'TEXT', 'journey', 15),
+  ('journey.thesis.body', 'Journey conclusion body', 'Become an AI Research Engineer who can investigate meaningful African problems rigorously, translate validated research into dependable systems, and eventually build an institution that enables others to do the same.', 'TEXTAREA', 'journey', 16),
+  ('research.eyebrow', 'Research eyebrow', 'Research direction', 'TEXT', 'research', 0),
+  ('research.title', 'Research heading', 'From meaningful questions to systems that work', 'TEXT', 'research', 1),
+  ('research.subtitle', 'Research introduction', 'My goal is to become an AI Research Engineer, combining the curiosity and rigour of a researcher with the practical discipline of an engineer to investigate important problems and translate validated ideas into responsible, reliable systems.', 'TEXTAREA', 'research', 2),
+  ('research.pillar.problem.title', 'Problem-first pillar title', 'Begin with the problem', 'TEXT', 'research', 3),
+  ('research.pillar.problem.body', 'Problem-first pillar body', 'Understand who is affected, listen to the realities around them, and ask which questions are genuinely worth investigating before choosing a technology.', 'TEXTAREA', 'research', 4),
+  ('research.pillar.rigour.title', 'Rigour pillar title', 'Investigate with rigour', 'TEXT', 'research', 5),
+  ('research.pillar.rigour.body', 'Rigour pillar body', 'Design careful experiments, evaluate uncertainty and failure, compare approaches honestly, and make the evidence reproducible rather than chasing an impressive result alone.', 'TEXTAREA', 'research', 6),
+  ('research.pillar.translation.title', 'Translation pillar title', 'Engineer for real use', 'TEXT', 'research', 7),
+  ('research.pillar.translation.body', 'Translation pillar body', 'Turn sound research into accessible software that can operate reliably within the constraints of the people and environments it is intended to serve.', 'TEXTAREA', 'research', 8),
+  ('research.vision.kicker', 'Future vision label', 'Long-term vision', 'TEXT', 'research', 9),
+  ('research.vision.title', 'Future vision heading', 'Beral Research & Technology Institute', 'TEXT', 'research', 10),
+  ('research.vision.body', 'Future vision body', 'I hope to establish BRTI as an African research and technology organisation where researchers, AI and software engineers, healthcare professionals, agricultural experts, entrepreneurs, and communities investigate real challenges together and transform rigorous research into practical solutions.', 'TEXTAREA', 'research', 11),
+  ('research.vision.focus1', 'Future focus 1', 'Responsible AI', 'TEXT', 'research', 12),
+  ('research.vision.focus2', 'Future focus 2', 'Healthcare', 'TEXT', 'research', 13),
+  ('research.vision.focus3', 'Future focus 3', 'Agriculture', 'TEXT', 'research', 14),
+  ('research.vision.focus4', 'Future focus 4', 'Research capacity', 'TEXT', 'research', 15),
+  ('education.profileCta', 'Academic profile button', 'View academic profile', 'TEXT', 'education', 20),
+  ('education.transcriptCta', 'Transcript button', 'View unofficial transcript', 'TEXT', 'education', 21),
+  ('nav.journey', 'Nav label, Journey', 'Journey', 'TEXT', 'nav', 0),
+  ('nav.research', 'Nav label, Research', 'Research', 'TEXT', 'nav', 1)
+) AS seeded(key, label, value, type, group_name, sort_order)
+ON CONFLICT ("key") DO UPDATE SET
+  "label" = EXCLUDED."label",
+  "type" = EXCLUDED."type",
+  "group" = EXCLUDED."group",
+  "sortOrder" = EXCLUDED."sortOrder",
+  "defaultValue" = EXCLUDED."defaultValue",
+  "updatedAt" = CURRENT_TIMESTAMP;

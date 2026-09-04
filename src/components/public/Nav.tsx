@@ -18,6 +18,19 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
     setTheme(current === "light" ? "light" : "dark");
   }, []);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
   // Scroll spy only makes sense on the page that actually holds the sections.
   useEffect(() => {
     if (!onHome) {
@@ -84,7 +97,13 @@ export function Nav({ brand, links }: { brand: string; links: NavLink[] }) {
           {"☰"}
         </button>
 
-        <button className="theme" type="button" aria-label="Switch theme" onClick={toggleTheme}>
+        <button
+          className="theme"
+          type="button"
+          aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+          title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+          onClick={toggleTheme}
+        >
           {theme === "light" ? "☀" : "🌙"}
         </button>
       </div>

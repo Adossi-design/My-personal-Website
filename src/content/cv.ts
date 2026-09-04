@@ -60,9 +60,10 @@ export const educationItems = [
     institution: "African Leadership University, Kigali, Rwanda",
     period: "June 2024 to an expected finish in July 2027",
     iconKey: "🎓",
-    meta: "June 2024 to an expected finish in July 2027, with a CGPA of 4.06 out of 5.00, placing me in the Second Class Upper, Distinction band, and 320 of 320 attempted credits earned.",
+    meta: "June 2024 to an expected finish in July 2027, with a CGPA of 4.14 out of 5.00 and all 380 attempted credits earned, as recorded on my August 2026 transcript.",
     grades: [
       { course: "Web Infrastructure", score: "98.80" },
+      { course: "Machine Learning Pipeline", score: "94.26" },
       { course: "Frontend Web Development", score: "93.80" },
       { course: "Enterprise Innovation Program", score: "92.50" },
       { course: "Foundations Project", score: "89.82" },

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { MediaType } from "@prisma/client";
 import { CardMedia } from "./ProjectMedia";
+import { InteractiveCard } from "./InteractiveCard";
 
 // Deliberately not the Prisma row type: the admin preview renders unsaved form
 // state through this same component, so it only needs the display fields.
@@ -17,6 +18,7 @@ export type CardProject = {
   posterUrl: string | null;
   mediaAlt: string;
   iconKey: string;
+  featured?: boolean;
 };
 
 type Props = { project: CardProject; preview?: boolean };
@@ -25,7 +27,7 @@ export function ProjectCard({ project, preview = false }: Props) {
   const href = `/projects/${project.slug}`;
 
   return (
-    <article className="card proj">
+    <InteractiveCard className="card proj">
       <CardMedia project={project} />
 
       <div className="proj-top">
@@ -48,10 +50,10 @@ export function ProjectCard({ project, preview = false }: Props) {
 
       <div className="proj-links">
         {preview ? (
-          <span className="proj-link">More</span>
+          <span className="proj-link">{project.featured ? "Case study" : "More"}</span>
         ) : (
           <Link className="proj-link" href={href}>
-            More
+            {project.featured ? "Case study" : "More"}
           </Link>
         )}
         {project.repoUrl && (
@@ -65,6 +67,6 @@ export function ProjectCard({ project, preview = false }: Props) {
           </a>
         )}
       </div>
-    </article>
+    </InteractiveCard>
   );
 }

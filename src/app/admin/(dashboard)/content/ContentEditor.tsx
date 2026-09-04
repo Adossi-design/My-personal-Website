@@ -10,10 +10,12 @@ import { resetContentBlock, saveContentBlocks } from "./actions";
 
 const GROUP_LABELS: Record<string, string> = {
   hero: "Hero",
+  journey: "Personal journey",
   about: "About",
   what: "What I do",
   skills: "Skills",
   projects: "Projects",
+  research: "Research and vision",
   experience: "Experience",
   education: "Education",
   contact: "Contact",

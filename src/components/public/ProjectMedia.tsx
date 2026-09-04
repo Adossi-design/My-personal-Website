@@ -10,6 +10,7 @@ export type MediaFields = {
   mediaAlt: string;
   iconKey: string;
   title: string;
+  domain?: string;
 };
 
 // Cards sit in a three-column grid, so this is the widest one ever renders.
@@ -18,7 +19,7 @@ const DETAIL_SIZES = "(max-width: 980px) 100vw, 1120px";
 
 // The card slot: 16:9, never a broken image box and never an empty gap.
 export function CardMedia({ project }: { project: MediaFields }) {
-  const { mediaType, mediaUrl, posterUrl, mediaAlt, iconKey, title } = project;
+  const { mediaType, mediaUrl, posterUrl, mediaAlt, iconKey, title, domain } = project;
 
   if (mediaType === MediaType.IMAGE && mediaUrl) {
     return (
@@ -55,15 +56,20 @@ export function CardMedia({ project }: { project: MediaFields }) {
   }
 
   return (
-    <div className="proj-media proj-media--empty" role="img" aria-label={`${title}, no preview image yet`}>
-      <span aria-hidden="true">{iconKey}</span>
+    <div className="proj-media project-signal" role="img" aria-label={`Visual marker for ${title}`}>
+      <span className="signal-orbit" aria-hidden="true" />
+      <div className="signal-copy">
+        <span aria-hidden="true">{iconKey}</span>
+        <small>{domain ?? "Research and engineering"}</small>
+        <strong>{title}</strong>
+      </div>
     </div>
   );
 }
 
 // The detail slot: same sources, but video gets real controls here.
 export function DetailMedia({ project }: { project: MediaFields }) {
-  const { mediaType, mediaUrl, posterUrl, mediaAlt, iconKey, title } = project;
+  const { mediaType, mediaUrl, posterUrl, mediaAlt, iconKey, title, domain } = project;
 
   if (mediaType === MediaType.IMAGE && mediaUrl) {
     return (
@@ -98,10 +104,13 @@ export function DetailMedia({ project }: { project: MediaFields }) {
   }
 
   return (
-    <div className="detail-media proj-media--empty" role="img" aria-label={`${title}, no preview image yet`}>
-      <span aria-hidden="true" style={{ fontSize: "3rem" }}>
-        {iconKey}
-      </span>
+    <div className="detail-media project-signal project-signal--detail" role="img" aria-label={`Visual marker for ${title}`}>
+      <span className="signal-orbit" aria-hidden="true" />
+      <div className="signal-copy">
+        <span aria-hidden="true">{iconKey}</span>
+        <small>{domain ?? "Research and engineering"}</small>
+        <strong>{title}</strong>
+      </div>
     </div>
   );
 }

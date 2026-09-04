@@ -34,7 +34,7 @@ export function ProjectFilters({ chips, projects }: { chips: FilterChip[]; proje
       </div>
 
       {visible.length > 0 ? (
-        <div className="grid cols-3">
+        <div className="grid cols-3 filter-results" key={active} aria-live="polite">
           {visible.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Nav, type NavLink } from "@/components/public/Nav";
+import { SiteAtmosphere } from "@/components/public/SiteAtmosphere";
 import { getCopy } from "@/lib/queries/content";
 import { getSettings } from "@/lib/queries/site";
 import { siteUrl } from "@/lib/env";
@@ -29,16 +30,18 @@ export default async function PublicLayout({ children }: { children: ReactNode }
   const [copy, settings] = await Promise.all([getCopy(), getSettings()]);
 
   const links: NavLink[] = [
+    { href: "/#journey", label: copy("nav.journey"), sectionId: "journey" },
     { href: "/#about", label: copy("nav.about"), sectionId: "about" },
-    { href: "/#what", label: copy("nav.what"), sectionId: "what" },
-    { href: "/#skills", label: copy("nav.skills"), sectionId: "skills" },
     { href: "/#projects", label: copy("nav.projects"), sectionId: "projects" },
+    { href: "/#research", label: copy("nav.research"), sectionId: "research" },
     { href: "/#experience", label: copy("nav.experience"), sectionId: "experience" },
+    { href: "/#skills", label: copy("nav.skills"), sectionId: "skills" },
     { href: "/#contact", label: copy("nav.contact"), sectionId: "contact" },
   ];
 
   return (
     <>
+      <SiteAtmosphere />
       <Nav brand={settings.name} links={links} />
       {children}
       <footer>

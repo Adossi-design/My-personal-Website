@@ -1,13 +1,14 @@
 # Adossi Fred William, Portfolio and Admin CMS
 
-This is my personal portfolio, rebuilt from a single static HTML page into a database-driven Next.js
-application with a private admin dashboard behind it.
+This is my personal portfolio and scholarship-facing academic profile, rebuilt from a single static
+HTML page into a database-driven Next.js application with a private admin dashboard behind it.
 
 **Live at [my-personal-website-eta-seven.vercel.app](https://my-personal-website-eta-seven.vercel.app)**
 
 I am a Software Engineering student at African Leadership University in Kigali, Rwanda, originally
-from N'Djamena, Chad, and I work across machine learning, full-stack development, backend
-engineering and mobile. This site is where I gather that work in one place.
+from N'Djamena, Chad, and an aspiring AI Research Engineer. The site presents my work through the
+problems I investigate, the people it is intended to serve, the evidence I have so far, and the
+limitations that should shape the next iteration.
 
 ## Why I rebuilt it
 
@@ -15,12 +16,13 @@ The original version was a single `index.html` file. It looked the way I wanted,
 finished a project or changed a sentence I had to edit code and redeploy, and my project list lived
 inside a JavaScript array. That is fine for a page that never changes, and mine changes constantly.
 
-So I moved every piece of text, every project and every image into a database, and built an admin
-dashboard to edit them. I can now add a project or reword a paragraph from my phone, and the public
-site updates immediately. Nothing on the public site is hardcoded any more.
+So I moved editable copy, projects and media into a database, and built an admin dashboard to manage
+them. I can now add a project or reword a paragraph from my phone, and the public site updates
+immediately while source-controlled defaults keep deployments reproducible.
 
-The one thing I did not want to lose was the design, so I ported the original stylesheet across
-unchanged rather than rewriting it.
+The current public experience uses a section-aware visual atmosphere, progressive scroll reveals,
+interactive case-study cards and reduced-motion fallbacks. The movement is designed to clarify the
+journey rather than compete with it.
 
 ## What I used
 
@@ -40,9 +42,8 @@ unchanged rather than rewriting it.
 
 **I did not rebuild the public site in Tailwind.** My design leans on `color-mix()`, layered
 `mask-image` gradients, `clamp()` sizing and a `[data-theme]` cascade for the light and dark themes.
-Rewriting that as utility classes is exactly where a visual regression creeps in without anyone
-noticing, so I ported the stylesheet verbatim into `src/app/(public)/globals.css` and mapped the same
-design tokens into `tailwind.config.ts` for anything built with Tailwind.
+The public animation and atmosphere system therefore lives in `src/app/(public)/globals.css`, while
+the same design tokens are mapped into `tailwind.config.ts` for anything built with Tailwind.
 
 Tailwind therefore loads only from `src/app/admin/admin.css`. That matters more than it sounds:
 Tailwind's preflight resets heading sizes and strips list bullets, and if it were global it would
@@ -61,18 +62,19 @@ prisma/
   schema.prisma            15 models, 3 enums
   migrations/              generated with `prisma migrate diff`
   seed/
-    index.ts               the only file here, loads src/content into the database
+    index.ts               full initial seed from src/content
+    scholarship.ts         focused, transactional scholarship-content sync
 src/
   config/
     site.ts                shared constants, one definition of the featured cap
   content/                 my default content, owned by the app
     projects.ts            26 projects
-    copy.ts                47 copy blocks
+    copy.ts                editable public-site copy and scholarship narrative
     cv.ts                  experience, education, certifications
     skills.ts              skill tiers, capabilities, domains
     settings.ts            settings, hero figures, coursework, bulleted cards
   app/
-    (public)/              homepage, /projects, /projects/[slug], globals.css
+    (public)/              homepage, academic profile, projects, case studies, globals.css
     admin/
       login/               sign in, outside the dashboard shell
       (dashboard)/         every authenticated screen, plus its server actions
@@ -144,6 +146,7 @@ The public site is at `/` and the dashboard at `/admin`.
 | `npm run db:migrate` | Create a migration from schema changes |
 | `npm run db:deploy` | Apply pending migrations, used on Vercel |
 | `npm run db:seed` | Seed content and upsert the admin user |
+| `npm run db:scholarship` | Sync the scholarship narrative and six flagship case studies |
 | `npm run db:studio` | Browse the database |
 | `npm run db:reset` | Drop, re-migrate and re-seed. Destroys all data |
 
@@ -236,7 +239,7 @@ so that deployment is retired.
 | `/admin/projects` | Featured selector, drag to reorder, search, filters, bulk actions |
 | `/admin/projects/new` | Create a project, with a live card preview |
 | `/admin/projects/[id]` | Edit or delete |
-| `/admin/content` | All 47 copy blocks, grouped, with per-field reset |
+| `/admin/content` | All editable copy blocks, grouped, with per-field reset |
 | `/admin/experience` | Roles and bullets, drag to reorder |
 | `/admin/education` | Qualifications, grades, certifications |
 | `/admin/skills` | Tiers, levels and skill lists |

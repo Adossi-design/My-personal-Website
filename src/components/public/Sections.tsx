@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type {
   Capability,
   Certification,
@@ -11,6 +12,43 @@ import type {
 import type { Copy } from "@/lib/queries/content";
 import { readGrades } from "@/lib/queries/site";
 import { TIER_SEGMENTS } from "@/config/site";
+
+export function JourneySection({ copy }: { copy: Copy }) {
+  const milestones = [1, 2, 3, 4].map((index) => ({
+    place: copy(`journey.step${index}.place`),
+    title: copy(`journey.step${index}.title`),
+    body: copy(`journey.step${index}.body`),
+  }));
+
+  return (
+    <>
+      <p className="eyebrow">{copy("journey.eyebrow")}</p>
+      <h2 className="section-title">{copy("journey.title")}</h2>
+      <p className="section-sub">{copy("journey.subtitle")}</p>
+
+      <ol className="story-path">
+        {milestones.map((milestone, index) => (
+          <li className="story-stop" key={milestone.place}>
+            <span className="story-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <p className="story-place">{milestone.place}</p>
+            <h3>{milestone.title}</h3>
+            <p>{milestone.body}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div className="story-thesis">
+        <span aria-hidden="true">→</span>
+        <div>
+          <h3>{copy("journey.thesis.title")}</h3>
+          <p>{copy("journey.thesis.body")}</p>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export function CapabilitiesSection({ copy, capabilities }: { copy: Copy; capabilities: Capability[] }) {
   return (
@@ -67,6 +105,66 @@ export function SkillsSection({ copy, tiers }: { copy: Copy; tiers: TierWithItem
           </div>
         );
       })}
+    </>
+  );
+}
+
+export function ResearchVisionSection({ copy }: { copy: Copy }) {
+  const pillars = [
+    {
+      number: "01",
+      title: copy("research.pillar.problem.title"),
+      body: copy("research.pillar.problem.body"),
+    },
+    {
+      number: "02",
+      title: copy("research.pillar.rigour.title"),
+      body: copy("research.pillar.rigour.body"),
+    },
+    {
+      number: "03",
+      title: copy("research.pillar.translation.title"),
+      body: copy("research.pillar.translation.body"),
+    },
+  ];
+
+  return (
+    <>
+      <p className="eyebrow">{copy("research.eyebrow")}</p>
+      <h2 className="section-title">{copy("research.title")}</h2>
+      <p className="section-sub">{copy("research.subtitle")}</p>
+
+      <div className="research-pillars">
+        {pillars.map((pillar) => (
+          <article className="research-pillar" key={pillar.number}>
+            <span className="research-number" aria-hidden="true">
+              {pillar.number}
+            </span>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="vision-card">
+        <div className="vision-orbit" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <b>BRTI</b>
+        </div>
+        <div className="vision-copy">
+          <p className="vision-kicker">{copy("research.vision.kicker")}</p>
+          <h3>{copy("research.vision.title")}</h3>
+          <p>{copy("research.vision.body")}</p>
+          <div className="vision-fields" aria-label="Future areas of focus">
+            <span>{copy("research.vision.focus1")}</span>
+            <span>{copy("research.vision.focus2")}</span>
+            <span>{copy("research.vision.focus3")}</span>
+            <span>{copy("research.vision.focus4")}</span>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -192,6 +290,20 @@ export function EducationSection({ copy, education, certifications, infoLists }:
           ))}
         </div>
       )}
+
+      <div className="academic-cta-row">
+        <Link className="btn btn--primary" href="/academic-profile">
+          {copy("education.profileCta")}
+        </Link>
+        <a
+          className="btn btn--ghost"
+          href="/documents/adossi-fred-william-unofficial-transcript.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy("education.transcriptCta")}
+        </a>
+      </div>
     </>
   );
 }

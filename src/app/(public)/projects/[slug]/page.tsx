@@ -54,7 +54,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   return (
     <main id="top">
-      <section className="detail-head">
+      <section className="detail-head journey-section" data-tone="projects">
         <div className="wrap">
           <Link className="back-link" href="/projects">
             {"←"} All projects
@@ -65,6 +65,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       </section>
 
       <div className="wrap">
+        {project.featured && (
+          <div className="case-study-banner">
+            <span>Evidence-led case study</span>
+            <p>Technical results, present limitations, intended impact, and future research questions are separated explicitly below.</p>
+          </div>
+        )}
         <DetailMedia project={project} />
 
         <div className="detail-grid">

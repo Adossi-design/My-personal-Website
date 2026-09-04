@@ -53,11 +53,12 @@ export default async function ProjectsIndexPage() {
     posterUrl: p.posterUrl,
     mediaAlt: p.mediaAlt,
     iconKey: p.iconKey,
+    featured: p.featured,
   }));
 
   return (
     <main id="top">
-      <section style={{ paddingTop: "calc(var(--nav-h) + 48px)" }}>
+      <section className="journey-section" data-tone="projects" style={{ paddingTop: "calc(var(--nav-h) + 48px)" }}>
         <Reveal className="wrap">
           <p className="eyebrow">{copy("projects.eyebrow")}</p>
           <h2 className="section-title">{copy("projects.index.title")}</h2>

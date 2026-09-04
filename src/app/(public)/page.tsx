@@ -9,6 +9,8 @@ import {
   CourseworkCard,
   EducationSection,
   ExperienceSection,
+  JourneySection,
+  ResearchVisionSection,
   SkillsSection,
 } from "@/components/public/Sections";
 import { getCopy } from "@/lib/queries/content";
@@ -64,7 +66,13 @@ export default async function HomePage() {
     <main id="top">
       <Hero copy={copy} settings={settings} stats={stats} />
 
-      <section id="about">
+      <section id="journey" className="journey-section story-section" data-tone="journey">
+        <Reveal className="wrap">
+          <JourneySection copy={copy} />
+        </Reveal>
+      </section>
+
+      <section id="about" className="journey-section" data-tone="about">
         <Reveal className="wrap">
           <AboutSection
             eyebrow={copy("about.eyebrow")}
@@ -80,19 +88,7 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      <section id="what">
-        <Reveal className="wrap">
-          <CapabilitiesSection copy={copy} capabilities={capabilities} />
-        </Reveal>
-      </section>
-
-      <section id="skills">
-        <Reveal className="wrap">
-          <SkillsSection copy={copy} tiers={tiers} />
-        </Reveal>
-      </section>
-
-      <section id="projects">
+      <section id="projects" className="journey-section" data-tone="projects">
         <Reveal className="wrap">
           <p className="eyebrow">{copy("projects.eyebrow")}</p>
           <h2 className="section-title">{copy("projects.title")}</h2>
@@ -120,13 +116,19 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      <section id="experience">
+      <section id="research" className="journey-section research-section" data-tone="research">
+        <Reveal className="wrap">
+          <ResearchVisionSection copy={copy} />
+        </Reveal>
+      </section>
+
+      <section id="experience" className="journey-section" data-tone="experience">
         <Reveal className="wrap">
           <ExperienceSection copy={copy} experience={experience} />
         </Reveal>
       </section>
 
-      <section id="education">
+      <section id="education" className="journey-section" data-tone="education">
         <Reveal className="wrap">
           <EducationSection
             copy={copy}
@@ -137,7 +139,19 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      <section id="contact">
+      <section id="skills" className="journey-section" data-tone="skills">
+        <Reveal className="wrap">
+          <SkillsSection copy={copy} tiers={tiers} />
+        </Reveal>
+      </section>
+
+      <section id="what" className="journey-section" data-tone="what">
+        <Reveal className="wrap">
+          <CapabilitiesSection copy={copy} capabilities={capabilities} />
+        </Reveal>
+      </section>
+
+      <section id="contact" className="journey-section" data-tone="contact">
         <Reveal className="wrap">
           <ContactSection copy={copy} settings={settings} />
         </Reveal>

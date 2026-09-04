@@ -13,6 +13,10 @@ export type SeedProject = {
   repo: string;
   liveUrl?: string;
   metrics?: { label: string; value: string }[];
+  mediaType?: MediaType;
+  mediaUrl?: string;
+  posterUrl?: string;
+  mediaAlt?: string;
   featuredOrder?: number;
 };
 
@@ -23,9 +27,37 @@ export const projects: SeedProject[] = [
     category: Category.ML_AI,
     iconKey: "🔬",
     shortDescription:
-      "Compares five convolutional networks for telling parasitised blood cells from healthy ones, with my own baseline CNN reaching an F1 score of 0.9647.",
-    fullDescription:
-      "This project compares five convolutional neural networks for telling parasitised blood cells apart from healthy ones, and because each model was put through seven separate experiments, the comparison is genuinely careful, with my own baseline CNN reaching an F1 score of 0.9647 and an AUC of 0.9938 at its best.",
+      "Investigates how compact and transfer-learning CNNs compare on malaria cell images, with my baseline model reaching 0.9647 F1 on the held-out test set.",
+    fullDescription: `## The problem
+
+Malaria diagnosis depends on trained professionals examining blood-smear microscopy, yet specialist time and laboratory capacity are limited in many of the communities most affected by the disease. This study asks a focused technical question: **how reliably can different convolutional-network approaches distinguish parasitised from uninfected single-cell images under one fair evaluation pipeline?**
+
+## Who this work is intended to serve
+
+The long-term beneficiaries would be laboratory professionals and clinics that need dependable decision-support tools, particularly in resource-constrained settings. This project is a comparative research study, however—not a clinical product—and it has not been tested in a healthcare workflow.
+
+## What we investigated
+
+Our five-person ALU team compared a baseline CNN, an advanced CNN, VGG16, ResNet50, and MobileNetV2. Every model used the same fixed 80/20 split of the NIH Malaria Cell Images dataset and went through seven controlled experiments so that architectural and training choices could be compared fairly.
+
+## My contribution
+
+I owned the baseline CNN: a deliberately simple two-block network trained from scratch to establish the performance floor for the more complex approaches. I ran seven experiments changing one factor at a time, including learning rate, dropout, augmentation, and batch size.
+
+## Evidence so far
+
+- The shared dataset contains 27,558 balanced single-cell images.
+- All models were evaluated on the same 5,512-image held-out test set.
+- My strongest baseline reached **0.9650 accuracy, 0.9647 F1, and 0.9938 AUC**.
+- All five approaches finished within 0.003 F1, an important finding: complexity did not automatically produce a meaningful advantage at the chosen image resolution.
+
+## Limitations
+
+These results come from a curated public dataset of segmented cells, not prospectively collected clinical cases. They do not establish diagnostic safety, performance across laboratories or populations, workflow usefulness, or regulatory readiness. A model error in this context could carry serious consequences.
+
+## Intended impact and next question
+
+The intended contribution is a reproducible foundation for investigating affordable diagnostic support—not a replacement for microscopists or clinicians. My next question would be whether a compact model can remain calibrated across locally collected images from different microscopes while communicating uncertainty clearly enough to support human review.`,
     techStack: ["Python", "TensorFlow", "VGG16", "ResNet50", "MobileNetV2", "CNN"],
     repo: "Malaria-Diagnosis",
     metrics: [
@@ -42,15 +74,46 @@ export const projects: SeedProject[] = [
     category: Category.ML_AI,
     iconKey: "💳",
     shortDescription:
-      "Predicts how likely someone is to hold a bank account when there is no credit history to lean on, with SHAP and LIME so the reasoning can be explained.",
-    fullDescription:
-      "Built on the Zindi financial inclusion survey of 23,524 people, this platform predicts how likely someone is to hold a bank account even when there is no credit history to lean on, and because the decision matters to real lives, I trained nine different models, added SHAP and LIME so the reasoning can be explained, and served the whole thing through FastAPI and Streamlit inside a Docker container.",
-    techStack: ["XGBoost", "Random Forest", "scikit-learn", "SHAP", "LIME", "FastAPI", "Docker"],
+      "Explores alternative signals for financial inclusion by modelling bank-account access across 23,524 East African survey responses—with its limits stated clearly.",
+    fullDescription: `## The problem
+
+Many people across East Africa remain outside formal financial systems and therefore have little or no conventional financial history. That makes it difficult to explore inclusive services using the records that established institutions normally expect.
+
+## Who this work is intended to serve
+
+This exploration is motivated by people in Kenya, Rwanda, Tanzania, and Uganda who are financially active but underrepresented in formal records. It may also help researchers and responsible financial-service teams study alternative indicators of financial access.
+
+## What I investigated
+
+I used 23,524 responses from four national financial-inclusion surveys to investigate whether demographic, employment, household, location, and mobile-access variables could predict **bank-account ownership**. Because only about 14 percent of respondents held an account, I applied SMOTE only to the training data and compared four candidate models on an untouched test split.
+
+## What I built
+
+The Streamlit application supports individual assessment, interactive data exploration, and batch CSV processing. Its feature pipeline derives contextual indicators such as digital inclusion and economic vulnerability, while preserving the exact fitted preprocessing steps for inference.
+
+## My contribution
+
+I built the end-to-end project during my CodeAlpha internship: data validation, feature engineering, model comparison, saved inference pipeline, scoring interface, analytics views, and batch workflow.
+
+## Evidence so far
+
+- Four models were evaluated using test ROC-AUC.
+- Logistic Regression performed best at **0.857 ROC-AUC**, ahead of Random Forest (0.841), Decision Tree (0.815), and KNN (0.788).
+- The lighter logistic model was selected because it matched heavier alternatives while remaining easier to run and inspect.
+
+## Limitations
+
+This is not a validated credit-risk model. Its target is bank-account ownership—not repayment behaviour or creditworthiness—and demographic survey variables can encode historical exclusion. The data spans surveys from 2016 to 2018, no fairness audit or institutional pilot has yet been completed, and the resulting score must not be used to approve or deny a real person credit.
+
+## Intended impact and next question
+
+The intended impact is to support research into more inclusive financial systems without disguising a proxy as a decision-ready product. The next step is to work with financial-inclusion specialists, define an appropriate outcome, audit group-level errors and calibration, and study whether consented non-traditional data adds value without reproducing discrimination.`,
+    techStack: ["Python", "scikit-learn", "Logistic Regression", "SMOTE", "Streamlit", "Plotly"],
     repo: "CodeAlpha_credit-scoring-model",
     metrics: [
       { label: "Survey respondents", value: "23,524" },
-      { label: "Models trained", value: "9" },
-      { label: "Explainability", value: "SHAP and LIME" },
+      { label: "Best test ROC-AUC", value: "0.857" },
+      { label: "Models compared", value: "4" },
     ],
     featuredOrder: 2,
   },
@@ -60,15 +123,51 @@ export const projects: SeedProject[] = [
     category: Category.FULLSTACK,
     iconKey: "🩺",
     shortDescription:
-      "A telemedicine platform reaching patients by mobile app, web, and a USSD dial code that works on basic phones with no internet at all.",
-    fullDescription:
-      "HealthBridge Africa is a telemedicine platform that reaches patients in three different ways, as a mobile app, as a web application, and through a USSD dial code that works on the most basic phones with no internet at all, and it carries two AI health assistants, one that supports doctors during consultations and another that explains a patient's health to them in language they can actually understand.",
+      "Explores inclusive telemedicine through mobile, web, and an offline USSD pathway, with separate AI support designed for clinicians and patients.",
+    fullDescription: `## The problem
+
+Distance, limited connectivity, fragmented records, and shortages of specialist support can all stand between African patients and understandable, continuous care. A smartphone-only product excludes many of the people most affected by those constraints.
+
+## Who this work is intended to serve
+
+HealthBridge Africa is designed around three groups: patients seeking access and understandable information, clinicians who need context during consultations, and administrators responsible for operating the service without viewing private medical records.
+
+## What I investigated
+
+I explored how one health platform could preserve a consistent care pathway across very different levels of connectivity—and how AI assistance could support, rather than replace, professional judgement.
+
+## What I built
+
+Patients can use a mobile or web interface, while a USSD gateway supports registration, consultation requests, and recent-history checks on basic phones without internet access. MedAssist supplies contextual clinical support to doctors; HealthGuide explains diagnoses and medication in plain language to patients. Role checks, explicit doctor-access approval, rate limiting, and protected health records are enforced on the backend.
+
+## My contribution
+
+I created and maintain the platform across the application, Node and MySQL backend, Python and Redis USSD gateway, access-control model, bilingual interface, and the two role-specific AI assistants.
+
+## Evidence so far
+
+- Three access channels: mobile, web, and USSD.
+- Two purpose-specific AI assistants with explicit human-oversight boundaries.
+- Thirteen automated backend tests covering core behaviour.
+- English and French interfaces support broader regional accessibility.
+
+## Limitations
+
+HealthBridge Africa is a working prototype, not a deployed medical service. It has not undergone clinical validation, security certification, field evaluation, or regulatory review. The AI layer depends on an external model and can produce incorrect guidance; USSD availability also depends on telecom integration.
+
+## Intended impact and next question
+
+The intended impact is to make continuity of care and understandable health information more accessible across device and connectivity barriers. The next step is participatory research with patients and healthcare professionals to identify the smallest safe workflow worth piloting, define escalation rules, and evaluate usefulness before expanding features.`,
     techStack: ["JavaScript", "React Native", "Node.js", "MySQL", "USSD"],
     repo: "HealthBridge_Africa",
     metrics: [
       { label: "Delivery channels", value: "3" },
       { label: "AI assistants", value: "2" },
+      { label: "Automated backend tests", value: "13" },
     ],
+    mediaType: MediaType.IMAGE,
+    mediaUrl: "https://raw.githubusercontent.com/Adossi-design/HealthBridge_Africa/main/assets/logo.png",
+    mediaAlt: "HealthBridge Africa logo with a medical cross, heartbeat line, and surrounding blue arcs",
     featuredOrder: 3,
   },
   {
@@ -77,11 +176,50 @@ export const projects: SeedProject[] = [
     category: Category.FULLSTACK,
     iconKey: "🤝",
     shortDescription:
-      "A space where computer science students share work, collaborate, and message in real time, built as a Turborepo monorepo.",
-    fullDescription:
-      "PeerForge is a space where computer science students can share their work, collaborate on projects, message one another in real time, and build up a public portfolio, and it is put together as a Turborepo monorepo, with a Next.js and TypeScript frontend, a NestJS and Prisma API, Socket.IO for the messaging, and Clerk handling authentication across both the REST and socket layers.",
+      "A collaboration environment where computer science students can find projects, share work, and form teams instead of learning in isolation.",
+    fullDescription: `## The problem
+
+Computer science students often build in isolation even when classmates around them need the same collaborators, feedback, or project experience. General social networks are not designed around the process of finding technical work, showing progress, and forming a team.
+
+## Who this work is intended to serve
+
+PeerForge is intended for computer science students who want to discover peers, contribute to projects, discuss technical ideas, and build a visible record of practical work.
+
+## What I investigated
+
+I explored what a student-builder network needs beyond a conventional feed: structured project posts, collaboration status, technical tags, real-time conversation, profiles, notifications, and a public portfolio of contributions.
+
+## What I built
+
+The platform combines a Next.js web application with a NestJS and Prisma API inside a Turborepo monorepo. Socket.IO carries real-time messaging, while Clerk authentication is verified across both REST requests and socket connections. Students can publish work, recruit collaborators, discuss ideas, save posts, and present their projects.
+
+## My contribution
+
+I designed and built the full-stack system, shared types, authentication flow, real-time layer, project and post experiences, and deployment structure.
+
+## Evidence so far
+
+- Separate web and API applications share contracts inside one monorepo.
+- Authentication covers both HTTP and WebSocket communication.
+- The implemented interface supports project discovery, collaboration states, discussions, messaging, notifications, and profiles.
+
+## Limitations
+
+The product has not yet demonstrated sustained adoption or improved collaboration outcomes. Recommendation quality, moderation, abuse prevention, accessibility testing, and the cold-start experience all require evaluation with real student communities.
+
+## Intended impact and next question
+
+The intended impact is to help students move from solitary coursework toward visible, collaborative practice. The next question is whether structured project matching actually leads to more completed collaborations—and which signals can improve matching without turning participation into a popularity contest.`,
     techStack: ["Next.js", "TypeScript", "NestJS", "Prisma", "Socket.IO", "Clerk", "Turborepo"],
     repo: "PeerForge",
+    metrics: [
+      { label: "Core applications", value: "2" },
+      { label: "Realtime transport", value: "Socket.IO" },
+    ],
+    mediaType: MediaType.IMAGE,
+    mediaUrl:
+      "https://raw.githubusercontent.com/Adossi-design/PeerForge/main/apps/api/uploads/1778793291951-126624.png",
+    mediaAlt: "PeerForge project discussion interface showing collaboration status, skills, and comments",
     featuredOrder: 4,
   },
   {
@@ -90,12 +228,53 @@ export const projects: SeedProject[] = [
     category: Category.ML_AI,
     iconKey: "🌾",
     shortDescription:
-      "Reads a photograph of a rice leaf and works out which disease it shows, built as a full MLOps pipeline rather than a notebook.",
-    fullDescription:
-      "This deep learning project looks at a photograph of a rice leaf and works out which disease it is showing, sorting it into bacterial blight, blast, brown spot, or tungro, and because I built it as a full MLOps pipeline rather than a notebook, it carries a farmer all the way from an uploaded photo to an answer they can act on.",
+      "Helps investigate four rice-leaf diseases from a photograph through a deployed, retrainable pipeline tested under simulated concurrent demand.",
+    fullDescription: `## The problem
+
+For a smallholder farmer, a rice disease can threaten both household food and annual income. Bacterial blight, blast, brown spot, and tungro require different responses, yet an expert may not be nearby when early symptoms first appear.
+
+## Who this work is intended to serve
+
+The intended users are smallholder rice farmers and agricultural extension workers who need an accessible first check in the field. The system is decision support only; it does not replace an agronomist or laboratory confirmation.
+
+## What I investigated
+
+I investigated whether a lightweight transfer-learning model could distinguish four visually similar diseases, run affordably in the cloud, expose its confidence, accept new labelled data, and continue learning through a controlled retraining workflow.
+
+## What I built
+
+The public application accepts a leaf photograph and returns per-class confidence scores. It also exposes dataset and service monitoring, bulk labelled-image upload, background retraining, health endpoints, and database records of predictions and training runs. MobileNetV2 was selected because its size fits the resource constraints better than a large network.
+
+## My contribution
+
+I built the complete pipeline: data preparation, exploratory analysis, two-stage training, evaluation, FastAPI service, browser interface, persistence, Docker deployment, retraining flow, monitoring, and Locust/Nginx scaling experiment.
+
+## Evidence so far
+
+- 5,932 labelled images across four approximately balanced disease classes.
+- About **89% accuracy and 0.90 macro-F1** on 1,185 held-out images.
+- A public Hugging Face deployment and recorded video demonstration.
+- Under a simulated 50-user load, scaling from one to four containers increased throughput from 12.2 to 23.3 requests per second and reduced median latency from 3.6 to 1.2 seconds, with zero failed requests.
+
+## Limitations
+
+The dataset is not a field trial and covers only four known disease classes. Image quality, crop variety, geography, lighting, unfamiliar diseases, and early-stage symptoms may change performance. The classifier is not calibrated for real agricultural decisions and has not yet been evaluated with farmers or extension professionals.
+
+## Intended impact and next question
+
+The intended impact is earlier, more accessible disease recognition so that farmers can seek the right expert guidance before damage spreads. The next step is to co-design a field study, add an explicit “uncertain or unknown” pathway, and measure performance and usefulness on locally collected images rather than only a public benchmark.`,
     techStack: ["Python", "TensorFlow", "Keras", "CNN", "Hugging Face"],
-    repo: "rice_disease_classifier",
-    metrics: [{ label: "Disease classes", value: "4" }],
+    repo: "rice_diseases_classifier",
+    liveUrl: "https://huggingface.co/spaces/Fred-William/rice-disease-classifier",
+    mediaType: MediaType.VIDEO_EMBED,
+    mediaUrl: "https://youtu.be/yqQmsAyq4Lc",
+    mediaAlt: "Video demonstration of the deployed rice leaf disease classifier",
+    metrics: [
+      { label: "Held-out accuracy", value: "≈89%" },
+      { label: "Macro-F1", value: "≈0.90" },
+      { label: "Disease classes", value: "4" },
+      { label: "Load-test failures", value: "0" },
+    ],
     featuredOrder: 5,
   },
   {
@@ -104,12 +283,48 @@ export const projects: SeedProject[] = [
     category: Category.MOBILE,
     iconKey: "⏱️",
     shortDescription:
-      "A Flutter time tracker running three analytics engines on the device itself, so genuine machine learning happens on the phone.",
-    fullDescription:
-      "This cross-platform time-tracking app is built with Flutter and Firebase, and instead of merely listing hours it runs three analytics engines directly on the device, using K-Means to group sessions into work tiers, a linear-regression forecaster to predict the hours ahead, and a heuristic engine to flag anomalies, which means genuine machine learning is happening on the phone itself.",
+      "Turns personal work logs into private, on-device insight, while exposing model quality and separating learned predictions from rule-based recommendations.",
+    fullDescription: `## The problem
+
+Time trackers record hours, but a list of timestamps rarely helps someone understand patterns, sustainability, or the reliability of a forecast. Sending detailed behavioural data to an analytics server also creates avoidable privacy and latency costs.
+
+## Who this work is intended to serve
+
+The application is intended for students, independent professionals, and other people who want evidence about their work habits while keeping the analytics on their own device.
+
+## What I investigated
+
+I investigated how far transparent, lightweight analytics can go on-device: unsupervised grouping of session depth, chronological forecasting of future hours, and reviewable heuristics for anomalies and patterns.
+
+## What I built
+
+The Flutter application runs three distinct engines. K-Means groups sessions and reports a silhouette score; ordinary least-squares regression reports MAE, RMSE, and R² on a held-out chronological tail before forecasting; and a clearly labelled rule-based engine detects unusual patterns and produces recommendations. Firebase synchronises each user's records under per-user security rules.
+
+## My contribution
+
+I built the cross-platform application, analytics implementations, validation metrics, real-time data layer, authentication, notifications, bilingual interface, security rules, automated tests, and continuous-integration workflow.
+
+## Evidence so far
+
+- Three complementary analytics engines run locally on the device.
+- Forecast quality is evaluated on unseen historical data rather than the training observations.
+- Automated tests cover clustering, forecasting, anomaly detection, score bounds, and a widget smoke test; CI runs formatting, static analysis, and tests on every change.
+- One codebase targets Android, iOS, web, Windows, macOS, and Linux.
+
+## Limitations
+
+The forecaster is intentionally a one-feature linear baseline and cannot yet model seasonality or richer behavioural context. K-Means currently clusters duration alone, the application loads entries without pagination, and web notifications require an open browser tab. No longitudinal user study has established behaviour change or wellbeing benefits.
+
+## Intended impact and next question
+
+The intended impact is to help people reflect on work patterns without surrendering detailed personal data to a remote analytics service. The next question is whether transparent feedback changes planning decisions over time—and whether richer local features can improve predictions without making them harder to understand.`,
     techStack: ["Flutter", "Dart", "Firebase", "K-Means", "Linear Regression"],
     repo: "Productivity-Tracking-Analytics",
-    metrics: [{ label: "On-device engines", value: "3" }],
+    metrics: [
+      { label: "On-device engines", value: "3" },
+      { label: "Target platforms", value: "6" },
+      { label: "Forecast evaluation", value: "Held-out" },
+    ],
     featuredOrder: 6,
   },
   {
